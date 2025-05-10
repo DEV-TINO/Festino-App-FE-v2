@@ -1,6 +1,6 @@
 import { getBoothImageProps } from "@/hooks/getBoothImageProps";
 import { ImageSliderProps } from "@/types/Booth.types";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,7 +14,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
         </div>
       )}
       <div
-        className="snap-x snap-mandatory overflow-x-scroll w-full min-h-[340px] flex rounded-3xl outline outline-gray-200 outline-1 scroll-smooth"
+        className="snap-x snap-mandatory overflow-x-scroll w-full flex rounded-3xl outline outline-gray-200 outline-1 scroll-smooth"
         onScroll={(e) => {
           const container = e.currentTarget;
           const newIdx = Math.round(container.scrollLeft / container.clientWidth);

@@ -23,3 +23,7 @@ export interface TimetableStore {
   selectedClub: ClubData | null;
   setSelectedClub: (club: ClubData) => void;
 }
+
+export interface ClubProps {
+  club: ClubData;
+}

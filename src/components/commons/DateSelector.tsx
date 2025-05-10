@@ -4,7 +4,7 @@ const DateSelector: React.FC = () => {
   const { festivalDate, setDate } = useDateStore();
 
   return (
-    <div className="flex px-5 pt-1 justify-between z-50 select-none">
+    <div className="flex px-5 pt-1 justify-between z-20 select-none">
       {[1, 2, 3].map((date) => (
         <div key={date}>
           <div
