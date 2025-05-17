@@ -1,7 +1,9 @@
-const OrderLayout : React.FC = () => {
+import { Outlet } from 'react-router-dom';
+
+const OrderLayout: React.FC = () => {
   return (
-    <> 
-      <div>OrderLayout</div>
+    <>
+      <Outlet />
     </>
   );
 };

@@ -61,9 +61,7 @@ const BoothDetailPage: React.FC = () => {
   if (!boothDetail) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
-        <div className="mt-4 text-center text-sm text-gray-600">
-          부스 정보를 찾을 수 없습니다.
-        </div>
+        <div className="mt-4 text-center text-sm text-gray-600">부스 정보를 찾을 수 없습니다.</div>
       </div>
     );
   };

@@ -32,18 +32,28 @@ export const getRelativeTime = (timestamp: string): string => {
   return `${diffDays}일 전`;
 };
 
-export const formatDateTime = (timestamp: string): string => {
-  const date = new Date(timestamp);
+export const formatDateTime = (isoString: string): string => {
+  const date = new Date(isoString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  const period = hours < 12 ? '오전' : '오후';
+  const hour12 = hours % 12 || 12;
+  return `${date.getFullYear()}. ${String(date.getMonth() + 1).padStart(2, '0')}. ${String(date.getDate()).padStart(2, '0')}. ${period} ${hour12}:${minutes}`;
+};
 
+export const formatPrice = (price: number) => price.toLocaleString();
+
+export const formatDateTimeNow = (): string => {
+  const date = new Date();
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-
   const hours = String(date.getHours()).padStart(2, '0');
   const minutes = String(date.getMinutes()).padStart(2, '0');
 
   return `${year}.${month}.${day} ${hours}:${minutes}`;
 };
+
 
 export const setCookie = (name: string, value: string, days = 7) => {
   const expires = new Date();

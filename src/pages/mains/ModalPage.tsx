@@ -10,6 +10,7 @@ import DuplicateModal from '@/components/tablings/modals/DuplicateModal';
 import ReservationModal from '@/components/tablings/modals/ReservationModal';
 import CompleteReserveModal from '@/components/tablings/modals/CompleteReserveModal';
 import MessageFailModal from '@/components/tablings/modals/MessageFailModal';
+import OrderModal from '@/components/orders/modals/OrderModal';
 import LoginModal from '@/components/auths/LoginModal';
 import LogoutModal from '@/components/auths/LogoutModal';
 
@@ -30,6 +31,7 @@ const ModalPage = () => {
       {modalType === 'failReservationModal' && <FailReservationModal />}
       {modalType === 'completeReserveModal' && <CompleteReserveModal />}
       {modalType === 'messageFailModal' && <MessageFailModal />}
+      {modalType === 'orderModal' && <OrderModal />}
       {modalType === 'loginModal' && <LoginModal />}
       {modalType === 'logoutModal' && <LogoutModal />}
     </ModalBackground>
