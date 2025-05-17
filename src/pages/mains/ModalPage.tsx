@@ -11,6 +11,9 @@ import ReservationModal from '@/components/tablings/modals/ReservationModal';
 import CompleteReserveModal from '@/components/tablings/modals/CompleteReserveModal';
 import MessageFailModal from '@/components/tablings/modals/MessageFailModal';
 import LoginModal from '@/components/auths/LoginModal';
+import UploadCompleteModal from '@/components/events/photo-boards/UploadCompleteModal';
+import UploadFailModal from '@/components/events/photo-boards/UploadFailModal';
+import DeletePhotoModal from '@/components/events/photo-boards/DeletePhotoModal';
 import LogoutModal from '@/components/auths/LogoutModal';
 
 const ModalPage = () => {
@@ -31,6 +34,9 @@ const ModalPage = () => {
       {modalType === 'completeReserveModal' && <CompleteReserveModal />}
       {modalType === 'messageFailModal' && <MessageFailModal />}
       {modalType === 'loginModal' && <LoginModal />}
+      {modalType === 'uploadCompleteModal' && <UploadCompleteModal />}
+      {modalType === 'uploadFailModal' && <UploadFailModal />}
+      {modalType === 'deletePhotoModal' && <DeletePhotoModal />}
       {modalType === 'logoutModal' && <LogoutModal />}
     </ModalBackground>
   );
