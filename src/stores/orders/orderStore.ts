@@ -150,11 +150,9 @@ export const useOrderStore = create<OrderState>((set, get) => ({
   handleTotalPrice: () => {
     const total = get().userOrderList.reduce((sum, item) => sum + item.menuCount * item.menuPrice, 0);
     set({ totalPrice: total });
-    console.log(total);
   },
 
   addOrderItem: (order) => {
-    console.log('asdfdsa');
     const list = get().userOrderList;
     const exists = list.find((o) => o.menuId === order.menuId);
     if (order.menuCount === 0) {
@@ -172,23 +170,17 @@ export const useOrderStore = create<OrderState>((set, get) => ({
     try {
       const res = await api.get('/main/booth/night/account', { params: { boothId } });
 
-      console.log('API 응답:', res.data);
-
       if (res.data.success) {
-        console.log('저장될 계좌 정보:', res.data.data);
         set({ accountInfo: res.data.data });
       } else {
-        console.error('실패:', res.data.message);
         window.location.href = '/error/order';
       }
     } catch (error) {
-      console.error('네트워크 오류:', error);
       window.location.href = '/error/order';
     }
   },
   fetchKakaoPay: async () => {
     const boothId = get().boothId;
-    console.log('[카카오페이] boothId:', boothId);
     try {
       const res = await api.get('/main/booth/night/kakao', {
         params: { boothId },
@@ -206,7 +198,6 @@ export const useOrderStore = create<OrderState>((set, get) => ({
 
   fetchTossPay: async () => {
     const boothId = get().boothId;
-    console.log('[토스페이] boothId:', boothId);
     try {
       const res = await api.get('/main/booth/night/toss', {
         params: { boothId },

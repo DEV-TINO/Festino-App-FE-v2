@@ -66,7 +66,6 @@ const OrderSearchPage: React.FC = () => {
 
     try {
       const rawPhoneNum = recentPhoneNum.replace(/-/g, '');
-      console.log('[요청]', recentName, rawPhoneNum);
 
       const res = await api.get('/main/order', {
         params: { userName: recentName, phoneNum: rawPhoneNum },
@@ -199,7 +198,6 @@ const OrderSearchPage: React.FC = () => {
             {selectedTab === 0 ? (
               [0, 1, 2, 3].map((status) => {
                 const list = orderList.filter((order) => order.orderType === status);
-                console.log(list);
 
                 return (
                   <div key={status}>

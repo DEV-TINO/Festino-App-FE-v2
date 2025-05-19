@@ -32,12 +32,6 @@ const OrderConfirmModal: React.FC = () => {
     isKakaoPay,
     kakaoPayUrl,
   } = useOrderStore();
-  useEffect(() => {
-    console.log('[OrderConfirmModal] 마운트됨');
-    return () => {
-      console.log('[OrderConfirmModal] 언마운트됨');
-    };
-  }, []);
 
   const [isSameChecked, setIsSameChecked] = useState(false);
   const [isDoneChecked, setIsDoneChecked] = useState(false);
@@ -76,15 +70,12 @@ const OrderConfirmModal: React.FC = () => {
   };
 
   const handleComplete = async () => {
-    console.log('✔ 버튼 클릭됨');
 
     if (!isSameChecked || !isDoneChecked || isSubmitting) {
-      console.log(' 조건 미충족: 저장되지 않음');
       return;
     }
 
     setIsSubmitting(true);
-    console.log(' 주문 저장 요청 시작');
 
     try {
       const payload = {
@@ -96,13 +87,10 @@ const OrderConfirmModal: React.FC = () => {
         totalPrice,
         note,
       };
-      console.log('📦 Payload:', payload);
 
       const res = await api.post('/main/order', payload);
-      console.log('응답:', res.data);
 
       if (res.data.success) {
-        console.log(' 주문 성공');
         resetOrderInfo();
         sendWebSocketMessage({
           type: 'ORDERDONE',

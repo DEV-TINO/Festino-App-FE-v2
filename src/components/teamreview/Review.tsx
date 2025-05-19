@@ -16,15 +16,6 @@ const Review: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    const payload = {
-      rating,
-      goodFunc,
-      badFunc,
-      reason,
-      reuse,
-      feedback,
-    };
-
     resetReview();
 
     Swal.fire({
@@ -33,7 +24,6 @@ const Review: React.FC = () => {
       icon: 'success',
       confirmButtonText: 'OK',
     });
-    console.log('제출 내용:', payload);
   };
 
   const resetReview = () => {
