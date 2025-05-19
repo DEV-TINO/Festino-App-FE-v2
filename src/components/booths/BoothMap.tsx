@@ -281,7 +281,7 @@ const BoothMap: React.FC = () => {
       <div className="relative w-full aspect-square">
         <div
           ref={containerRef}
-          className="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-700-light rounded-3xl overflow-auto touch-pan-x touch-pan-y"
+          className="relative aspect-square w-full min-h-[340px] h-[350px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-700-light rounded-3xl overflow-auto touch-pan-x touch-pan-y"
           style={{ touchAction: 'pan-x pan-y' }}
         >
           <div
@@ -417,13 +417,13 @@ const BoothMap: React.FC = () => {
         {!isBoothDetail && (
           <div className="absolute bottom-5 left-5 flex flex-col shadow-xl rounded-full overflow-hidden border border-primary-200">
             <button
-              className="rounded-none border-b border-primary-100 bg-white p-4 active:bg-primary-900"
+              className="rounded-none border-b border-primary-100 bg-white p-4 active:bg-primary-700"
               onClick={() => handleZoom(0.3)}
             >
-              <i className="pi pi-plus text-primary-900 text-lg"></i>
+              <i className="pi pi-plus text-primary-700 text-lg"></i>
             </button>
-            <button className="rounded-none bg-white p-4 active:bg-primary-900" onClick={() => handleZoom(-0.3)}>
-              <i className="pi pi-minus text-primary-900 text-lg"></i>
+            <button className="rounded-none bg-white p-4 active:bg-primary-700" onClick={() => handleZoom(-0.3)}>
+              <i className="pi pi-minus text-primary-700 text-lg"></i>
             </button>
           </div>
         )}
