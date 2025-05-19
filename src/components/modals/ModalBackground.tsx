@@ -1,5 +1,5 @@
-import React, { useEffect, FC } from "react";
-import useBaseModal from "@/stores/baseModal";
+import React, { useEffect, FC } from 'react';
+import useBaseModal from '@/stores/baseModal';
 
 interface IModalBackgroundProps {
   children: React.ReactNode;
@@ -9,11 +9,11 @@ const ModalBackground: FC<IModalBackgroundProps> = ({ children }) => {
   const { closeModal } = useBaseModal();
 
   const preventScroll = () => {
-    document.documentElement.style.overflow = "hidden";
+    document.documentElement.style.overflow = 'hidden';
   };
 
   const allowScroll = () => {
-    document.documentElement.style.overflow = "auto";
+    document.documentElement.style.overflow = 'auto';
   };
 
   useEffect(() => {
@@ -24,17 +24,16 @@ const ModalBackground: FC<IModalBackgroundProps> = ({ children }) => {
   }, []);
 
   return (
-    <div 
-      onClick={closeModal} 
-      className="max-w-[500px] min-w-[375px] w-full fixed inset-0 mx-auto bg-black/60 z-50 overflow-hidden"
-    >
+    <div onClick={closeModal} className="fixed inset-0 z-[9999] bg-black/60 flex items-center justify-center">
       <div
-          className="h-full w-full overflow-y-auto grid grid-cols-[auto_1fr_auto] grid-rows-[minmax(10px,_1fr)_auto_minmax(10px,_1fr)] place-items-center"
-        >
+        onClick={(e) => e.stopPropagation()}
+        className="relative dynamic-width h-auto bg-white rounded-2xl flex flex-col items-center select-none w-[80%] min-w-[330px] max-w-[500px] overflow-hidden"
+      >
         {children}
       </div>
     </div>
   );
+
 };
 
 export default ModalBackground;
