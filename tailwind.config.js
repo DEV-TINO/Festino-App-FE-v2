@@ -17,11 +17,12 @@ export default {
             'light-6': 'rgba(0, 115, 240, 0.06)',
           },
           700: {
-            DEFAULT: '#13D4FF',
-            light: 'rgba(19, 212, 255, 0.4)',
+            DEFAULT: '#06D1FF',
+            light: 'rgba(6, 209, 255, 0.4)',
+            lighter: 'rgba(6, 209, 255, 0.1)',
           },
           50: {
-            DEFAULT: '#FBFCFF',
+            DEFAULT: '#FAFEFF',
           },
         },
         secondary: {

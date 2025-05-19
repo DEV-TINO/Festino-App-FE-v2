@@ -78,7 +78,7 @@ const QuizModal: React.FC = () => {
       >
         <div className="w-full flex justify-between px-5">
           <div className="w-[20px] h-[20px]" />
-          <div className="text-xs text-primary-700 rounded-full w-[80px] h-[22px] flex justify-center items-center border-2 border-primary font-medium">
+          <div className="text-xs text-primary-900 rounded-full w-[80px] h-[22px] flex justify-center items-center border-2 border-primary font-medium">
             실시간 이벤트
           </div>
           <div

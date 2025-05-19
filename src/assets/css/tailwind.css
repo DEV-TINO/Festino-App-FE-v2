@@ -7,7 +7,7 @@
 }
 
 .is-state-true {
-  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs text-primary-700 bg-primary-700-light rounded-full;
+  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs text-primary-700 bg-primary-700-lighter rounded-full;
 }
 
 .is-state-false {
