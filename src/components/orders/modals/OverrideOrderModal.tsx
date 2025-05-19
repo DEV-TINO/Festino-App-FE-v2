@@ -9,15 +9,12 @@ const OverrideOrderModal: React.FC = () => {
   const { openModal } = useBaseModal();
 
   const handleOverride = () => {
-    console.log('예 버튼 클릭됨');
     if (!boothId || !tableNum) {
       console.warn('boothId 또는 tableNum 잘못됨:', boothId, tableNum);
       return;
     }
 
     closeModal();
-
-    console.log('웹소켓 메시지 전송 시작');
 
     sendWebSocketMessage({
       type: 'STARTORDER',

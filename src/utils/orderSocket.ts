@@ -13,10 +13,8 @@ export const connectOrderSocket = (boothId: string, tableNum: number) => {
     brokerURL: 'ws://localhost:8080/ws',
     reconnectDelay: 5000,
     onConnect: (frame) => {
-      console.log(frame);
       const sessionId = frame.headers['user-name'];
       useSocketStore.getState().setSessionId(sessionId);
-      console.log('[WebSocket 연결됨] 내 세션 ID:', sessionId);
 
       newClient.subscribe(`/topic/${boothId}/${tableNum}`, onMessage);
       newClient.subscribe(`/user/topic/${boothId}/${tableNum}`, onMessage);
@@ -49,12 +47,10 @@ const onMessage = (message: IMessage) => {
   
   const data = JSON.parse(message.body);
   const set = useOrderStore.getState();
-  console.log('[Message]: ', data);
 
   switch (data.type) {
     case 'INIT': {
       const payload = data.payload;
-      console.log('[INIT Message]: ', data);
       const {
         orderInProgress,
         orderInitiatorId, // 서버에서 받는 주문자의 세션 ID
@@ -221,8 +217,6 @@ type WebSocketPayload = {
 
 export const sendWebSocketMessage = (payload: WebSocketPayload) => {
   const { client } = useSocketStore.getState();
-
-  console.log('payload', payload);
 
   client?.publish({
     destination: '/app/order',

@@ -4,7 +4,6 @@ const OrderCancelConfirmModal: React.FC = () => {
   const { closeModal, orderCancelConfirmCallback, setOrderCancelConfirmCallback } = useBaseModal();
 
   const handleConfirm = () => {
-    console.log('✅ 예 버튼 클릭됨');
     orderCancelConfirmCallback?.();
     setOrderCancelConfirmCallback(() => null);
     closeModal();
