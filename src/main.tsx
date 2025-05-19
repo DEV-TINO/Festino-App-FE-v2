@@ -6,8 +6,8 @@ import { baseApi } from './utils/api';
 const initializeApp = async () => {
   try {
     const response = await baseApi.post('/main/auth/init');
-
-    if (response.data) return;
+    
+    console.log('Auth init success:', response.data);
   } catch (error: unknown) {
     if (error instanceof Error) {
       alert(`Auth init failed: ${error.message}`);
