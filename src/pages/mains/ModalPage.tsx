@@ -23,7 +23,9 @@ import RequireLoginModal from '@/components/events/RequrieLoginModal';
 import ExtendPhotoModal from '@/components/events/photo-boards/ExtendPhotoModal';
 
 const ModalPage = () => {
+  
   const { isModalOpen, modalType } = useBaseModal();
+  console.log('🧪 모달 상태:', isModalOpen, modalType);
 
   if (!isModalOpen) return null;
 
