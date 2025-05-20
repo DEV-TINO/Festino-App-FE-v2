@@ -18,7 +18,7 @@ const QuizModal: React.FC = () => {
   const { isLogin, mainUserId } = useAuthStore();
 
   const [answer, setAnswer] = useState("");
-  const [message, setMessage] = useState("답변은 제출 시 변경할 수 없습니다!");
+  const [message, setMessage] = useState("*답안은 제출 시 변경할 수 없습니다!");
 
   useEffect(() => {
     const checkEvent = async () => {
@@ -52,7 +52,7 @@ const QuizModal: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!isLogin()) {
-      setMessage("로그인 이후 참여 가능합니다.");
+      setMessage("*로그인 이후 참여 가능합니다.");
       return;
     } else {
       const isJoined = await checkJoin(mainUserId);
@@ -78,7 +78,7 @@ const QuizModal: React.FC = () => {
       >
         <div className="w-full flex justify-between px-5">
           <div className="w-[20px] h-[20px]" />
-          <div className="text-xs text-primary-900 rounded-full w-[80px] h-[22px] flex justify-center items-center border-2 border-primary font-medium">
+          <div className="text-xs text-primary-900 rounded-full w-20 h-6 flex justify-center items-center border-2 border-primary-900-light-16 font-medium">
             실시간 이벤트
           </div>
           <div
@@ -87,23 +87,23 @@ const QuizModal: React.FC = () => {
           />
         </div>
         <p className="text-secondary-700 text-xl font-semibold">
-          {questionInfo?.question}
+          지금 진행 중인 공연은 어떤 동아리일까요?
+          {/* {questionInfo?.question} */}
         </p>
         <div className="flex w-full gap-3 items-center">
-          <div className="text-secondary-400">답:</div>
-          <input
-            className="w-full border p-2 rounded-xl"
+          <textarea
+            className="w-full border border-secondary-400 p-6 rounded-xl h-32 resize-none"
             placeholder="답을 입력해주세요"
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
           />
         </div>
-        <div className="w-full flex flex-col items-center gap-2">
-          <p className="text-danger text-xs">
+        <div className="w-full flex flex-col items-center gap-4">
+          <p className="text-danger text-sm">
             {message}
           </p>
           <button
-            className="w-full h-12 bg-primary-900 rounded-3xl text-white font-semibold text-xl"
+            className="w-48 h-12 bg-primary-900 rounded-3xl text-white font-semibold text-xl"
             onClick={handleSubmit}
           >
             확인
