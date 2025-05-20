@@ -131,7 +131,9 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <IconDeveloper />
+              <div className="p-[2px]">
+                <IconDeveloper />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">개발자 소개</div>
             </li>
 
