@@ -65,7 +65,7 @@ const Review: React.FC = () => {
     };
 
     try {
-      await submitReview(payload); // token 포함 POST 요청
+      await submitReview(payload);
       resetReview();
       Swal.fire({
         title: 'Thank you for your review!',
@@ -169,7 +169,7 @@ const Review: React.FC = () => {
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-sm font-bold">왜 그렇게 생각하셨나요? (선택)</div>
           <textarea
-            className="text-xs border border-primary-900-light-20 rounded-xl w-full px-4 py-4 resize-none"
+            className="text-xs border border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
             placeholder="내용을 작성해주세요."
             value={reason}
             onChange={(e) => setReason(e.target.value)}
@@ -202,7 +202,7 @@ const Review: React.FC = () => {
       <div className="flex flex-col gap-[0.5rem]">
         <div className="text-sm font-bold">이 외에도 좋았던 점이나 불편했던 점을 작성해주세요! (선택)</div>
         <textarea
-          className="text-xs border-2 border-primary-900-light-20 rounded-xl w-full px-4 py-4 resize-none"
+          className="text-xs border-2 border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
           placeholder="내용을 입력해주세요."
           value={feedback}
           onChange={(e) => setFeedBack(e.target.value)}
@@ -212,14 +212,14 @@ const Review: React.FC = () => {
       <div className="flex flex-col gap-[0.5rem]">
         <p className="text-sm font-bold">이벤트 상품 수령에 필요한 개인정보를 입력해주세요!</p>
         <input
-          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none"
+          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
           placeholder="이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
         <input
-          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none"
+          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
           placeholder="전화번호"
           inputMode="numeric"
           value={phoneNum}
@@ -227,7 +227,7 @@ const Review: React.FC = () => {
         />
 
         <input
-          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none"
+          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
           placeholder="학번"
           inputMode="numeric"
           value={studentNum}
