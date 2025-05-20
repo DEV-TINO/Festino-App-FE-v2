@@ -94,20 +94,12 @@ export default {
         'error-half': "url('/images/tinos/error-half.svg')",
         'error-full': "url('/images/tinos/error.svg')",
         // common
-        instagram: "url('/icons/commons/instagram.png')",
+        'instagram': "url('/icons/commons/instagram.png')",
         'x-button': "url('/icons/commons/x.png')",
         // header
         'header-festino-logo': "url('/icons/headers/festino-logo.svg')",
         'header-team-introduction': "url('/icons/headers/festino-icon.svg')",
         'header-navigation-bar': "url('/icons/headers/nav.svg')",
-        'header-navigation-person': "url('icons/headers/navtaps/circle-person.svg')",
-        'header-navigation-profile': "url('icons/headers/navtaps/profile-icon.svg')",
-        'header-navigation-booth': "url('icons/headers/navtaps/booth-icon.svg')",
-        'header-navigation-tabling': "url('icons/headers/navtaps/tabling-icon.svg')",
-        'header-navigation-timetable': "url('icons/headers/navtaps/timetable-icon.svg')",
-        'header-navigation-notice': "url('icons/headers/navtaps/notice-icon.svg')",
-        'header-navigation-event': "url('icons/headers/navtaps/event-icon.svg')",
-        'header-navigation-event-open': "url('icons/headers/navtaps/under-arrow.svg')",
         //home
         'home-banner': "url('/images/homes/home-banner.svg')",
         'slide-banner-1': "url('/images/homes/slide-banner-1.svg')",
@@ -121,7 +113,7 @@ export default {
         // booth
         'booth-banner': "url('/images/booths/banners/booth.svg')",
         'booth-detail-banner': "url('/images/booths/banners/booth-detail.svg')",
-        default: "url('/images/booths/default.svg')",
+        'default': "url('/images/booths/default.svg')",
         'arrow-back-white': "url('/icons/booths/arrow-back.svg')",
         'arrow-forward': "url('/icons/booths/arrow-forward.svg')",
         'booth-map': "url('/images/booths/map.svg')",
