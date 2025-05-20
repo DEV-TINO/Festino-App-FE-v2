@@ -3,7 +3,7 @@ import React from 'react';
 const IconDropDown: React.FC = () => {
   return (
     <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 1L8.29289 8.29289C8.68342 8.68342 9.31658 8.68342 9.70711 8.29289L17 1" stroke="#999999" stroke-width="2" stroke-linecap="round"/>
+      <path d="M1 1L8.29289 8.29289C8.68342 8.68342 9.31658 8.68342 9.70711 8.29289L17 1" stroke="#999999" strokeWidth="2" strokeLinecap="round"/>
     </svg>
   );
 };
