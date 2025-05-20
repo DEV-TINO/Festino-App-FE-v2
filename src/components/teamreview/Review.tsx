@@ -6,6 +6,7 @@ import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
 import { submitReview } from '@/stores/events/reviewStore';
 import { formatPhoneNum } from '@/utils/utils';
+import { useNavigate } from 'react-router-dom';
 
 const Review: React.FC = () => {
   const [rating, setRating] = useState(0);
@@ -17,6 +18,8 @@ const Review: React.FC = () => {
   const [name, setName] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
   const [studentNum, setStudentNum] = useState('');
+
+  const navigate = useNavigate();
 
   const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
   const setIsAgreed = usePersonalInfoStore((state) => state.setIsAgreed);
@@ -267,7 +270,7 @@ const Review: React.FC = () => {
       <div className="flex gap-2">
         <button
           className="w-full text-primary-900 h-[45px] flex items-center justify-center rounded-full border-2 border-primary-900"
-          onClick={() => handleSubmit()}
+          onClick={() => navigate('/')}
         >
           취소
         </button>
