@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useReservationStore } from "@/stores/tablings/tablingStore";
-import { usePersonalInfoStore } from "@/stores/personalInfoStore";
-import { formatPhoneNum } from "@/utils/utils";
-import { REGEX } from "@/constants";
-import InputName from "../InputName";
-import InputPersonNum from "../InputPersonNum";
-import InputPhoneNum from "../InputPhoneNum";
-import PersonalInfo from "@/components/commons/PersonalInfo";
-import useBaseModal from "@/stores/baseModal";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useReservationStore } from '@/stores/tablings/tablingStore';
+import { usePersonalInfoStore } from '@/stores/personalInfoStore';
+import { formatPhoneNum } from '@/utils/utils';
+import { REGEX } from '@/constants';
+import InputName from '../InputName';
+import InputPersonNum from '../InputPersonNum';
+import InputPhoneNum from '../InputPhoneNum';
+import PersonalInfo from '@/components/commons/PersonalInfo';
+import useBaseModal from '@/stores/baseModal';
 
 const ReservationModal: React.FC = () => {
   const {
@@ -75,7 +75,9 @@ const ReservationModal: React.FC = () => {
     <>
       <div
         className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
-        onClick={(e) => { e.stopPropagation(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <div className="text-secondary-700 text-xl font-semibold">{newNightBooth?.adminName} 부스 예약</div>
         <div className="w-full flex flex-col justify-start px-4">
@@ -94,7 +96,7 @@ const ReservationModal: React.FC = () => {
         </div>
         <div className="w-full flex flex-row justify-between gap-[10px] pt-[1px]">
           <button
-            className="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
+            className="w-full h-[43px] bg-white text-primary-700 font-bold rounded-10xl border-1 border-primary-700"
             onClick={() => closeModal()}
           >
             닫기
@@ -102,7 +104,7 @@ const ReservationModal: React.FC = () => {
           <button
             className={`w-full h-[43px] font-bold rounded-10xl text-white ${
               recentName.length >= 2 && recentPhoneNum.length === 13 && personNum && personNum > 0 && isAgreed
-                ? 'bg-primary-900'
+                ? 'bg-primary-700'
                 : 'bg-gray-300'
             }`}
             onClick={() => handleClickReserveButton()}
