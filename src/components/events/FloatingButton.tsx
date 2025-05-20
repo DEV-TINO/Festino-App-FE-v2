@@ -186,20 +186,27 @@ const FloatingButton: React.FC = () => {
           key={idx}
           onClick={btn.onClick}
           className={`
-    absolute left-1/2 -translate-x-1/2
-    w-[58px] h-[58px] rounded-full
-    bg-primary-700 text-white text-2xs font-bold
-    flex flex-col items-center justify-center shadow-white-md
-    transition-all duration-300 text-center overflow-hidden
-    ${isOpen ? `opacity-100 ${translateHeights[idx]}` : 'opacity-0 translate-y-0'}
-    ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}
-  `}
+            absolute left-1/2 -translate-x-1/2
+            w-[58px] h-[58px] rounded-full
+            bg-primary-700 text-white text-2xs font-bold
+            flex flex-col items-center justify-center
+            transition-all duration-300 text-center
+            ${isOpen ? `opacity-100 ${translateHeights[idx]}` : 'opacity-0 translate-y-0'}
+            ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}
+            shadow-xl shadow-gray-400
+          `}
         >
-          <img src={btn.icon} alt="icon" className="w-full h-full absolute top-0 left-0 object-cover z-0" />
+          <div className="w-full h-full absolute top-0 left-0 z-0 rounded-full overflow-hidden">
+            <img
+              src={btn.icon}
+              alt="icon"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <span className="z-10 whitespace-nowrap translate-y-[-10px]">{btn.label}</span>
         </button>
       ))}
-
+  
       <div
         onClick={handleClick}
         onMouseDown={(e) => handleStart(e.clientX)}
@@ -210,13 +217,15 @@ const FloatingButton: React.FC = () => {
           w-[60px] h-[60px] 
           rounded-full text-xs font-bold cursor-grab
           select-none touch-none
+          shadow-xl shadow-gray-400
+          bg-white
+          overflow-hidden
         `}
       >
         <img src='/icons/events/eventbutton.svg' alt="icon" className="w-full h-full absolute top-0 left-0 object-cover z-0" />
-        EVENT
       </div>
     </div>
-  );
+  );  
 };
 
 export default FloatingButton;
