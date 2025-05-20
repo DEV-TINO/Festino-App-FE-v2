@@ -3,6 +3,14 @@ import useBaseModal from '@/stores/baseModal';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuthStore } from '@/stores/auths/authStore';
+import TimeTableIcon from '../../icons/commons/TimeTableIcon';
+import BoothIcon from '@/icons/commons/BoothIcon';
+import TablingIcon from '@/icons/commons/TablingIcon';
+import IconDeveloper from '@/icons/events/IconDeveloper';
+import IconEvent from '@/icons/events/IconEvent';
+import IconNotice from '@/icons/events/IconNotice';
+import IconDropDown from '@/icons/events/IconDropDown';
+import IconProfile from '@/icons/events/IconProfile';
 
 const NavTap = () => {
   const navigate = useNavigate();
@@ -44,16 +52,20 @@ const NavTap = () => {
           </div>
 
           <div className="flex flex-col items-center justify-center gap-4">
-            <div
-              className={`w-[80px] h-[80px] ${login ? 'bg-header-team-introduction' : 'bg-header-navigation-person'} bg-center bg-no-repeat bg-[length:80px_80px]
-            cursor-pointer`}
-              onClick={() => {
-                if (!isLogin) {
-                  close();
-                  openModal('loginModal');
-                }
-              }}
-            ></div>
+            {login ? (
+              <div
+                className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]
+                cursor-pointer`}
+              ></div>
+            ) : (
+              <div onClick={() => {
+                close();
+                openModal('loginModal');
+              }}>
+              <IconProfile />
+              </div>
+            )}
+
             <div
               className="text-center font-bold text-lg cursor-pointer"
               onClick={() => {
@@ -75,7 +87,7 @@ const NavTap = () => {
               }}
               className="px-6 cursor-pointer flex items-center gap-4"
             >
-              <div className="w-[28px] h-[28px] bg-header-navigation-timetable bg-center bg-no-repeat"></div>
+              <TimeTableIcon />
               <div className="text-xl text-secondary-300 font-bold">타임테이블</div>
             </li>
 
@@ -86,7 +98,7 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <div className="w-[28px] h-[28px] bg-header-navigation-booth bg-center bg-no-repeat"></div>
+              <BoothIcon />
               <div className="text-xl text-secondary-300 font-bold">부스 정보</div>
             </li>
 
@@ -97,7 +109,7 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <div className="w-[28px] h-[28px] bg-header-navigation-tabling bg-center bg-no-repeat"></div>
+              <TablingIcon />
               <div className="text-xl text-secondary-300 font-bold">테이블링</div>
             </li>
 
@@ -108,7 +120,7 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <div className="w-[28px] h-[28px] bg-header-navigation-notice bg-center bg-no-repeat"></div>
+              <IconNotice />
               <div className="text-xl text-secondary-300 font-bold">공지사항</div>
             </li>
 
@@ -119,7 +131,7 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <div className="w-[23px] h-[23px] bg-header-navigation-profile bg-center bg-no-repeat"></div>
+              <IconDeveloper />
               <div className="text-xl text-secondary-300 font-bold">개발자 소개</div>
             </li>
 
@@ -129,13 +141,13 @@ const NavTap = () => {
               <li className="cursor-pointer flex items-center gap-2" onClick={toggleEvent}>
                 <div className="flex w-full justify-between">
                   <div className="flex gap-4">
-                    <div className="w-[28px] h-[28px] bg-header-navigation-event bg-center bg-no-repeat"></div>
+                    <IconEvent />
                     <div className="text-xl text-secondary-300 font-bold">이벤트</div>
                   </div>
                   <div>
-                    <div
-                      className={`w-[28px] h-[28px] bg-header-navigation-event-open bg-center bg-no-repeat transition-transform duration-300 ${isEventOpen ? 'rotate-180' : 'rotate-0'} `}
-                    />
+                    <div className={`w-7 h-7 flex items-center justify-center bg-center bg-no-repeat transition-transform duration-300 ${isEventOpen ? 'rotate-180' : 'rotate-0'} `}>
+                      <IconDropDown />
+                    </div>
                   </div>
                 </div>
               </li>

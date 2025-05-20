@@ -1,7 +1,7 @@
-import BoothIcon from '@/components/footers/BoothIcon';
-import HomeIcon from '@/components/footers/HomeIcon';
-import TablingIcon from '@/components/footers/TablingIcon';
-import TimeTableIcon from '@/components/footers/TimeTableIcon';
+import BoothIcon from '@/icons/commons/BoothIcon';
+import HomeIcon from '@/icons/commons/HomeIcon';
+import TablingIcon from '@/icons/commons/TablingIcon';
+import TimeTableIcon from '@/icons/commons/TimeTableIcon';
 
 export const ICON_URL_MAP = [
   { name: '홈', component: HomeIcon, width: '28px', router: '' },
