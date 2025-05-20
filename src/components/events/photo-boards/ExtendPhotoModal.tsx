@@ -52,34 +52,32 @@ const ExtendPhotoModal: React.FC = () => {
   if (!selectedPhoto) return null;
 
   return (
-    <div className="absolute dynamic-padding w-full">
-      <div className="col-start-2 row-start-2 bg-white flex flex-col items-center">
-        <img
-          src={selectedPhoto.imageUrl}
-          className="min-w-full h-[380px] flex-shrink-0 aspect-auto bg-no-repeat bg-center object-contain"
-        />
+    <div className="relative dynamic-width col-start-2 row-start-2 bg-white flex flex-col items-center">
+      <img
+        src={selectedPhoto.imageUrl}
+        className="min-w-full h-[380px] flex-shrink-0 aspect-auto bg-no-repeat bg-center object-contain"
+      />
 
-        <button className="absolute top-3 right-8 w-[32px] h-[32px]" onClick={() => closeModal()}>
-          <img src="/icons/events/close-button.svg" />
-        </button>
+      <button className="absolute top-5 right-5 w-[32px] h-[32px]" onClick={() => closeModal()}>
+        <img src="/icons/events/close-button.svg" />
+      </button>
 
-        <div className="w-full px-6 py-4 bg-secondary-700 overflow-hidden text-white flex justify-between items-center">
-          <h2 className="text-base font-semibold">{selectedPhoto.mainUserName}</h2>
-          <div className="flex items-center gap-1 text-sm">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleToggleLike();
-              }}
-              className={`w-4 h-4 ${isUserPhoto || !mainUserId ? 'cursor-not-allowed' : ''}`}
-            >
-              <img
-                src={isLike ? '/icons/events/full-heart.svg' : '/icons/events/empty-heart.svg'}
-                className="w-full h-full"
-              />
-            </button>
-            <span>{likeCount}</span>
-          </div>
+      <div className="w-full px-6 py-4 bg-secondary-700 overflow-hidden text-white flex justify-between items-center">
+        <h2 className="text-base font-semibold">{selectedPhoto.mainUserName}</h2>
+        <div className="flex items-center gap-1 text-sm">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggleLike();
+            }}
+            className={`w-4 h-4 ${isUserPhoto || !mainUserId ? 'cursor-not-allowed' : ''}`}
+          >
+            <img
+              src={isLike ? '/icons/events/full-heart.svg' : '/icons/events/empty-heart.svg'}
+              className="w-full h-full"
+            />
+          </button>
+          <span>{likeCount}</span>
         </div>
       </div>
     </div>
