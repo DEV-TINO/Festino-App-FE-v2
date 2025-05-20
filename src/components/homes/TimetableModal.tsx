@@ -54,7 +54,9 @@ const TimetableModal: React.FC = () => {
               key={index}
               className="shadow-3xl text-xs text-primary-700 w-full min-h-[60px] rounded-3xl flex items-center justify-between border-2 border-primary"
             >
-              <IconCD />
+              <div className="p-3">
+                <IconCD />
+              </div>
               <div className="w-full flex flex-col pr-4">
                 <div className="flex gap-1">
                   <div className="font-bold">{music.title}</div>

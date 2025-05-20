@@ -25,7 +25,7 @@ const ModalBackground: FC<IModalBackgroundProps> = ({ children }) => {
 
   return (
     <div 
-      onClick={() => closeModal} 
+      onClick={() => closeModal()} 
       className="max-w-[500px] min-w-[375px] w-full fixed inset-0 mx-auto bg-black/60 z-50 overflow-hidden"
     >
       <div

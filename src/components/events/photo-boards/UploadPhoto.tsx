@@ -20,7 +20,7 @@ const UploadPhoto: React.FC = () => {
       },
     });
 
-    return res.data.imageUrl;
+    return res.data;
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

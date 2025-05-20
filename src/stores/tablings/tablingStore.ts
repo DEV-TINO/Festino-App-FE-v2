@@ -55,15 +55,9 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
       }
     },
 
-    getReservation: async (payload, { openModal, closeModal, navigate }) => {
+    getReservation: async (payload, { openModal }) => {
       try {
-        const { data, success, message } = await api.get('/main/reservation', { params: payload });
-
-        if (!success) {
-          console.log('getReservation 실패:', message);
-          openModal('noReserveModal');
-          return;
-        }
+        const { data } = await api.get('/main/reservation', { params: payload });
 
         set({ reservationInfo: data });
 
@@ -73,9 +67,9 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
           openModal('searchReservationModal');
         }
       } catch {
-        closeModal();
-        navigate(`/error/main`);
-        console.log('Error fetching reservation');
+        console.log('getReservation 실패');
+        openModal('noReserveModal');
+        return;
       }
     },
 

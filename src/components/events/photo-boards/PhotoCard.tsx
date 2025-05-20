@@ -59,7 +59,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
     >
       {isUserPhoto && (
         <button
-          className="absolute top-4 right-4 z-50 w-5 h-5 bg-delete bg-cover bg-no-repeat bg-center"
+          className="absolute top-3 right-3 z-50 w-5 h-5 bg-delete bg-cover bg-no-repeat bg-center"
           onClick={(e) => {
             e.stopPropagation();
             handleClickDelete();
