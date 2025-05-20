@@ -65,7 +65,7 @@ const Review: React.FC = () => {
     };
 
     try {
-      await submitReview(payload); // token 포함 POST 요청
+      await submitReview(payload);
       resetReview();
       Swal.fire({
         title: 'Thank you for your review!',

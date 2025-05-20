@@ -54,16 +54,13 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
     };
 
     if (isNotOrderingUser) {
-      console.log('⚠️ 다른 사용자가 주문 중. 모달 오픈 준비');
 
       const cancelAndUpdate = async () => {
-        console.log('🟥 주문 취소 콜백 실행됨!');
         sendWebSocketMessage({
           type: 'ORDERCANCEL',
           boothId,
           tableNum,
         });
-        console.log('📤 WebSocket 전송됨: ORDERCANCEL');
 
         await new Promise((resolve) => setTimeout(resolve, 300)); // 300ms 정도
 
@@ -75,19 +72,15 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
       return;
     }
 
-
-
     await performUpdate();
   };
 
   const handleMinus = () => {
-    console.log('🟡 [handleMinus] 클릭됨');
     const newCount = Math.max(count - 1, 0);
     updateCount(newCount, 'MENUSUB');
   };
 
   const handlePlus = () => {
-    
     const newCount = count + 1;
     updateCount(newCount, 'MENUADD');
   };

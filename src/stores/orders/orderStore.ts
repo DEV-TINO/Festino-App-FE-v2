@@ -150,11 +150,9 @@ export const useOrderStore = create<OrderState>((set, get) => ({
   handleTotalPrice: () => {
     const total = get().userOrderList.reduce((sum, item) => sum + item.menuCount * item.menuPrice, 0);
     set({ totalPrice: total });
-    console.log(total);
   },
 
   addOrderItem: (order) => {
-    console.log('asdfdsa');
     const list = get().userOrderList;
     const exists = list.find((o) => o.menuId === order.menuId);
     if (order.menuCount === 0) {
@@ -168,57 +166,58 @@ export const useOrderStore = create<OrderState>((set, get) => ({
     }
   },
   getAccountInfo: async () => {
-    const boothId = get().boothId;
-    try {
-      const res = await api.get('/main/booth/night/account', { params: { boothId } });
+  const boothId = get().boothId;
+  try {
+    const res = await api.get('/main/booth/night/account', { params: { boothId } });
 
-      console.log('API 응답:', res.data);
-
-      if (res.data.success) {
-        console.log('저장될 계좌 정보:', res.data.data);
-        set({ accountInfo: res.data.data });
-      } else {
-        console.error('실패:', res.data.message);
-        window.location.href = '/error/order';
-      }
-    } catch (error) {
-      console.error('네트워크 오류:', error);
-      window.location.href = '/error/order';
+    if (res.success && res.data) {
+      set({ accountInfo: res.data });
+    } else {
+      console.warn('계좌 정보가 존재하지 않음:', res.message);
     }
-  },
+  } catch (error) {
+    console.warn('계좌 정보 조회 실패:', error);
+  }
+},
+
+
   fetchKakaoPay: async () => {
     const boothId = get().boothId;
-    console.log('[카카오페이] boothId:', boothId);
     try {
       const res = await api.get('/main/booth/night/kakao', {
         params: { boothId },
       });
-      if (res.data.success) {
-        set({
-          isKakaoPay: res.data.data.isKakaoPay,
-          kakaoPayUrl: res.data.data.kakaoPay,
-        });
-      }
-    } catch (e) {
-      console.error('카카오페이 정보 조회 실패:', e);
+      if (res.success && res.data) {
+      set({
+        isTossPay: res.data.isTossPay,
+        tossPayUrl: res.data.tossPay,
+      });
+      console.log('✅ 토스페이 세팅 완료:', res.data);
+    } else {
+      console.warn('⚠️ 토스페이 사용 불가:', res.message);
     }
-  },
+  } catch (e) {
+    console.error('토스페이 정보 조회 실패:', e);
+  }
+},
 
   fetchTossPay: async () => {
     const boothId = get().boothId;
-    console.log('[토스페이] boothId:', boothId);
     try {
       const res = await api.get('/main/booth/night/toss', {
         params: { boothId },
       });
-      if (res.data.success) {
-        set({
-          isTossPay: res.data.data.isTossPay,
-          tossPayUrl: res.data.data.tossPay,
-        });
-      }
-    } catch (e) {
-      console.error('토스페이 정보 조회 실패:', e);
+      if (res.success && res.data) {
+      set({
+        isKakaoPay: res.data.isKakaoPay,
+        kakaoPayUrl: res.data.kakaoPay,
+      });
+      console.log('✅ 카카오페이 세팅 완료:', res.data);
+    } else {
+      console.warn('⚠️ 카카오페이 사용 불가:', res.message);
     }
-  },
+  } catch (e) {
+    console.error('카카오페이 정보 조회 실패:', e);
+  }
+},
 }));

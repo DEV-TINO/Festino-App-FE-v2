@@ -24,6 +24,11 @@ const CATEGORY_ENDPOINT_MAP: Record<CategoryValue, string> = {
   2: 'callservice',
 };
 
+export const isSocketConnected = (): boolean => {
+  const { client } = useSocketStore.getState();
+  return !!client && client.connected;
+};
+
 const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
     alert('제한시간은 10분입니다');
@@ -65,10 +70,7 @@ const OrderPaymentPage: React.FC = () => {
   }, [boothId, tableNum]);
 
   useEffect(() => {
-    console.log('현재 주문한 메뉴:', userOrderList);
-  }, [userOrderList]);
 
-  useEffect(() => {
     const tableIndex = Number(tableNum);
 
     const handleBeforeUnload = () => {
@@ -97,10 +99,8 @@ const OrderPaymentPage: React.FC = () => {
 
     try {
       const res = await api.get(endpoint);
-      console.log('[메뉴 조회 응답]', res.data);
-      if (res.data.success && Array.isArray(res.data.data)) {
-        console.log('[로딩된 메뉴 수]', res.data.data.length);
-        setMenuInfo(res.data.data);
+      if (res.success && Array.isArray(res.data)) {
+        setMenuInfo(res.data);
 
         window.scrollTo({
           top: 0,
@@ -117,15 +117,12 @@ const OrderPaymentPage: React.FC = () => {
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
   const handleClickReserveButton = () => {
-    console.log('📦 isOrderInProgress:', isOrderInProgress);
     if (totalPrice === 0) {
       alert('메뉴를 선택해주세요.');
       return;
     }
 
     const mySessionId = useSocketStore.getState().sessionId;
-    console.log('👤 내 세션:', mySessionId);
-    console.log('🧾 주문자 세션:', orderingSessionId);
 
     if (isOrderInProgress && orderingSessionId !== mySessionId) {
       openModal('overrideOrderModal');

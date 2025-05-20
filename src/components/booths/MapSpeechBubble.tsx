@@ -19,7 +19,7 @@ export const MapSpeechBubble: React.FC<MapSpeechBubbleProps> = ({ booth }) => {
   return (
     <div className="px-[18px] py-[11px] speech-bubble shadow-5xl flex flex-col justify-center">
       <div
-        className={`text-primary-900 font-semibold text-[11px] pb-1 ${
+        className={`text-primary-700 font-semibold text-[11px] pb-1 ${
           isStudentCouncil ? 'flex justify-center items-center' : ''
         }`}
       >
