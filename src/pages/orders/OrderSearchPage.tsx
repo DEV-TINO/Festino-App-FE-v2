@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import OrderDetail from '@/components/orders/OrderDetail';
 import { api } from '@/utils/api';
+import InputName from '@/components/tablings/InputName';
+import InputPhoneNum from '@/components/tablings/InputPhoneNum';
 
 const TABS = ['전체', '입금 대기', '조리 중', '조리 완료', '주문 취소'];
 
@@ -121,38 +123,9 @@ const OrderSearchPage: React.FC = () => {
         <div className="w-full h-[19px] font-semibold text-secondary-700">주문자 정보 입력</div>
         <div className="w-full flex flex-col gap-[30px] px-5 py-[17px] border-2 border-primary-900-light-16 rounded-3xl">
           <div>
-            <div className="text-xs">이름</div>
-            <div className="h-11 flex items-center gap-2.5">
-              <img src="/icons/person.svg" className="w-6 h-6" />
-              <input
-                className="flex-1 focus:outline-none bg-inherit"
-                type="text"
-                value={recentName}
-                placeholder="티노"
-                maxLength={5}
-                onChange={(e) => setRecentName(e.target.value.replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, '').slice(0, 5))}
-              />
-            </div>
-            <hr className="mb-[30px] border-0 h-[1px] bg-secondary-500-light-20" />
+            <InputName value={recentName} onChange={setRecentName} />
 
-            <div className="text-xs">전화번호</div>
-            <div className="h-11 flex items-center gap-2.5">
-              <img src="/icons/phone.svg" className="w-6 h-6" />
-              <input
-                className="flex-1 focus:outline-none bg-inherit"
-                type="tel"
-                value={recentPhoneNum}
-                placeholder="010-1234-5678"
-                maxLength={13}
-                onChange={(e) => {
-                  const raw = e.target.value.replace(/\D/g, '').slice(0, 11);
-                  if (raw.length > 3 && raw.length < 8) setRecentPhoneNum(raw.replace(/(\d{3})(\d{1,4})/, '$1-$2'));
-                  else if (raw.length >= 8) setRecentPhoneNum(raw.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3'));
-                  else setRecentPhoneNum(raw);
-                }}
-              />
-            </div>
-            <hr className="border-0 h-[1px] bg-secondary-500-light-20" />
+            <InputPhoneNum value={recentPhoneNum} onChange={setRecentPhoneNum} />
           </div>
 
           <div className="text-xs text-secondary-500 flex items-start">
@@ -191,7 +164,7 @@ const OrderSearchPage: React.FC = () => {
                 }`}
               >
                 {tab}
-                {idx === selectedTab && <div className="h-1 bg-primary-900 w-full rounded-full mt-1"></div>}
+                {idx === selectedTab && <div className="h-1 bg-primary-700 w-full rounded-full mt-1"></div>}
               </div>
             ))}
           </div>

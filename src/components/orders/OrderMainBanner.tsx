@@ -40,7 +40,7 @@ const OrderMainBanner: React.FC = () => {
       <img src="/images/orders/tino-order-banner.svg" className="bg-top w-full" alt="Order Banner" />
       <div className="absolute top-14 left-5 max-xs:top-10 max-xs:left-4">
         <p className="text-white font-jalnan2">내 자리에서 주문부터 결제까지!</p>
-        <p className="text-3xl bg-gradient-to-t from-white/20 to-white text-transparent bg-clip-text font-jalnan2">
+        <p className="text-3xl text-white drop-shadow-lg text-transparent bg-clip-text font-jalnan2">
           간편 주문 시스템
         </p>
       </div>
