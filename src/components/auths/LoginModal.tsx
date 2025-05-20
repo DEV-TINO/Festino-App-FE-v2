@@ -76,7 +76,7 @@ const LoginModal: React.FC = () => {
             placeholder="Username"
             value={inputName}
             onChange={handleChangeUserId}
-            className="flex-1 text-m placeholder-secondary-400 focus:outline-none"
+            className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
           />
         </div>
 
@@ -87,7 +87,7 @@ const LoginModal: React.FC = () => {
             placeholder="Phonenum"
             value={inputPhoneNum}
             onChange={handleChangePhone}
-            className="flex-1 text-m placeholder-secondary-400 focus:outline-none"
+            className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
             maxLength={13}
           />
         </div>

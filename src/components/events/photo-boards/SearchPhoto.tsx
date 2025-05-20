@@ -3,10 +3,12 @@ import { usePhotoStore } from '@/stores/events/BoardStore';
 import { PhotoPost } from '@/types/Board.types';
 import PhotoCard from './PhotoCard';
 import usePhotos from '@/hooks/usePhotos';
+import useBaseModal from '@/stores/baseModal';
 
 const SearchPhoto: React.FC = () => {
   const { myPhotos, myPhotoCount, allPhotos, allPhotoCount } = usePhotoStore();
   const mainUserId = localStorage.getItem('mainUserId');
+  const { openModal } = useBaseModal();
 
   const { getPhotos, initPhotos } = usePhotos(mainUserId);
 
@@ -54,7 +56,9 @@ const SearchPhoto: React.FC = () => {
               )
             ) : (
               // 로그아웃 상태
-              <div className="w-full text-center text-primary-700">로그인 후 이벤트에 참여하세요!</div>
+              <div className="w-full text-center text-primary-700" onClick={() => openModal('requireLoginModal')}>
+                로그인 후 이벤트에 참여하세요!
+              </div>
             )}
           </div>
 
@@ -66,11 +70,7 @@ const SearchPhoto: React.FC = () => {
             <div className="w-full text-center text-primary-700">첫 번째 이벤트 참가자가 되어보세요!</div>
           ) : (
             // 게시물 존재
-            <div
-              id="all-photo"
-              className="w-full flex overflow-x-scroll scroll-smooth"
-              onTouchStart={(e) => e.stopPropagation()}
-            >
+            <div id="all-photo" className="w-full" onTouchStart={(e) => e.stopPropagation()}>
               <div
                 className={`gap-x-2 gap-y-4 ${
                   allPhotoCount <= 2 ? 'flex justify-start' : 'grid place-content-start grid-cols-2 grid-flow-row'

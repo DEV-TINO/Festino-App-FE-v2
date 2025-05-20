@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useOrderStore } from '@/stores/orders/orderStore';
-import OrderDetail from '@/components/orders/OrderDetail';
+import OrderDetail from '@/components/orders/OrderDetail';
 import { api } from '@/utils/api';
 
 const TABS = ['전체', '입금 대기', '조리 중', '조리 완료', '주문 취소'];

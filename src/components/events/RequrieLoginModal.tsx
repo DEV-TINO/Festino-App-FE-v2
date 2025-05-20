@@ -69,7 +69,7 @@ const RequireLoginModal: React.FC = () => {
       <div className="w-full flex flex-col gap-6">
         <h2 className="text-primary-900 text-3xl font-bold text-center">Login</h2>
 
-        <h2 className="text-red-500 text-base font-bold text-center">해당 서비스는 로그인이 필요한 서비스입니다.</h2>
+        <h2 className="text-red-500 text-sm font-bold text-center">해당 서비스는 로그인이 필요한 서비스입니다.</h2>
 
         <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-3">
           <img src="/icons/tablings/person.svg" alt="user" className="w-6 h-6 opacity-50" />
@@ -78,7 +78,7 @@ const RequireLoginModal: React.FC = () => {
             placeholder="Username"
             value={inputName}
             onChange={handleChangeUserId}
-            className="flex-1 text-m placeholder-secondary-400 focus:outline-none"
+            className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
           />
         </div>
 
@@ -89,7 +89,7 @@ const RequireLoginModal: React.FC = () => {
             placeholder="Phonenum"
             value={inputPhoneNum}
             onChange={handleChangePhone}
-            className="flex-1 text-m placeholder-secondary-400 focus:outline-none"
+            className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
             maxLength={13}
           />
         </div>

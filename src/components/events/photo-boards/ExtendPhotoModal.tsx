@@ -52,17 +52,17 @@ const ExtendPhotoModal: React.FC = () => {
   if (!selectedPhoto) return null;
 
   return (
-    <div className="relative col-start-2 row-start-2 dynamic-width bg-white rounded-xl flex flex-col items-center">
+    <div className="relative w-full col-start-2 row-start-2 rounded-xl bg-secondary-700 flex flex-col items-center">
       <img
         src={selectedPhoto.imageUrl}
-        className="snap-start min-w-full h-[390px] flex-shrink-0 aspect-auto bg-no-repeat bg-center object-contain rounded-t-xl"
+        className="snap-start min-w-full h-[380px] flex-shrink-0 aspect-auto bg-no-repeat bg-center object-contain rounded-t-xl"
       />
 
       <button className="absolute top-[30px] right-8 w-[32px] h-[32px]" onClick={() => closeModal()}>
         <img src="/icons/commons/x.png" />
       </button>
 
-      <div className="w-full px-6 py-4 bg-secondary-700 border-2 border-secondary-700 overflow-hidden text-white flex justify-between items-center rounded-b-xl">
+      <div className="w-full px-6 py-4 bg-secondary-700 border- overflow-hidden text-white flex justify-between items-center rounded-b-xl">
         <h2 className="text-base font-semibold">{selectedPhoto.mainUserName}</h2>
         <div className="flex items-center gap-1 text-sm">
           <button

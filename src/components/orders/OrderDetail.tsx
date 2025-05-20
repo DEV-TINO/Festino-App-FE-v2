@@ -17,12 +17,7 @@ type Props = {
   };
 };
 
-const statusColors = [
-  'bg-waiting-light', 
-  'bg-cooking-light', 
-  'bg-prepared-light', 
-  'bg-secondary-50', 
-];
+const statusColors = ['bg-waiting-light', 'bg-cooking-light', 'bg-prepared-light', 'bg-secondary-50'];
 
 const OrderDetail: React.FC<Props> = ({ orderInfo }) => {
   const { adminName, tableNum, createAt, menuInfo, totalPrice, orderType } = orderInfo;
