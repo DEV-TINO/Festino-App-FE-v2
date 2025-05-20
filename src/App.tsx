@@ -35,7 +35,7 @@ const App: React.FC = () => {
           <Route path="timetable" element={<TimeTablePage />} />
           <Route path="booths" element={<BoothPage />} />
           <Route path="booths/:type/:boothId" element={<BoothDetailPage />} />
-          <Route path="reserve" element={<TablingPage />} />
+          <Route path="reserve/:boothId?" element={<TablingPage />} />
           <Route path="teams" element={<TeamPage />} />
           <Route path="review" element={<ReviewPage />} />
           <Route path="notices" element={<NoticePage />} />

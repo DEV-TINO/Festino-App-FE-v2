@@ -206,7 +206,7 @@ const BoothDetailPage: React.FC = () => {
               </div>
             </div>
             <button
-              onClick={handleRouterToReserve}
+              onClick={() => handleRouterToReserve()}
               className="w-full h-auto py-4 mb-3 shadow-3xl border-1 border-primary-700 rounded-full text-primary-700 text-base active:text-white active:bg-primary-700"
             >
               예약하기

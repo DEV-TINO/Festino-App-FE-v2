@@ -10,9 +10,10 @@ const Footer: React.FC = () => {
   const selectedFooterIndex = React.useMemo(() => {
     if (pathname.includes('/notices')) {
       return 0;
-    } 
-    if (pathname.includes('/booths')) {
+    } else if (pathname.includes('/booths')) {
       return 2;
+    } else if (pathname.includes('/reserve')) {
+      return 3;
     }
 
     return ICON_URL_MAP.findIndex((item) => pathname === `/${item.router}`);
@@ -33,7 +34,7 @@ const Footer: React.FC = () => {
           return (
             <div
               key={index}
-              className="flex flex-col items-center justify-center cursor-pointer"
+              className="w-1/4 h-full flex flex-col items-center justify-center cursor-pointer"
               style={{ width: item.width }}
               onClick={() => handleClickFooter(index)}
             >
