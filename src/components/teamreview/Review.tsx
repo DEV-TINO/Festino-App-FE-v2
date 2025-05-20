@@ -21,6 +21,27 @@ const Review: React.FC = () => {
   const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
   const setIsAgreed = usePersonalInfoStore((state) => state.setIsAgreed);
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawValue = e.target.value;
+    const formatted = formatPhoneNumber(rawValue);
+    setPhoneNum(formatted); // 상태 업데이트 (또는 onChange(formatted))
+  };
+
+  const formatPhoneNumber = (input: string): string => {
+    const digits = input.replace(/\D/g, ''); // 숫자만 남기기
+    if (digits.length < 4) return digits;
+    if (digits.length < 8) return digits.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+    return digits.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let filtered = e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, ''); // 특수문자 제거
+    if (filtered.length > 5) {
+      filtered = filtered.slice(0, 5);
+    }
+    setName(filtered); // 상태 업데이트 (또는 onChange(filtered))
+  };
+
   const handleToggleSelection = (
     option: string,
     selectedList: string[],
@@ -215,7 +236,8 @@ const Review: React.FC = () => {
           className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
           placeholder="이름"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={handleNameChange}
+          maxLength={5}
         />
 
         <input
@@ -223,7 +245,8 @@ const Review: React.FC = () => {
           placeholder="전화번호"
           inputMode="numeric"
           value={phoneNum}
-          onChange={(e) => setPhoneNum(e.target.value)}
+          onChange={handlePhoneChange}
+          maxLength={13}
         />
 
         <input
@@ -232,6 +255,7 @@ const Review: React.FC = () => {
           inputMode="numeric"
           value={studentNum}
           onChange={(e) => setStudentNum(e.target.value)}
+          maxLength={10}
         />
       </div>
 
