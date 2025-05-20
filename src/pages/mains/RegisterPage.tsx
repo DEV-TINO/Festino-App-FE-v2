@@ -212,27 +212,27 @@ const RegisterPage: React.FC = () => {
             </div>
             {errors.phone && <p className="text-xs text-red-600 mt-1 px-1">{errors.phone}</p>}
 
-            {/* {showCodeInput && ( */}
-            <div className="pt-3">
-              <input
-                type="tel"
-                inputMode="numeric"
-                placeholder="인증번호를 입력해주세요"
-                value={verifyCode}
-                onChange={(e) => setVerifyCode(e.target.value)}
-                className="w-full h-14 py-4 px-5 text-base placeholder-secondary-400 bg-white focus:bg-white border-1 border-secondary-400 focus:border-primary-900 rounded-10xl focus:outline-none"
-                disabled={timeLeft === 0}
-              />
-              <p className="pt-2 px-1 text-sm text-red-600 text-left">
-                {timeLeft > 0
-                  ? `남은 시간: ${Math.floor(timeLeft / 60)
-                      .toString()
-                      .padStart(2, '0')}:${(timeLeft % 60).toString().padStart(2, '0')}`
-                  : '인증시간이 만료되었습니다. 다시 인증해주세요.'}
-              </p>
-              {errors.code && <p className="text-xs text-red-600 mt-1 px-1">{errors.code}</p>}
-            </div>
-            {/* )} */}
+            {showCodeInput && (
+              <div className="pt-3">
+                <input
+                  type="tel"
+                  inputMode="numeric"
+                  placeholder="인증번호를 입력해주세요"
+                  value={verifyCode}
+                  onChange={(e) => setVerifyCode(e.target.value)}
+                  className="w-full h-14 py-4 px-5 text-base placeholder-secondary-400 bg-white focus:bg-white border-1 border-secondary-400 focus:border-primary-900 rounded-10xl focus:outline-none"
+                  disabled={timeLeft === 0}
+                />
+                <p className="pt-2 px-1 text-sm text-red-600 text-left">
+                  {timeLeft > 0
+                    ? `남은 시간: ${Math.floor(timeLeft / 60)
+                        .toString()
+                        .padStart(2, '0')}:${(timeLeft % 60).toString().padStart(2, '0')}`
+                    : '인증시간이 만료되었습니다. 다시 인증해주세요.'}
+                </p>
+                {errors.code && <p className="text-xs text-red-600 mt-1 px-1">{errors.code}</p>}
+              </div>
+            )}
           </div>
           <div className="px-1">
             <PersonalInfo />
