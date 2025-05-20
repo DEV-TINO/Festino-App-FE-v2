@@ -218,8 +218,16 @@ type WebSocketPayload = {
 export const sendWebSocketMessage = (payload: WebSocketPayload) => {
   const { client } = useSocketStore.getState();
 
-  client?.publish({
-    destination: '/app/order',
-    body: JSON.stringify(payload),
-  });
+  if (!client || !client.connected) {
+    return;
+  }
+
+  try {
+    client.publish({
+      destination: '/app/order',
+      body: JSON.stringify(payload),
+    });
+  } catch (e) {
+    console.error('메시지 전송 중 오류 발생:', e);
+  }
 };

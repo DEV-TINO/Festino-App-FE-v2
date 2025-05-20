@@ -12,7 +12,6 @@ import BoothDetailPage from './pages/mains/BoothDetailPage';
 import ScrollToTop from './components/commons/ScrollToTop';
 import OrderMainPage from './pages/orders/OrderMainPage';
 import OrderPaymentPage from './pages/orders/OrderPaymentPage';
-import ModalRenderer from './components/orders/modals/ModalRenderer';
 import ModalPage from './pages/mains/ModalPage';
 import RegisterPage from './pages/mains/RegisterPage';
 import ErrorPage from './pages/mains/ErrorPage';
@@ -25,8 +24,6 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <ScrollToTop />
-
-      <ModalRenderer />
       <ModalPage />
       <Routes>
         {/* Main */}
