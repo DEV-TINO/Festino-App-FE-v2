@@ -175,7 +175,7 @@ const OrderPaymentPage: React.FC = () => {
                   fetchMenuByCategory(cat.value);
                 }}
                 className={`flex-1 leading-none whitespace-nowrap text-center min-w-0 basis-0 px-4 py-3 rounded-full border text-sm transition-colors
-        ${selectedCategory === cat.value ? 'bg-primary-700 text-white ' : 'bg-white text-blue-300 border-blue-200'}
+        ${selectedCategory === cat.value ? 'bg-primary-700 text-white ' : 'bg-white text-primary-700 border-primary-700-light'}
       `}
               >
                 {cat.label}
