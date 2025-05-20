@@ -125,7 +125,7 @@ export default {
         // event
         'like': "url('/icons/events/full-heart.svg')",
         'unlike': "url('/icons/events/full-heart.svg')",
-        'delete': "url('/icons/events/delete.svg')"
+        'delete': "url('/icons/events/delete-button.svg')"
       },
       borderRadius: {
         '2.5xl': '1.25rem', // 20px
