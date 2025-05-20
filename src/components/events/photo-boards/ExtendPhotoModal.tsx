@@ -53,17 +53,19 @@ const ExtendPhotoModal: React.FC = () => {
 
   return (
     <div className="absolute dynamic-padding w-full">
-      <div className="relative w-full col-start-2 row-start-2 rounded-xl bg-secondary-700 flex flex-col items-center">
+      {/* <div className="relative w-full h-4 bg-secondary-700 rounded-t-xl" /> */}
+
+      <div className="relative w-full col-start-2 row-start-2 bg-white flex flex-col items-center">
         <img
           src={selectedPhoto.imageUrl}
-          className="snap-start min-w-full h-[380px] flex-shrink-0 aspect-auto bg-no-repeat bg-center object-contain rounded-t-xl"
+          className="snap-start min-w-full h-[380px] flex-shrink-0 aspect-auto bg-no-repeat bg-center object-contain"
         />
 
         <button className="absolute top-5 right-5 w-[32px] h-[32px]" onClick={() => closeModal()}>
           <img src="/icons/events/close-button.svg" />
         </button>
 
-        <div className="w-full px-6 py-4 bg-secondary-700 overflow-hidden text-white flex justify-between items-center rounded-b-xl">
+        <div className="w-full px-6 py-4 bg-secondary-700 overflow-hidden text-white flex justify-between items-center">
           <h2 className="text-base font-semibold">{selectedPhoto.mainUserName}</h2>
           <div className="flex items-center gap-1 text-sm">
             <button
