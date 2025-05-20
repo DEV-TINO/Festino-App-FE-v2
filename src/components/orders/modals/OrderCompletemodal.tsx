@@ -24,7 +24,7 @@ const OrderCompleteModal: React.FC = () => {
         입금 미확인시 주문이 취소될 수 있습니다.
       </div>
 
-      <button onClick={handleClose} className="w-full h-11 bg-primary-900 rounded-3xl text-white font-semibold text-xl">
+      <button onClick={handleClose} className="w-full h-11 bg-primary-700 rounded-3xl text-white font-semibold text-xl">
         닫기
       </button>
     </div>

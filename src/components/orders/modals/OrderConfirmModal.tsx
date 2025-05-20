@@ -89,7 +89,8 @@ const OrderConfirmModal: React.FC = () => {
 
       const res = await api.post('/main/order', payload);
 
-      if (res.data.success) {
+      if (res.success) {
+
         resetOrderInfo();
         sendWebSocketMessage({
           type: 'ORDERDONE',
@@ -100,8 +101,8 @@ const OrderConfirmModal: React.FC = () => {
         closeModal();
         openModal('orderCompleteModal');
       } else {
-        console.warn(' 주문 실패:', res.data.message);
-        alert(`주문 실패: ${res.data.message}`);
+        console.warn(' 주문 실패:', res.message);
+        alert(`주문 실패: ${res.message}`);
       }
     } catch (err) {
       console.error('요청 중 오류:', err);
@@ -191,7 +192,7 @@ const OrderConfirmModal: React.FC = () => {
             type="checkbox"
             checked={isSameChecked}
             onChange={() => setIsSameChecked(!isSameChecked)}
-            className="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-900 focus:ring-offset-1"
+            className="w-4 h-4 mr-2 text-primary-700 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-700 focus:ring-offset-1"
           />
           입금자명과 주문자명을 확인해주세요. <span className="text-red-500">&nbsp;(필수)</span>
         </label>
@@ -201,7 +202,7 @@ const OrderConfirmModal: React.FC = () => {
             type="checkbox"
             checked={isDoneChecked}
             onChange={() => setIsDoneChecked(!isDoneChecked)}
-            className="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-900 focus:ring-offset-1"
+            className="w-4 h-4 mr-2 text-primary-700 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-700 focus:ring-offset-1"
           />
           입금 후 입금 완료 버튼을 눌러주세요. <span className="text-red-500">&nbsp;(필수)</span>
         </label>

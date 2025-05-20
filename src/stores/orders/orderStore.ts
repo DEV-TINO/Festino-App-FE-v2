@@ -166,20 +166,19 @@ export const useOrderStore = create<OrderState>((set, get) => ({
     }
   },
   getAccountInfo: async () => {
-  const boothId = get().boothId;
-  try {
-    const res = await api.get('/main/booth/night/account', { params: { boothId } });
+    const boothId = get().boothId;
+    try {
+      const res = await api.get('/main/booth/night/account', { params: { boothId } });
 
-    if (res.success && res.data) {
-      set({ accountInfo: res.data });
-    } else {
-      console.warn('계좌 정보가 존재하지 않음:', res.message);
+      if (res.success && res.data) {
+        set({ accountInfo: res.data });
+      } else {
+        console.warn('계좌 정보가 존재하지 않음:', res.message);
+      }
+    } catch (error) {
+      console.warn('계좌 정보 조회 실패:', error);
     }
-  } catch (error) {
-    console.warn('계좌 정보 조회 실패:', error);
-  }
-},
-
+  },
 
   fetchKakaoPay: async () => {
     const boothId = get().boothId;
@@ -188,18 +187,18 @@ export const useOrderStore = create<OrderState>((set, get) => ({
         params: { boothId },
       });
       if (res.success && res.data) {
-      set({
-        isTossPay: res.data.isTossPay,
-        tossPayUrl: res.data.tossPay,
-      });
-      console.log('✅ 토스페이 세팅 완료:', res.data);
-    } else {
-      console.warn('⚠️ 토스페이 사용 불가:', res.message);
+        set({
+          isKakaoPay: res.data.isKakaoPay,
+          kakaoPayUrl: res.data.kakaoPay,
+        });
+        console.log('✅ 카카오페이 세팅 완료:', res.data);
+      } else {
+        console.warn('⚠️ 카카오페이 사용 불가:', res.message);
+      }
+    } catch (e) {
+      console.error('카카오페이 정보 조회 실패:', e);
     }
-  } catch (e) {
-    console.error('토스페이 정보 조회 실패:', e);
-  }
-},
+  },
 
   fetchTossPay: async () => {
     const boothId = get().boothId;
@@ -208,16 +207,16 @@ export const useOrderStore = create<OrderState>((set, get) => ({
         params: { boothId },
       });
       if (res.success && res.data) {
-      set({
-        isKakaoPay: res.data.isKakaoPay,
-        kakaoPayUrl: res.data.kakaoPay,
-      });
-      console.log('✅ 카카오페이 세팅 완료:', res.data);
-    } else {
-      console.warn('⚠️ 카카오페이 사용 불가:', res.message);
+        set({
+          isTossPay: res.data.isTossPay,
+          tossPayUrl: res.data.tossPay,
+        });
+        console.log('✅ 토스페이 세팅 완료:', res.data);
+      } else {
+        console.warn('⚠️ 토스페이 사용 불가:', res.message);
+      }
+    } catch (e) {
+      console.error('토스페이 정보 조회 실패:', e);
     }
-  } catch (e) {
-    console.error('카카오페이 정보 조회 실패:', e);
-  }
-},
+  },
 }));

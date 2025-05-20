@@ -29,7 +29,7 @@ const TimeOverModal: React.FC = () => {
           QR 촬영 페이지로 이동합니다.
         </p>
       </div>
-      <button className="w-full h-12 bg-primary-900 rounded-3xl text-white font-semibold text-xl" onClick={handleClick}>
+      <button className="w-full h-12 bg-primary-700 rounded-3xl text-white font-semibold text-xl" onClick={handleClick}>
         확인
       </button>
     </div>

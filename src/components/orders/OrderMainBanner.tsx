@@ -13,7 +13,6 @@ const OrderMainBanner: React.FC = () => {
 
       try {
         const res = await api.get(`/main/booth/night/${boothId}`);
-        console.log('📦 Booth Info 응답:', res);
         if (!res.success) {
           console.warn('❌ 부스 정보 success === false');
           return navigate('/error/order');
