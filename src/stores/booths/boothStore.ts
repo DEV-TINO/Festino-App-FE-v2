@@ -81,7 +81,7 @@ export const useBoothStore = create<BoothStore>((set) => ({
     try {
       const endpoint = urlType === 'facility' ? `/main/${urlType}/${id}` : `/main/booth/${urlType}/${id}`;
 
-      const { data} = await api.get(endpoint);
+      const { data } = await api.get(endpoint);
 
       set({ boothDetail: data });
       return data;
