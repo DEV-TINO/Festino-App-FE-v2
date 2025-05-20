@@ -10,7 +10,7 @@ type OrderInfo = {
   date: number;
   createAt: string;
   adminName?: string;
-  tableNum: number;
+  tableNum: string;
   totalPrice: number;
   menuInfo: {
     menuName: string;
@@ -72,13 +72,13 @@ const OrderSearchPage: React.FC = () => {
       });
 
       const data = res?.data;
-      if (!data || !data.success) {
+      if (!res.success || !Array.isArray(res.data) || res.data.length === 0) {
         alert('주문 정보가 없습니다.');
         return;
       }
 
       setOrderList(
-        data.data.map((bill: OrderInfo) => ({
+        data.map((bill: OrderInfo) => ({
           ...bill,
         })),
       );

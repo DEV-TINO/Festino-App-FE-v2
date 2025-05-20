@@ -33,7 +33,7 @@ const InputPhoneNum: React.FC<InputPhoneNumProps> = ({ value, onChange }) => {
           maxLength={13}
         />
       </div>
-      <hr className={`border-0 h-[1px] ${isFocused ? 'bg-primary-900' : 'bg-secondary-500-light-20'}`} />
+      <hr className={`border-0 h-[1px] ${isFocused ? 'bg-primary-700' : 'bg-secondary-500-light-20'}`} />
     </>
   );
 };

@@ -29,7 +29,7 @@ const InputName: React.FC<InputNameProps> = ({ value, onChange }) => {
           onBlur={() => setIsFocused(false)}
         />
       </div>
-      <hr className={`mb-[30px] border-0 h-[1px] ${isFocused ? 'bg-primary-900' : 'bg-secondary-500-light-20'}`} />
+      <hr className={`mb-[30px] border-0 h-[1px] ${isFocused ? 'bg-primary-700' : 'bg-secondary-500-light-20'}`} />
     </>
   );
 };

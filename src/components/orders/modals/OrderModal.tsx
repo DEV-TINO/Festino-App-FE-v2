@@ -105,7 +105,7 @@ const OrderModal: React.FC = () => {
               type="checkbox"
               checked={isAgreed}
               onChange={() => setIsAgreed(!isAgreed)}
-              className="w-4 h-4 mr-2 ml-1 text-primary-900 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-900 focus:ring-offset-1"
+              className="w-4 h-4 mr-2 ml-1 text-primary-700 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-900 focus:ring-offset-1"
             />
             개인정보 수집 이용 동의 <span className="text-red-500">&nbsp;(필수)</span>
           </label>
@@ -113,7 +113,7 @@ const OrderModal: React.FC = () => {
         <div className="gap-5 flex w-full font-bold">
           <button
             className="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
-             onClick={handleCancel}
+            onClick={handleCancel}
           >
             취소
           </button>
