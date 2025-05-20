@@ -75,7 +75,7 @@ const RequireLoginModal: React.FC = () => {
           <img src="/icons/tablings/person.svg" alt="user" className="w-6 h-6 opacity-50" />
           <input
             type="text"
-            placeholder="Username"
+            placeholder="이름"
             value={inputName}
             onChange={handleChangeUserId}
             className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
@@ -86,7 +86,7 @@ const RequireLoginModal: React.FC = () => {
           <img src="/icons/tablings/phone.svg" className="w-6 h-6 opacity-50" />
           <input
             type="text"
-            placeholder="Phonenum"
+            placeholder="전화번호"
             value={inputPhoneNum}
             onChange={handleChangePhone}
             className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
