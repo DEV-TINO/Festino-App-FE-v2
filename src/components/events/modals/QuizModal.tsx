@@ -87,8 +87,7 @@ const QuizModal: React.FC = () => {
           />
         </div>
         <p className="text-secondary-700 text-xl font-semibold">
-          지금 진행 중인 공연은 어떤 동아리일까요?
-          {/* {questionInfo?.question} */}
+          {questionInfo?.question}
         </p>
         <div className="flex w-full gap-3 items-center">
           <textarea
