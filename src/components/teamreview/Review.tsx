@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import Rating from 'react-rating';
 import PersonalInfo from '../commons/PersonalInfo';
 import { usePersonalInfoStore } from '@/stores/personalInfoStore';
+import { ReviewProps } from '@/types/Review.types';
+import { submitReview } from '@/stores/events/reviewStore';
 
 const Review: React.FC = () => {
   const [rating, setRating] = useState(0);
@@ -31,7 +33,7 @@ const Review: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (
       rating === 0 ||
       goodFunc.length === 0 ||
@@ -50,7 +52,7 @@ const Review: React.FC = () => {
       return;
     }
 
-    const payload = {
+    const payload: ReviewProps = {
       rating,
       goodFunc,
       badFunc,
@@ -62,17 +64,23 @@ const Review: React.FC = () => {
       studentNum,
     };
 
-    console.log('payload:', payload);
-
-    resetReview();
-
-    Swal.fire({
-      title: 'Thank you for your review!',
-      text: 'We will do our best to improve our service.',
-      icon: 'success',
-      confirmButtonText: 'OK',
-    });
-    console.log('제출 내용:', payload);
+    try {
+      await submitReview(payload); // token 포함 POST 요청
+      resetReview();
+      Swal.fire({
+        title: 'Thank you for your review!',
+        text: 'We will do our best to improve our service.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
+    } catch {
+      Swal.fire({
+        icon: 'error',
+        title: 'Fail submit review',
+        text: 'Please resubmit your review',
+        confirmButtonText: 'OK',
+      });
+    }
   };
 
   const resetReview = () => {
