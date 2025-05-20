@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import Rating from 'react-rating';
 import PersonalInfo from '../commons/PersonalInfo';
 import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
@@ -25,22 +24,22 @@ const Review: React.FC = () => {
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
     const formatted = formatPhoneNumber(rawValue);
-    setPhoneNum(formatted); // 상태 업데이트 (또는 onChange(formatted))
+    setPhoneNum(formatted);
   };
 
   const formatPhoneNumber = (input: string): string => {
-    const digits = input.replace(/\D/g, ''); // 숫자만 남기기
+    const digits = input.replace(/\D/g, '');
     if (digits.length < 4) return digits;
     if (digits.length < 8) return digits.replace(/(\d{3})(\d{1,4})/, '$1-$2');
     return digits.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let filtered = e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, ''); // 특수문자 제거
+    let filtered = e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, '');
     if (filtered.length > 5) {
       filtered = filtered.slice(0, 5);
     }
-    setName(filtered); // 상태 업데이트 (또는 onChange(filtered))
+    setName(filtered);
   };
 
   const handleToggleSelection = (
@@ -126,20 +125,23 @@ const Review: React.FC = () => {
       return acc;
     }, []);
 
+  const stars = [1, 2, 3, 4, 5];
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-[0.5rem]">
         <div className="text-sm font-bold">Festino 서비스가 얼마나 만족스러웠나요?</div>
         <div className="flex items-center">
-          <Rating
-            fractions={1}
-            initialRating={rating}
-            onChange={(value) => {
-              setRating((prev) => (prev === value ? 0 : value));
-            }}
-            fullSymbol={<img src="/icons/events/full-star.svg" className="w-6 mr-1.5" />}
-            emptySymbol={<img src="/icons/events/empty-star.svg" className="w-6 mr-1.5" />}
-          />
+          <div className="flex">
+            {stars.map((star) => (
+              <img
+                key={star}
+                src={rating >= star ? '/icons/events/full-star.svg' : '/icons/events/empty-star.svg'}
+                className="h-6 mr-1.5 cursor-pointer"
+                onClick={() => setRating((prev) => (prev === star ? 0 : star))}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
