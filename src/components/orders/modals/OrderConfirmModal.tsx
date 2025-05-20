@@ -89,7 +89,9 @@ const OrderConfirmModal: React.FC = () => {
 
       const res = await api.post('/main/order', payload);
 
-      if (res.data.success) {
+      if (res.success) {
+        console.log('📦 주문 응답 데이터:', res);
+
         resetOrderInfo();
         sendWebSocketMessage({
           type: 'ORDERDONE',
@@ -100,8 +102,8 @@ const OrderConfirmModal: React.FC = () => {
         closeModal();
         openModal('orderCompleteModal');
       } else {
-        console.warn(' 주문 실패:', res.data.message);
-        alert(`주문 실패: ${res.data.message}`);
+        console.warn(' 주문 실패:', res.message);
+        alert(`주문 실패: ${res.message}`);
       }
     } catch (err) {
       console.error('요청 중 오류:', err);
