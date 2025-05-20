@@ -11,7 +11,7 @@ const OrderCancelConfirmModal: React.FC = () => {
 
   return (
     <div
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed  inset-0 flex items-center justify-center bg-black bg-opacity-50"
       onClick={(e) => e.stopPropagation()}
     >
       <div

@@ -70,7 +70,6 @@ const OrderConfirmModal: React.FC = () => {
   };
 
   const handleComplete = async () => {
-
     if (!isSameChecked || !isDoneChecked || isSubmitting) {
       return;
     }

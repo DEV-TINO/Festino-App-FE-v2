@@ -13,19 +13,28 @@ const OrderMainBanner: React.FC = () => {
 
       try {
         const res = await api.get(`/main/booth/night/${boothId}`);
-        if (res.data.success) {
-          setOrderMajor(res.data.data.adminName);
-        } else {
-          navigate('/error/order');
+        console.log('📦 Booth Info 응답:', res);
+        if (!res.success) {
+          console.warn('❌ 부스 정보 success === false');
+          return navigate('/error/order');
         }
+
+        const adminName = res.data?.adminName;
+        if (!adminName) {
+          console.warn('❌ adminName 없음 → navigate');
+          return navigate('/error/order');
+        }
+
+        setOrderMajor(adminName);
       } catch (err) {
-        console.error('부스 정보 가져오기 실패:', err);
+        console.error('❌ 부스 정보 API 실패:', err);
         navigate('/error/order');
       }
     };
 
     fetchBoothInfo();
   }, [boothId]);
+
 
   return (
     <div className="w-full relative">
