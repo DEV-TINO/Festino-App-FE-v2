@@ -5,7 +5,7 @@ import { baseApi } from './utils/api';
 
 const initializeApp = async () => {
   try {
-    const response = await baseApi.post('/main/auth/init');
+    await baseApi.post('/main/auth/init');
     
     
   } catch (error: unknown) {

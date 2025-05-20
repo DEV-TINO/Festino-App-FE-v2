@@ -5,7 +5,7 @@ import { formatDateTime } from '@/utils/utils';
 type Props = {
   orderInfo: {
     adminName?: string;
-    tableNum: number;
+    tableNum: string;
     createAt: string;
     totalPrice: number;
     orderType: number;
