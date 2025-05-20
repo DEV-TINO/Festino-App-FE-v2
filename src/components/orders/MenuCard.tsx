@@ -72,8 +72,6 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
       return;
     }
 
-
-
     await performUpdate();
   };
 
@@ -83,7 +81,6 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
   };
 
   const handlePlus = () => {
-    
     const newCount = count + 1;
     updateCount(newCount, 'MENUADD');
   };

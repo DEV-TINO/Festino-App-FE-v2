@@ -21,6 +21,14 @@ import ConfirmModal from '@/components/events/modals/ConfirmModal';
 import LoginFailModal from '@/components/auths/LoginFailModal';
 import RequireLoginModal from '@/components/events/RequrieLoginModal';
 import ExtendPhotoModal from '@/components/events/photo-boards/ExtendPhotoModal';
+import OrderConfirmModal from '@/components/orders/modals/OrderConfirmModal';
+import OrderCompleteModal from '@/components/orders/modals/OrderCompletemodal';
+import OneMinuteModal from '@/components/orders/modals/OneMinuteModal';
+import TimeOverModal from '@/components/orders/modals/TimeOverModal';
+import OrderInprocessModal from '@/components/orders/modals/OrderInprocessModal';
+import ExitPaymentModal from '@/components/orders/modals/ExitPayment';
+import OverrideOrderModal from '@/components/orders/modals/OverrideOrderModal';
+import OrderCancelConfirmModal from '@/components/orders/modals/OrderCancelConfirmModal';
 
 const ModalPage = () => {
   
@@ -39,8 +47,6 @@ const ModalPage = () => {
       {modalType === 'reservationModal' && <ReservationModal />}
       {modalType === 'failReservationModal' && <FailReservationModal />}
       {modalType === 'completeReserveModal' && <CompleteReserveModal />}
-      {modalType === 'messageFailModal' && <MessageFailModal />}
-      {modalType === 'orderModal' && <OrderModal />}
       {modalType === 'loginModal' && <LoginModal />}
       {modalType === 'uploadCompleteModal' && <UploadCompleteModal />}
       {modalType === 'uploadFailModal' && <UploadFailModal />}
@@ -51,6 +57,16 @@ const ModalPage = () => {
       {modalType === 'loginFailModal' && <LoginFailModal />}
       {modalType === 'requireLoginModal' && <RequireLoginModal />}
       {modalType === 'extendPhotoModal' && <ExtendPhotoModal />}
+      {modalType === 'messageFailModal' && <MessageFailModal />}
+      {modalType === 'orderModal' && <OrderModal />}
+      {modalType === 'orderConfirmModal' && <OrderConfirmModal />}
+      {modalType === 'orderCompleteModal' && <OrderCompleteModal />}
+      {modalType === 'oneMinuteModal' && <OneMinuteModal />}
+      {modalType === 'timeOverModal' && <TimeOverModal />}
+      {modalType === 'orderInProgressModal' && <OrderInprocessModal />}
+      {modalType === 'exitPaymentModal' && <ExitPaymentModal />}
+      {modalType === 'overrideOrderModal' && <OverrideOrderModal />}
+      {modalType === 'orderCancelConfirmModal' && <OrderCancelConfirmModal />}
     </ModalBackground>
   );
 };

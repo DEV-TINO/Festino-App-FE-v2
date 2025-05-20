@@ -24,6 +24,11 @@ const CATEGORY_ENDPOINT_MAP: Record<CategoryValue, string> = {
   2: 'callservice',
 };
 
+export const isSocketConnected = (): boolean => {
+  const { client } = useSocketStore.getState();
+  return !!client && client.connected;
+};
+
 const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
     alert('제한시간은 10분입니다');
@@ -65,10 +70,6 @@ const OrderPaymentPage: React.FC = () => {
   }, [boothId, tableNum]);
 
   useEffect(() => {
-    console.log('✅ PaymentPage | boothId:', boothId);
-    console.log('✅ PaymentPage | tableNum:', tableNum);
-    console.log('✅ PaymentPage | isUUID:', isUUID(boothId ?? ''));
-    console.log('✅ PaymentPage | tableIndex:', Number(tableNum));
 
     const tableIndex = Number(tableNum);
 

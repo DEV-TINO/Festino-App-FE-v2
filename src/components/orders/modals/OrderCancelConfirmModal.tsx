@@ -10,12 +10,8 @@ const OrderCancelConfirmModal: React.FC = () => {
   };
 
   return (
-    <div
-      className="fixed  inset-0 flex items-center justify-center bg-black bg-opacity-50"
-      onClick={(e) => e.stopPropagation()}
-    >
       <div
-        className="relative col-start-2 row-start-2 bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[320px] max-w-full"
+        className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-12 h-12 bg-error rounded-full grid place-items-center">
@@ -43,7 +39,6 @@ const OrderCancelConfirmModal: React.FC = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

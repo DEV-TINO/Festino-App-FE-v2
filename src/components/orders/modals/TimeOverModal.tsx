@@ -22,7 +22,7 @@ const TimeOverModal: React.FC = () => {
         <img src="/icons/commons/error.svg" />
       </div>
       <div className="w-full flex flex-col gap-3 items-center break-keep text-center whitespace-nowrap">
-        <p className="text-secondary-700 text-xl font-bold">주문 시간 초과 ⏰</p>
+        <p className="text-secondary-700 text-xl font-bold">주문 시간 초과</p>
         <p className="text-secondary-500">
           주문 시간이 초과되었어요
           <br />
