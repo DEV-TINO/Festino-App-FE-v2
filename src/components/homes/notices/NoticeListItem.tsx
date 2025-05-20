@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { getRelativeTime } from "@/utils/utils";
 import { NoticeListItemProps } from "@/types/Notice.types";
+import PinIcon from "@/icons/homes/IconPin";
 
 const NoticeListItem: React.FC<NoticeListItemProps> = ({ notice }) => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const NoticeListItem: React.FC<NoticeListItemProps> = ({ notice }) => {
     >
       {notice.isPin ? (
         <div className="flex pl-4 items-center py-3 gap-[12px]">
-          <div className="w-[20px] h-[20px] bg-center bg-pin-icon bg-no-repeat bg-[length:20px_20px]" />
+          <PinIcon />
           <div className="py-1 text-base text-primary-700 leading-tight">
             {notice.title}
           </div>

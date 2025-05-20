@@ -1,3 +1,4 @@
+import IconCD from '@/icons/homes/IconCD';
 import useBaseModal from '@/stores/baseModal';
 import { useTimetableStore } from '@/stores/homes/timetableStore';
 import { openNewTap } from '@/utils/utils';
@@ -53,7 +54,7 @@ const TimetableModal: React.FC = () => {
               key={index}
               className="shadow-3xl text-xs text-primary-700 w-full min-h-[60px] rounded-3xl flex items-center justify-between border-2 border-primary"
             >
-              <div className="px-8 w-[30px] h-[30px] bg-tino-cd bg-center bg-no-repeat bg-[length:30px_30px]"></div>
+              <IconCD />
               <div className="w-full flex flex-col pr-4">
                 <div className="flex gap-1">
                   <div className="font-bold">{music.title}</div>
