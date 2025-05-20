@@ -32,6 +32,14 @@ const RegisterPage: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
 
+  const [errors, setErrors] = useState({
+    name: '',
+    studentNum: '',
+    phone: '',
+    code: '',
+    personalInfo: '',
+  });  
+
   const handleClickBackButton = () => {
     navigate(-1);
   };
@@ -110,17 +118,32 @@ const RegisterPage: React.FC = () => {
   };
 
   const handleClickRegister = async () => {
+    const newErrors = {
+      name: inputName ? '' : '이름을 입력해주세요.',
+      studentNum: inputStudentNum ? '' : '학번을 입력해주세요.',
+      phone: inputPhoneNum ? '' : '전화번호를 입력해주세요.',
+      code:
+        showCodeInput && (verifyCode.trim() === '' || timeLeft === 0)
+          ? '유효한 인증번호를 입력해주세요.'
+          : '',
+      personalInfo: isAgreed ? '' : '개인정보 수집에 동의해주세요.',
+    };
+  
+    setErrors(newErrors);
+  
+    const hasError = Object.values(newErrors).some((v) => v !== '');
+    if (hasError) return;
+  
     const result = await saveUserInfo();
     if (result.success) {
       alert('회원가입에 성공했습니다!');
-
       resetInputs();
       navigate('/');
       openModal('loginModal');
     } else {
       alert(`회원가입 실패: ${result.message}`);
     }
-  };
+  };  
 
   useEffect(() => {
     return () => {
@@ -152,12 +175,14 @@ const RegisterPage: React.FC = () => {
               onChange={handleChangeName}
               className="w-full h-14 py-4 px-5 text-base placeholder-secondary-400 bg-white focus:bg-white border-1 border-secondary-400 focus:border-primary-900 rounded-10xl focus:outline-none"
             />
+            {errors.name && <p className="text-xs text-red-600 mt-1 px-1">{errors.name}</p>}
           </div>
 
           <div>
             <label className="flex text-base font-medium pb-2 px-1">학번</label>
             <input
-              type="text"
+              type="tel"
+              inputMode='numeric'
               id="studentNum"
               placeholder="학번을 입력해주세요"
               value={inputStudentNum}
@@ -165,15 +190,17 @@ const RegisterPage: React.FC = () => {
               className="w-full h-14 py-4 px-5 text-base placeholder-secondary-400 bg-white focus:bg-white border-1 border-secondary-400 focus:border-primary-900 rounded-10xl focus:outline-none"
               maxLength={10}
             />
+            {errors.studentNum && <p className="text-xs text-red-600 mt-1 px-1">{errors.studentNum}</p>}
           </div>
 
           <div>
             <label className="flex text-base font-medium pb-2 px-1">전화번호</label>
             <div className="flex gap-2">
               <input
-                type="text"
+                type="tel"
+                inputMode="numeric"
                 id="phone"
-                placeholder="010 -"
+                placeholder="010-0000-0000"
                 value={inputPhoneNum}
                 onChange={handleChangePhoneNum}
                 className="w-4/5 h-14 py-4 px-5 text-base placeholder-secondary-400 bg-white focus:bg-white border-1 border-secondary-400 focus:border-primary-900 rounded-10xl focus:outline-none"
@@ -186,11 +213,14 @@ const RegisterPage: React.FC = () => {
                 인증
               </button>
             </div>
+            {errors.phone && <p className="text-xs text-red-600 mt-1 px-1">{errors.phone}</p>}
+
 
             {showCodeInput && (
               <div className="pt-3">
                 <input
-                  type="text"
+                  type="tel"
+                  inputMode="numeric"
                   placeholder="인증번호를 입력해주세요"
                   value={verifyCode}
                   onChange={(e) => setVerifyCode(e.target.value)}
@@ -204,16 +234,18 @@ const RegisterPage: React.FC = () => {
                         .padStart(2, '0')}:${(timeLeft % 60).toString().padStart(2, '0')}`
                     : '인증시간이 만료되었습니다. 다시 인증해주세요.'}
                 </p>
+                {errors.code && <p className="text-xs text-red-600 mt-1 px-1">{errors.code}</p>}
               </div>
             )}
           </div>
           <div className="px-1">
             <PersonalInfo />
+            {errors.personalInfo && <p className="text-xs text-red-600 mt-1 px-1">{errors.personalInfo}</p>}
           </div>
         </div>
         <button
           type="button"
-          className="w-full h-14 py-4 px-5 mt-6 text-base font-bold text-white bg-primary-700  border-primary-700 rounded-10xl focus:outline-none"
+          className="w-full h-14 py-4 px-5 mt-6 text-base font-bold text-white bg-primary-900  border-primary-800 rounded-10xl focus:outline-none"
           onClick={() => handleClickRegister()}
         >
           회원가입하기

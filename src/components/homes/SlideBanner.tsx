@@ -56,17 +56,17 @@ const SlideBanner: React.FC = () => {
   useEffect(() => {
     const slider = sliderContainerRef.current;
     if (!slider) return;
-
-    slider.addEventListener('touchstart', handleTouchStart);
-    slider.addEventListener('touchmove', handleTouchMove);
+  
+    slider.addEventListener('touchstart', handleTouchStart, { passive: true });
+    slider.addEventListener('touchmove', handleTouchMove, { passive: true });
     slider.addEventListener('touchend', handleTouchEnd);
-
+  
     return () => {
       slider.removeEventListener('touchstart', handleTouchStart);
       slider.removeEventListener('touchmove', handleTouchMove);
       slider.removeEventListener('touchend', handleTouchEnd);
     };
-  }, []);
+  }, []);  
 
   return (
     <div className="relative select-none rounded-3xl overflow-hidden w-full h-[178px] border-primary-900-light-16 border-1" ref={sliderContainerRef}>

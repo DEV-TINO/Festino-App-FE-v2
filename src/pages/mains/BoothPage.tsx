@@ -36,19 +36,26 @@ const BoothPage: React.FC = () => {
     }
   }, [selectBoothCategory]);
 
-  const handleClickBoothItem = (type: string, id: string) => {
-    getBoothDetail(type, id);
-
-    const boothType = BOOTH_TYPE.find((item) => {
-      if (item.category === type) {
-        return item.type;
-      } else {
+  const handleClickBoothItem = async (type: string, id: string) => {
+    try {
+      const data = await getBoothDetail(type, id);
+  
+      if (!data || typeof data !== 'object' || !data.boothId) {
+        console.warn('부스 상세 정보를 받아오지 못했습니다:', data);
         return;
       }
-    });
-
-    navigate(`/booths/${boothType?.type}/${id}`);
-  };
+  
+      const boothType = BOOTH_TYPE.find((item) => item.category === type);
+      if (!boothType?.type) {
+        console.error('부스 타입을 찾을 수 없습니다:', type);
+        return;
+      }
+  
+      navigate(`/booths/${boothType.type}/${id}`);
+    } catch (error) {
+      console.error('부스 클릭 처리 중 오류 발생:', error);
+    }
+  };  
 
   useEffect(() => {
     getBoothList();

@@ -62,9 +62,7 @@ export const useEventStore = create<IEventStore>((set, get) => ({
         mainUserId: userId,
         answer: answer,
       });
-      if (res.data.success) {
-        console.log(res.data.success)
-      } else {
+      if (!res.data.success) {
         alert("답변을 저장하지 못했습니다.");
       }
     } catch (err) {

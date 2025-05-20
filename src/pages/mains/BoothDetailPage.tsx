@@ -81,7 +81,7 @@ const BoothDetailPage: React.FC = () => {
         <div className="w-full h-[220px] xs:h-[255px] sm:h-[295px] bg-booth-detail-banner bg-cover">
           <div
             onClick={handleClickBoothDetailBack}
-            className="z-4 bg-arrow-back-white w-6 h-6 bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto cursor-pointer"
+            className="z-1 bg-arrow-back-black w-6 h-6 bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto cursor-pointer"
           />
           {/* 슬로건 + 운영진 */}
           <div className="absolute w-auto h-auto dynamic-top dynamic-padding">
@@ -206,7 +206,7 @@ const BoothDetailPage: React.FC = () => {
               </div>
             </div>
             <button
-              onClick={handleRouterToReserve}
+              onClick={() => handleRouterToReserve()}
               className="w-full h-auto py-4 mb-3 shadow-3xl border-1 border-primary-700 rounded-full text-primary-700 text-base active:text-white active:bg-primary-700"
             >
               예약하기
