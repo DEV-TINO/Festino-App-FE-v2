@@ -14,16 +14,17 @@ const ModalRenderer: React.FC = () => {
   const { isModalOpen, modalType, closeModal } = useBaseModal();
 
   if (!isModalOpen) return null;
+  console.log('🔍 모달 렌더링 중:', modalType);
 
   return (
     <div
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-50"
+      className="fixed inset-0 z-[500] flex items-center justify-center "
       onClick={() => {
         closeModal();
       }}
     >
       <div
-        className="relative z-[1000] w-fit"
+        className="relative z-[600] w-full max-w-[346px] mx-auto px-4"
         onClick={(e) => {
           e.stopPropagation();
         }}

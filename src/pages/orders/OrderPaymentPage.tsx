@@ -65,6 +65,11 @@ const OrderPaymentPage: React.FC = () => {
   }, [boothId, tableNum]);
 
   useEffect(() => {
+    console.log('✅ PaymentPage | boothId:', boothId);
+    console.log('✅ PaymentPage | tableNum:', tableNum);
+    console.log('✅ PaymentPage | isUUID:', isUUID(boothId ?? ''));
+    console.log('✅ PaymentPage | tableIndex:', Number(tableNum));
+
     const tableIndex = Number(tableNum);
 
     const handleBeforeUnload = () => {
@@ -93,8 +98,8 @@ const OrderPaymentPage: React.FC = () => {
 
     try {
       const res = await api.get(endpoint);
-      if (res.data.success && Array.isArray(res.data.data)) {
-        setMenuInfo(res.data.data);
+      if (res.success && Array.isArray(res.data)) {
+        setMenuInfo(res.data);
 
         window.scrollTo({
           top: 0,

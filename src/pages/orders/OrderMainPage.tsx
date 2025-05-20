@@ -5,6 +5,8 @@ import OrderMainBanner from '@/components/orders/OrderMainBanner';
 import { api } from '@/utils/api';
 
 const OrderMainPage: React.FC = () => {
+  console.log('🧭 OrderMainPage 컴포넌트 진입');
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { boothId, tableNum } = useParams<{ boothId: string; tableNum: string }>();
@@ -14,7 +16,13 @@ const OrderMainPage: React.FC = () => {
     window.scrollTo(0, 0);
 
     const tableIndex = Number(tableNum);
+    console.log('✅ OrderMainPage | boothId:', boothId);
+    console.log('✅ OrderMainPage | tableNum:', tableNum);
+    console.log('✅ OrderMainPage | tableIndex:', tableIndex);
+    console.log('✅ OrderMainPage | isUUID:', isUUID(boothId ?? ''));
+
     if (!boothId || !isUUID(boothId) || isNaN(tableIndex)) {
+      console.warn('❌ OrderMainPage | Invalid params → 이동');
       navigate('/error/NotFound');
       return;
     }
@@ -23,8 +31,14 @@ const OrderMainPage: React.FC = () => {
     setTableNum(tableIndex);
 
     getCustomTableNum(tableIndex, boothId)
-      .then((tableNumStr) => setCustomTableNum(tableNumStr))
-      .catch(() => navigate('/error/NotFound'));
+      .then((tableNumStr) => {
+        console.log('✅ customTableNum 응답:', tableNumStr);
+        setCustomTableNum(tableNumStr);
+      })
+      .catch((err) => {
+        console.error('❌ getCustomTableNum 실패:', err);
+        navigate('/error/NotFound');
+      });
 
     resetOrderInfo();
   }, [pathname]);
@@ -91,6 +105,10 @@ const getCustomTableNum = async (tableNum: number, boothId: string): Promise<str
   const res = await api.get('/main/order/table', {
     params: { tableNumIndex: tableNum, boothId },
   });
-  if (res.data.success) return res.data.data;
+
+  console.log('🌐 getCustomTableNum API 응답:', res);
+
+  if (res.success) return res.data;
   throw new Error('Table number fetch failed');
 };
+

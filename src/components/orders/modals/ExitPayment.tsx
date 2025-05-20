@@ -3,19 +3,21 @@ import { useOrderStore } from '@/stores/orders/orderStore';
 import { useNavigate } from 'react-router-dom';
 
 const ExitPaymentModal: React.FC = () => {
+  console.log('🧩 ExitPaymentModal 렌더링됨');
+
   const { closeModal } = useBaseModal();
   const navigate = useNavigate();
   const { boothId, tableNum } = useOrderStore();
 
   return (
     <div
-      className="fixed inset-0 z-[999] flex items-center justify-center bg-black bg-opacity-50"
+      className=" flex items-center  justify-center"
       onClick={(e) => {
         e.stopPropagation();
       }}
     >
       <div
-        className="relative col-start-2 row-start-2 bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[320px] max-w-full"
+        className="relative col-start-2  row-start-2 bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[320px] max-w-full"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-12 h-12 bg-error rounded-full grid place-items-center">

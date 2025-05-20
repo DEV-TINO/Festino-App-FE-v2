@@ -61,7 +61,7 @@ const OrderModal: React.FC = () => {
 
   return (
     <div
-      className="relative col-start-2 row-start-2 bg-white rounded-3xl flex flex-col items-center px-7 py-[21px] max-h-full overflow-y-auto w-[346px] max-w-full"
+      className="relative col-start-2 row-start-2 bg-white rounded-3xl flex flex-col items-center px-7 py-[21px] max-h-full overflow-y-auto w-[346px]  max-w-full"
       onClick={(e) => e.stopPropagation()}
     >
       <div className="font-semibold text-xl text-secondary-700 text-center mb-3">주문하기</div>
