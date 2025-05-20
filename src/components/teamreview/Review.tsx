@@ -6,6 +6,7 @@ import PersonalInfo from '../commons/PersonalInfo';
 import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
 import { submitReview } from '@/stores/events/reviewStore';
+import { formatPhoneNum } from '@/utils/utils';
 
 const Review: React.FC = () => {
   const [rating, setRating] = useState(0);
@@ -81,7 +82,7 @@ const Review: React.FC = () => {
       reuse,
       feedback,
       name,
-      phoneNum,
+      phoneNum: formatPhoneNum(phoneNum),
       studentNum,
     };
 
