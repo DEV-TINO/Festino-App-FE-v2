@@ -210,7 +210,7 @@ const Review: React.FC = () => {
               onClick={() => {
                 setReuse(reuse === option ? '' : option);
               }}
-              className={`w-full text-xs font-bold flex items-center justify-center m-0 px-2 py-2 rounded-full border 
+              className={`w-full text-xs flex items-center justify-center m-0 px-2 py-2 rounded-full border 
                 ${
                   reuse === option
                     ? 'bg-primary-900 text-white border-primary-900'

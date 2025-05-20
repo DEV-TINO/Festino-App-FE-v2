@@ -22,6 +22,20 @@ type OrderInfo = {
 
 const OrderSearchPage: React.FC = () => {
   const { boothId, tableNum } = useParams<{ boothId: string; tableNum: string }>();
+
+  useEffect(() => {
+    if (!boothId || tableNum === undefined) {
+      navigate('/error/order');
+      return;
+    }
+
+    const numericTableNum = Number(tableNum);
+    setBoothId(boothId);
+    setTableNum(numericTableNum);
+    window.scrollTo(0, 0);
+    setIsAgreed(false);
+  }, [boothId, tableNum]);
+
   const navigate = useNavigate();
   const { recentName, recentPhoneNum, setBoothId, setTableNum, setRecentName, setRecentPhoneNum } = useOrderStore();
 
@@ -90,17 +104,6 @@ const OrderSearchPage: React.FC = () => {
       navigate('/error/order');
     }
   };
-
-  useEffect(() => {
-    if (!boothId || isNaN(Number(tableNum))) {
-      navigate('/error/order');
-      return;
-    }
-    setBoothId(boothId);
-    setTableNum(Number(tableNum));
-    window.scrollTo(0, 0);
-    setIsAgreed(false);
-  }, [boothId, tableNum]);
 
   const isInputFill = recentName.length >= 2 && recentPhoneNum.length === 13 && recentPhoneNum.startsWith('010');
 
