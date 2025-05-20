@@ -66,7 +66,6 @@ const Reservation: React.FC = () => {
 
       if (boothIdFromRoute) {
         const booth = await getBoothDetail('야간부스', boothIdFromRoute);
-        console.log(booth)
         if(booth) {
           handleClickMajorBox(booth);
         }
