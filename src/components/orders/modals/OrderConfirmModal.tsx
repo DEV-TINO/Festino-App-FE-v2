@@ -90,7 +90,6 @@ const OrderConfirmModal: React.FC = () => {
       const res = await api.post('/main/order', payload);
 
       if (res.success) {
-        console.log('📦 주문 응답 데이터:', res);
 
         resetOrderInfo();
         sendWebSocketMessage({

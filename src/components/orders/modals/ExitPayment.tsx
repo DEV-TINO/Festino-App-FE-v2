@@ -3,7 +3,6 @@ import { useOrderStore } from '@/stores/orders/orderStore';
 import { useNavigate } from 'react-router-dom';
 
 const ExitPaymentModal: React.FC = () => {
-  console.log('🧩 ExitPaymentModal 렌더링됨');
 
   const { closeModal } = useBaseModal();
   const navigate = useNavigate();
