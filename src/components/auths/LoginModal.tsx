@@ -59,7 +59,7 @@ const LoginModal: React.FC = () => {
 
   return (
     <div
-      className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-6 py-6 gap-6"
+      className="relative col-start-2 row-start-2 h-full dynamic-width dynamic-padding bg-white rounded-3xl flex flex-col items-center px-6 py-6 gap-6"
       onClick={(e) => e.stopPropagation()}
     >
       <button className="absolute top-[30px] right-8 w-[32px] h-[32px]" onClick={() => handleClickClose()}>
@@ -69,8 +69,8 @@ const LoginModal: React.FC = () => {
       <div className="w-full flex flex-col gap-6">
         <h2 className="text-primary-900 text-3xl font-bold text-center">Login</h2>
 
-        <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-3">
-          <img src="/icons/tablings/person.svg" alt="user" className="w-6 h-6 opacity-50" />
+        <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-2">
+          <img src="/icons/tablings/person.svg" alt="user" className="w-5 h-5 opacity-50" />
           <input
             type="text"
             placeholder="이름"
@@ -80,8 +80,8 @@ const LoginModal: React.FC = () => {
           />
         </div>
 
-        <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-3">
-          <img src="/icons/tablings/phone.svg" className="w-6 h-6 opacity-50" />
+        <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-2">
+          <img src="/icons/tablings/phone.svg" className="w-5 h-5 opacity-50" />
           <input
             type="text"
             placeholder="전화번호"
