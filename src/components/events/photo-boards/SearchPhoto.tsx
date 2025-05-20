@@ -31,7 +31,7 @@ const SearchPhoto: React.FC = () => {
           <p className="text-xl font-bold pl-2">내 사진</p>
           <div
             id="user-photo"
-            className="w-full flex overflow-x-scroll scroll-smooth"
+            className="w-full flex overflow-x-scroll overflow-y-hidden scroll-smooth"
             onTouchStart={(e) => e.stopPropagation()}
           >
             {mainUserId ? (
