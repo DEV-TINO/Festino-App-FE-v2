@@ -3,14 +3,15 @@ import { useState } from 'react';
 
 const usePhotos = (mainUserId: string | null) => {
   const [isLoading, setIsLoading] = useState(false);
-
-  const photoStore = usePhotoStore();
+  const { getAllPhotos, getMyPhotos, setAllPhotos, setMyPhotos, setSortType, sortType } = usePhotoStore();
 
   const getPhotos = async (type: 'new' | 'heart', useLoading = false) => {
     if (useLoading) setIsLoading(true);
 
-    const allPromise = photoStore.getAllPhotos(type);
-    const myPromise = mainUserId ? photoStore.getMyPhotos(type) : null;
+    setSortType(type);
+
+    const allPromise = getAllPhotos(type);
+    const myPromise = mainUserId ? getMyPhotos(type) : null;
 
     const results = await Promise.allSettled([allPromise, ...(myPromise ? [myPromise] : [])]);
 
@@ -18,9 +19,9 @@ const usePhotos = (mainUserId: string | null) => {
       if (result.status === 'fulfilled') {
         const data = result.value;
         if (index === 0) {
-          photoStore.setAllPhotos(data.photoList, data.photoTotalCount);
+          setAllPhotos(data.photoList, data.photoTotalCount);
         } else {
-          photoStore.setMyPhotos(data.photoList, data.photoTotalCount);
+          setMyPhotos(data.photoList, data.photoTotalCount);
         }
       }
     });
@@ -29,14 +30,15 @@ const usePhotos = (mainUserId: string | null) => {
   };
 
   const initPhotos = () => {
-    photoStore.setMyPhotos([], 0);
-    photoStore.setAllPhotos([], 0);
+    setAllPhotos([], 0);
+    setMyPhotos([], 0);
   };
 
   return {
     isLoading,
     getPhotos,
     initPhotos,
+    sortType,
   };
 };
 
