@@ -108,7 +108,7 @@ const TeamReviewPage: React.FC = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col w-full items-center justify-center px-5 gap-4 pt-14 pb-14">
+      <div className="flex flex-col w-full items-center justify-center px-5 gap-4 pt-14 pb-14 select-none">
         <div className="text-primary-900 text-xs font-bold text-center">FESTINO</div>
         <div className="text-primary-900 text-2xl font-bold text-center">페스티노 개발진 소개</div>
         <div className="text-[#4B4B4B] text-base text-center">

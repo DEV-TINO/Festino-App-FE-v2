@@ -25,7 +25,7 @@ const BoardTabs: React.FC = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative select-none">
       <div className="dynamic-padding h-auto w-full bg-white z-10 mt-2">
         <div className="flex gap-[30px]">
           {tabs.map((tab) => (

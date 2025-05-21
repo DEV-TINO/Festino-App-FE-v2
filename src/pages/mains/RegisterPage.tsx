@@ -156,7 +156,7 @@ const RegisterPage: React.FC = () => {
   }, [timerId]);
 
   return (
-    <>
+    <div className="select-none">
       <Header />
 
       <div className="max-w-[500px] w-full h-[60px] bg-white flex justify-between items-center px-6 shadow-xs z-50">
@@ -254,7 +254,7 @@ const RegisterPage: React.FC = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
