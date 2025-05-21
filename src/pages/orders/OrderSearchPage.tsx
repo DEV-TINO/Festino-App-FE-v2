@@ -115,12 +115,12 @@ const OrderSearchPage: React.FC = () => {
         <button onClick={() => navigate(`/order/${boothId}/${tableNum}`)}>
           <img src="/icons/header-arrow-back.svg" alt="Back" />
         </button>
-        <h1 className="text-lg font-bold">주문 조회</h1>
+        <h1 className="text-lg font-bold select-none">주문 조회</h1>
         <div className="w-6" />
       </div>
 
       <div className="flex flex-col w-full justify-start items-center gap-4 px-5">
-        <div className="w-full h-[19px] font-semibold text-secondary-700">주문자 정보 입력</div>
+        <div className="w-full h-[19px] font-semibold text-secondary-700 select-none">주문자 정보 입력</div>
         <div className="w-full flex flex-col gap-[30px] px-5 py-[17px] border-2 border-primary-900-light-16 rounded-3xl">
           <div>
             <InputName value={recentName} onChange={setRecentName} />
@@ -135,14 +135,14 @@ const OrderSearchPage: React.FC = () => {
                 type="checkbox"
                 checked={isAgreed}
                 onChange={() => setIsAgreed((prev) => !prev)}
-                className="w-4 h-4 mr-2 text-primary-700 rounded focus:ring-primary-700"
+                className="w-4 h-4 mr-2 text-primary-700 rounded focus:ring-primary-700 select-none"
               />
-              개인정보 수집 이용 동의 <span className="text-danger">&nbsp;(필수)</span>
+              개인정보 수집 이용 동의 <span className="text-danger select-none">&nbsp;(필수)</span>
             </label>
           </div>
 
           <button
-            className={`h-[51px] w-full text-white font-bold rounded-10xl ${
+            className={`h-[51px] w-full select-none text-white font-bold rounded-10xl ${
               isInputFill && isAgreed ? 'bg-primary-700' : 'bg-secondary-100'
             }`}
             onClick={handleSearch}
@@ -186,7 +186,7 @@ const OrderSearchPage: React.FC = () => {
                       {list.length > 0 ? (
                         list.map((order, idx) => <OrderDetail key={idx} orderInfo={order} />)
                       ) : (
-                        <div className="text-sm text-gray-400">주문이 없습니다.</div>
+                        <div className="text-sm text-gray-400 select-none">주문이 없습니다.</div>
                       )}
                     </div>
                   </div>
@@ -214,7 +214,7 @@ const OrderSearchPage: React.FC = () => {
                         {list.length > 0 ? (
                           list.map((order, idx) => <OrderDetail key={idx} orderInfo={order} />)
                         ) : (
-                          <div className="text-sm text-gray-400">주문이 없습니다.</div>
+                          <div className="text-sm text-gray-400 select-none">주문이 없습니다.</div>
                         )}
                       </div>
                     </div>
