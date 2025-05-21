@@ -75,7 +75,7 @@ export const useEventStore = create<IEventStore>((set, get) => ({
     const { questionInfo } = get();
     try {
       const res = await api.get(`/main/event/real/time/participated/mainUserId/${mainUserId}/realTimeQuestionId/${questionInfo?.questionId}`);
-      return res.success;
+      return res.data;
     } catch (err) {
       console.error(err);
       return true;
