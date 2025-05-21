@@ -1,4 +1,4 @@
-import { api } from '@/utils/api';
+import { api, baseApi } from '@/utils/api';
 import { create } from 'zustand';
 import { BoothInfo } from '@/types/Booth.types';
 import { ReservationStore } from '@/types/Tabling.types';
@@ -34,15 +34,16 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
     saveReservation: async (payload, { openModal, closeModal, navigate }) => {
       openModal('loadingModal');
       try {
-        const { data, success, message } = await api.post('/main/reservation', payload);
+        const { data } = await api.post('/main/reservation', payload);
         closeModal();
 
-        if (!success) {
-          console.error('saveReservation 실패:', message);
-          openModal('failReservationModal');
-          return;
-        }
+        // if (!success) {
+        //   console.error('saveReservation 실패:', message);
+        //   openModal('failReservationModal');
+        //   return;
+        // }
 
+        console.log('data:', data);
         const msgStatus = data.messageStatus;
         if (msgStatus === 'SEND_FAIL') openModal('messageFailModal');
         else if (msgStatus === 'SEND_SUCCESS') openModal('completeReserveModal');
@@ -99,23 +100,39 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
       }
     },
 
+    // checkDuplicateReserve: async (phoneNum, { openModal, closeModal, navigate }) => {
+    //   try {
+    //     const { data, success, message } = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
+
+    //     if (!success) {
+    //       console.error('checkDuplicateReserve 실패:', message);
+    //       openModal('loadingModal');
+    //       await get().saveReservation(get().reserveInfo, { openModal, closeModal, navigate });
+    //       return;
+    //     }
+
+    //     set({ prevReserveBoothName: data });
+    //     openModal('duplicateModal');
+    //   } catch {
+    //     closeModal();
+    //     navigate(`/error/main`);
+    //     console.error('Error checking duplicate');
+    //   }
+    // },
     checkDuplicateReserve: async (phoneNum, { openModal, closeModal, navigate }) => {
       try {
-        const { data, success, message } = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
+        const { data, success } = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
 
-        if (!success) {
-          console.error('checkDuplicateReserve 실패:', message);
-          openModal('loadingModal');
+        if (success && data) {
+          // ✅ 중복이 있는 경우
+          set({ prevReserveBoothName: data });
+          openModal('duplicateModal');
+        } else {
+          // ✅ 중복이 없는 경우 = 새 예약 진행
           await get().saveReservation(get().reserveInfo, { openModal, closeModal, navigate });
-          return;
         }
-
-        set({ prevReserveBoothName: data });
-        openModal('duplicateModal');
       } catch {
-        closeModal();
-        navigate(`/error/main`);
-        console.error('Error checking duplicate');
+        await get().saveReservation(get().reserveInfo, { openModal, closeModal, navigate });
       }
     },
   };
