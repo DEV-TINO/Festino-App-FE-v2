@@ -44,7 +44,6 @@ export const disconnectOrderSocket = (boothId: string, tableNum: number) => {
 };
 
 const onMessage = (message: IMessage) => {
-  
   const data = JSON.parse(message.body);
   const set = useOrderStore.getState();
 
@@ -92,7 +91,6 @@ const onMessage = (message: IMessage) => {
         set.setIsOrderInProgress(false);
         set.setOrderingSessionId(null);
       }
-
 
       break;
     }
@@ -204,7 +202,7 @@ const onMessage = (message: IMessage) => {
 };
 
 type WebSocketPayload = {
-  type: 'MENUADD' | 'MENUSUB' | 'STARTORDER' | 'UNSUB' | 'INIT' | 'ORDERINPROGRESS' | 'ORDERDONE'|'ORDERCANCEL';
+  type: 'MENUADD' | 'MENUSUB' | 'STARTORDER' | 'UNSUB' | 'INIT' | 'ORDERINPROGRESS' | 'ORDERDONE' | 'ORDERCANCEL';
   boothId: string;
   tableNum: number;
   payload?: {

@@ -49,6 +49,54 @@ const OrderPaymentPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
 
   useEffect(() => {
+    const tableIndex = Number(tableNum);
+    if (!boothId || isNaN(tableIndex)) return;
+
+    connectOrderSocket(boothId, tableIndex);
+
+    const handleBeforeUnload = () => {
+      disconnectOrderSocket(boothId, tableIndex);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    let hiddenTimer: NodeJS.Timeout | null = null;
+
+    const handleVisibilityChange = () => {
+      const visibility = document.visibilityState;
+      const socket = useSocketStore.getState().client;
+
+      if (visibility === 'hidden') {
+        hiddenTimer = setTimeout(
+          () => {
+            console.log('[백그라운드] 3분 경과 → WebSocket 연결 해제');
+            disconnectOrderSocket(boothId, tableIndex);
+          },
+          3 * 60 * 1000,
+        );
+      } else if (visibility === 'visible') {
+        if (hiddenTimer) {
+          clearTimeout(hiddenTimer);
+          hiddenTimer = null;
+        }
+
+        if (!socket || !socket.connected) {
+          console.log('[복귀] WebSocket이 끊겨 있어 다시 연결합니다.');
+          connectOrderSocket(boothId, tableIndex);
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (hiddenTimer) clearTimeout(hiddenTimer);
+    };
+  }, [boothId, tableNum]);
+
+
+  useEffect(() => {
     window.scrollTo(0, 0);
     const tableIndex = Number(tableNum);
 

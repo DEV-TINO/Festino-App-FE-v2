@@ -154,7 +154,7 @@ const OrderSearchPage: React.FC = () => {
 
       {isSubmit && (
         <div className="flex-1 overflow-y-auto w-full max-w-[500px]">
-          <div className="flex justify-between items-center h-[52px] px-3 overflow-x-auto sticky top-0 bg-white z-10">
+          <div className="flex whitespace-nowrap justify-between no-scrollbar items-center h-[52px] px-3 overflow-x-auto sticky top-0 bg-white z-10">
             {TABS.map((tab, idx) => (
               <div
                 key={idx}
@@ -168,7 +168,7 @@ const OrderSearchPage: React.FC = () => {
               </div>
             ))}
           </div>
-          <div className="w-screen bg-secondary-300 h-[0.3px] ml-[-32px]"></div>
+          <div className="w-screen bg-secondary-300 h-[0.3px] px-3 "></div>
 
           <div className="px-5 py-5 flex flex-col gap-6">
             {selectedTab === 0 ? (
