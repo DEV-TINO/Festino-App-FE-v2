@@ -6,7 +6,7 @@ import usePhotos from '@/hooks/usePhotos';
 import useBaseModal from '@/stores/baseModal';
 
 const SearchPhoto: React.FC = () => {
-  const { myPhotos, myPhotoCount, allPhotos, allPhotoCount } = usePhotoStore();
+  const { myPhotos, myPhotoCount, allPhotos, allPhotoCount, sortType } = usePhotoStore();
   const mainUserId = localStorage.getItem('mainUserId');
   const { openModal } = useBaseModal();
 
@@ -19,10 +19,10 @@ const SearchPhoto: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      getPhotos('new');
+      getPhotos(sortType);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [sortType]);
 
   return (
     <div className="flex flex-col">
@@ -64,7 +64,29 @@ const SearchPhoto: React.FC = () => {
 
           <hr className="border-gray-300" />
 
-          <p className="text-xl font-bold pl-2">모든 사진</p>
+          {/* <p className="text-xl font-bold pl-2">모든 사진</p> */}
+          <div className="flex justify-between dynamic-right-padding">
+            <p className="text-xl font-bold">모든 사진</p>
+            <div className="flex items-center gap-2">
+              <p
+                onClick={() => getPhotos('new', true)}
+                className={`text-sm py-1 rounded cursor-pointer transition-colors ${
+                  sortType === 'new' ? 'text-primary-900 font-bold' : 'text-gray-500'
+                }`}
+              >
+                최신순
+              </p>
+              <p className="text-xs text-gray-400">|</p>
+              <p
+                onClick={() => getPhotos('heart', true)}
+                className={`text-sm py-1 rounded cursor-pointer transition-colors ${
+                  sortType === 'heart' ? 'text-primary-900 font-bold' : 'text-gray-500'
+                }`}
+              >
+                좋아요순
+              </p>
+            </div>
+          </div>
           {allPhotoCount === 0 ? (
             // 게시물이 존재하지 않을 때
             <div className="w-full text-center text-primary-900">첫 번째 이벤트 참가자가 되어보세요!</div>

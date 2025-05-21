@@ -1,16 +1,18 @@
 import useBaseModal from '@/stores/baseModal';
-import { useOrderStore } from '@/stores/orders/orderStore';
-import { useNavigate } from 'react-router-dom';
 
 const ExitPaymentModal: React.FC = () => {
+  const { closeModal, exitConfirmCallback } = useBaseModal();
 
-  const { closeModal } = useBaseModal();
-  const navigate = useNavigate();
-  const { boothId, tableNum } = useOrderStore();
+  const handleConfirm = () => {
+    if (exitConfirmCallback) {
+      exitConfirmCallback(); 
+    }
+    closeModal();
+  };
 
   return (
     <div
-      className="relative col-start-2  row-start-2 bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[320px] max-w-full"
+      className="relative col-start-2 row-start-2 bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 w-[320px] max-w-full"
       onClick={(e) => e.stopPropagation()}
     >
       <div className="w-12 h-12 bg-error rounded-full grid place-items-center">
@@ -29,10 +31,7 @@ const ExitPaymentModal: React.FC = () => {
         </button>
         <button
           className="w-full h-11 rounded-full text-white bg-primary-700"
-          onClick={() => {
-            closeModal();
-            navigate(`/order/${boothId}/${tableNum}`);
-          }}
+          onClick={() => handleConfirm()}
         >
           확인
         </button>

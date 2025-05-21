@@ -73,7 +73,7 @@ const OrderMainPage: React.FC = () => {
             />
             <div className="absolute flex flex-col top-2 items-end pointer-events-none xs:right-10 right-5">
               <p className="text-white font-jalnan2 text-xs pt-5 select-none">
-                2024 한국공학대학교 축제의 모든 것을 한눈에!
+                2025 한국공학대학교 축제의 모든 것을 한눈에!
               </p>
               <h2 className="text-white drop-shadow-lg text-transparent bg-clip-text font-jalnan2 text-2xl select-none">
                 ‘한국공대 축제’

@@ -24,6 +24,8 @@ export const usePhotoStore = create<PhotoStore>()((set) => ({
   allPhotos: [],
   myPhotoCount: 0,
   allPhotoCount: 0,
+  sortType: 'new',
+  setSortType: (type) => set({ sortType: type }),
   setMyPhotos: (photos, count) => set({ myPhotos: photos, myPhotoCount: count }),
   setAllPhotos: (photos, count) => set({ allPhotos: photos, allPhotoCount: count }),
   updatePhotoHeart: (photoId: string, heart: boolean, heartCount: number) =>

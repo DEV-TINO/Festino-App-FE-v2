@@ -19,6 +19,8 @@ export interface PhotoStore {
   allPhotos: PhotoPost[];
   myPhotoCount: number;
   allPhotoCount: number;
+  sortType: 'new' | 'heart';
+  setSortType: (type: 'new' | 'heart') => void;
   setMyPhotos: (photos: PhotoPost[], count: number) => void;
   setAllPhotos: (photos: PhotoPost[], count: number) => void;
   updatePhotoHeart: (photoId: string, heart: boolean, heartCount: number) => void;

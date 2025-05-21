@@ -121,15 +121,15 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
     // },
     checkDuplicateReserve: async (phoneNum, { openModal, closeModal, navigate }) => {
       try {
-        const { data, success } = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
+        const { data } = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
 
-        if (success && data) {
-          // ✅ 중복이 있는 경우
+        if (!data) {
+          openModal('loadingModal');
+          await get().saveReservation(get().reserveInfo, { openModal, closeModal, navigate });
+          return;
+        } else {
           set({ prevReserveBoothName: data });
           openModal('duplicateModal');
-        } else {
-          // ✅ 중복이 없는 경우 = 새 예약 진행
-          await get().saveReservation(get().reserveInfo, { openModal, closeModal, navigate });
         }
       } catch {
         await get().saveReservation(get().reserveInfo, { openModal, closeModal, navigate });
