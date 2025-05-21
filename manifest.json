@@ -1,15 +1,20 @@
 {
   "name": "Festino",
   "short_name": "Festino",
-  "icons": [
-    {
-      "src": "/images/tinos/tino-cheer-up.svg",
-      "type": "image/svg",
-      "sizes": "192x192"
-    }
-  ],
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#000000"
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/images/seo/icon192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/seo/icon512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }

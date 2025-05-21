@@ -27,20 +27,33 @@ const NavTap = () => {
   const toggleEvent = () => setIsEventOpen((prev) => !prev);
 
   useEffect(() => {
-    if (!isOpen) {
-      setIsEventOpen(false);
+    const root = document.getElementById('root');
+  
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      if (root) root.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (root) root.style.overflow = '';
     }
-  }, [isOpen]);
+  
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (root) root.style.overflow = '';
+    };
+  }, [isOpen]); 
 
   return (
     <>
       <div
-        className={`absolute inset-0 bg-black/60 z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}
+        className={`fixed inset-0 bg-black/60 z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}
         onClick={close}
       />
-
       <div
-        className={`absolute top-0 left-0 h-full w-5/6 bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 w-5/6 h-screen bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'} overflow-hidden`}
       >
         <div className="flex flex-col gap-12">
           <div className="flex h-[60px] w-full items-center justify-end px-5">
@@ -87,7 +100,9 @@ const NavTap = () => {
               }}
               className="px-6 cursor-pointer flex items-center gap-4"
             >
-              <TimeTableIcon />
+              <div className="p-[3px]">
+                <TimeTableIcon />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">타임테이블</div>
             </li>
 
@@ -98,7 +113,9 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <BoothIcon />
+              <div className="p-[3px]">
+                <BoothIcon />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">부스 정보</div>
             </li>
 
@@ -109,7 +126,9 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <TablingIcon />
+              <div className="p-[3px]">
+                <TablingIcon />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">테이블링</div>
             </li>
 
@@ -120,7 +139,9 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <IconNotice />
+              <div className="p-1">
+                <IconNotice />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">공지사항</div>
             </li>
 
@@ -131,7 +152,7 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <div className="p-[2px]">
+              <div className="p-1.5">
                 <IconDeveloper />
               </div>
               <div className="text-xl text-secondary-300 font-bold">개발자 소개</div>

@@ -6,7 +6,6 @@ import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
 import { submitReview } from '@/stores/events/reviewStore';
 import { formatPhoneNum } from '@/utils/utils';
-import { useNavigate } from 'react-router-dom';
 
 const Review: React.FC = () => {
   const [rating, setRating] = useState(0);
@@ -18,8 +17,6 @@ const Review: React.FC = () => {
   const [name, setName] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
   const [studentNum, setStudentNum] = useState('');
-
-  const navigate = useNavigate();
 
   const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
   const setIsAgreed = usePersonalInfoStore((state) => state.setIsAgreed);
@@ -50,12 +47,20 @@ const Review: React.FC = () => {
     selectedList: string[],
     setter: React.Dispatch<React.SetStateAction<string[]>>,
   ) => {
-    if (selectedList.includes(option)) {
-      setter(selectedList.filter((item) => item !== option));
+    const isNone = option === '없음';
+  
+    if (isNone) {
+      setter(selectedList.includes('없음') ? [] : ['없음']);
     } else {
-      setter([...selectedList, option]);
+      const filteredList = selectedList.filter((item) => item !== '없음');
+      if (selectedList.includes(option)) {
+        setter(filteredList.filter((item) => item !== option));
+      } else {
+        setter([...filteredList, option]);
+      }
     }
   };
+  
 
   const handleSubmit = async () => {
     if (
@@ -238,49 +243,48 @@ const Review: React.FC = () => {
 
       <div className="flex flex-col gap-[0.5rem]">
         <p className="text-sm font-bold">이벤트 상품 수령에 필요한 개인정보를 입력해주세요!</p>
-        <input
-          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
-          placeholder="이름"
-          value={name}
-          onChange={handleNameChange}
-          maxLength={5}
-        />
-
-        <input
-          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
-          placeholder="전화번호"
-          inputMode="numeric"
-          value={phoneNum}
-          onChange={handlePhoneChange}
-          maxLength={13}
-        />
-
-        <input
-          className="w-36 h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
-          placeholder="학번"
-          inputMode="numeric"
-          value={studentNum}
-          onChange={(e) => setStudentNum(e.target.value)}
-          maxLength={10}
-        />
+        <div className="flex items-center">  
+          <label className="text-xs text-secondary-500 w-16">이름</label>
+          <input
+            className="w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
+            placeholder="이름"
+            value={name}
+            onChange={handleNameChange}
+            maxLength={5}
+          />
+        </div>
+        <div className="flex items-center">
+          <label className="text-xs text-secondary-500 w-16">전화번호</label>
+          <input
+            className="w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
+            placeholder="전화번호"
+            inputMode="numeric"
+            value={phoneNum}
+            onChange={handlePhoneChange}
+            maxLength={13}
+          />
+        </div>
+        <div className="flex items-center">
+          <label className="text-xs text-secondary-500 w-16">학번</label>
+          <input
+            className="w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
+            placeholder="학번"
+            inputMode="numeric"
+            value={studentNum}
+            onChange={(e) => setStudentNum(e.target.value)}
+            maxLength={10}
+          />
+        </div>
       </div>
 
       <PersonalInfo />
 
-      <div className="flex gap-2">
-        <button
-          className="w-full text-primary-900 h-[45px] flex items-center justify-center rounded-full border-2 border-primary-900"
-          onClick={() => navigate('/')}
-        >
-          취소
-        </button>
-        <button
-          className="w-full text-white bg-primary-900 h-[45px] flex items-center justify-center rounded-full"
-          onClick={() => handleSubmit()}
-        >
-          확인
-        </button>
-      </div>
+      <button
+        className="w-full text-white bg-primary-900 h-[45px] flex items-center justify-center rounded-full"
+        onClick={() => handleSubmit()}
+      >
+        제출
+      </button>
     </div>
   );
 };
