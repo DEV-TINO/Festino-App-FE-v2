@@ -22,7 +22,7 @@ const ShowPreview: React.FC = () => {
 
   return (
     <div className="w-full h-[160px] sm:h-[178px] bg-white rounded-3xl border-primary-700-light border-1 flex justify-center select-none shadow-4xl">
-      <div className="flex pt-3 w-full px-3 justify-evenly gap-1 overflow-x-auto reserve-container">
+      <div className="flex pt-3.5 w-full px-3 justify-evenly gap-1 overflow-x-auto reserve-container">
         {clubData?.map((club, index) => (
           <div
             onClick={() => openTimetableModal(club)}

@@ -56,6 +56,11 @@ body {
   position: relative;
 }
 
+html, body {
+  height: 100% !important;
+  overflow-x: hidden;
+}
+
 @media (min-width: 500px) {
   html {
     display: flex;

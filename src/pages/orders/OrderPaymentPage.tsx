@@ -148,12 +148,11 @@ const OrderPaymentPage: React.FC = () => {
 
     try {
       const res = await api.get(endpoint);
-      console.log('📦 받은 메뉴 목록:', res.data);
 
       if (Array.isArray(res.data)) {
-        setMenuInfo(res.data); // ✅ 여기는 res.data만 씁니다
+        setMenuInfo(res.data);
       } else {
-        setMenuInfo([]); // 메뉴가 없는 경우
+        setMenuInfo([]);
       }
 
       window.scrollTo({
