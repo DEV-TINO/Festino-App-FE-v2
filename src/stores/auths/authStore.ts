@@ -81,31 +81,42 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
     }
   },
 
-  sendAuthorizationCode: async () => {
-    const { userName, userPhoneNum, userStudentNum, verifyCode } = get();
+sendAuthorizationCode: async () => {
+  const { userName, userPhoneNum, userStudentNum, verifyCode } = get();
 
-    try {
-      const {
-        success,
-        message,
-        data: mainUserId,
-      } = await api.post('/main/user/authorization', {
-        mainUserName: userName,
-        phoneNum: formatPhoneNum(userPhoneNum),
-        studentNum: userStudentNum,
-        authorizationCode: verifyCode,
-      });
+  try {
+    const {
+      success,
+      message,
+      data: mainUserId,
+    } = await api.post('/main/user/authorization', {
+      mainUserName: userName,
+      phoneNum: formatPhoneNum(userPhoneNum),
+      studentNum: userStudentNum,
+      authorizationCode: verifyCode,
+    });
 
-      if (success && mainUserId) {
-        set({ mainUserId });
-      }
-
-      return { success, message };
-    } catch (e) {
-      console.error('Authorization code send failed', e);
-      return { success: false, message: '인증번호 전송 중 오류가 발생했습니다.' };
+    if (success && mainUserId) {
+      set({ mainUserId });
     }
-  },
+
+    return { success, message };
+  } catch (e: any) {
+    console.error('Authorization code send failed', e);
+
+    if (e.response?.status === 409) {
+      return {
+        success: false,
+        message: '이미 등록된 계정입니다.',
+      };
+    }
+
+    return {
+      success: false,
+      message: '인증번호 전송 중 오류가 발생했습니다.',
+    };
+  }
+},
 
   logout: () => {
     removeCookie('accessToken');
