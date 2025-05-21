@@ -1,4 +1,4 @@
-import { api, baseApi } from '@/utils/api';
+import { api } from '@/utils/api';
 import { create } from 'zustand';
 import { BoothInfo } from '@/types/Booth.types';
 import { ReservationStore } from '@/types/Tabling.types';
