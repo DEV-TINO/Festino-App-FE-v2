@@ -78,7 +78,7 @@ const RequireLoginModal: React.FC = () => {
             placeholder="이름"
             value={inputName}
             onChange={handleChangeUserId}
-            className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
+            className="flex-1 text-base placeholder-secondary-400 focus:outline-none"
           />
         </div>
 
@@ -89,7 +89,7 @@ const RequireLoginModal: React.FC = () => {
             placeholder="전화번호"
             value={inputPhoneNum}
             onChange={handleChangePhone}
-            className="flex-1 text-sm placeholder-secondary-400 focus:outline-none"
+            className="flex-1 text-base placeholder-secondary-400 focus:outline-none"
             maxLength={13}
           />
         </div>
