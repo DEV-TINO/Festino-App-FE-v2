@@ -6,7 +6,6 @@ import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
 import { submitReview } from '@/stores/events/reviewStore';
 import { formatPhoneNum } from '@/utils/utils';
-import { useNavigate } from 'react-router-dom';
 
 const Review: React.FC = () => {
   const [rating, setRating] = useState(0);
@@ -18,8 +17,6 @@ const Review: React.FC = () => {
   const [name, setName] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
   const [studentNum, setStudentNum] = useState('');
-
-  const navigate = useNavigate();
 
   const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
   const setIsAgreed = usePersonalInfoStore((state) => state.setIsAgreed);
@@ -50,12 +47,20 @@ const Review: React.FC = () => {
     selectedList: string[],
     setter: React.Dispatch<React.SetStateAction<string[]>>,
   ) => {
-    if (selectedList.includes(option)) {
-      setter(selectedList.filter((item) => item !== option));
+    const isNone = option === '없음';
+  
+    if (isNone) {
+      setter(selectedList.includes('없음') ? [] : ['없음']);
     } else {
-      setter([...selectedList, option]);
+      const filteredList = selectedList.filter((item) => item !== '없음');
+      if (selectedList.includes(option)) {
+        setter(filteredList.filter((item) => item !== option));
+      } else {
+        setter([...filteredList, option]);
+      }
     }
   };
+  
 
   const handleSubmit = async () => {
     if (

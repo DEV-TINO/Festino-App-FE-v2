@@ -38,4 +38,5 @@ export interface PhotoModalState {
   selectedPhoto: PhotoPost | null;
   setSelectedPhoto: (photo: PhotoPost) => void;
   clearSelectedPhoto: () => void;
+  updateSelectedPhotoHeart: (heart: boolean, heartCount: number) => void;
 }

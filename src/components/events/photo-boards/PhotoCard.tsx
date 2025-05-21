@@ -1,15 +1,11 @@
 import { usePhotoStore, usePhotoModalStore } from '@/stores/events/BoardStore';
 import useBaseModal from '@/stores/baseModal';
-import { useState } from 'react';
 import { PhotoCardProps } from '@/types/Board.types';
 
 const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
-  const [isLike, setIsLike] = useState(photo.heart);
-  const [likeCount, setLikeCount] = useState(photo.heartCount);
-
   const { openModal } = useBaseModal();
   const { setSelectedPhoto } = usePhotoModalStore();
-  const { myPhotos, likePhoto, unlikePhoto } = usePhotoStore();
+  const { myPhotos, likePhoto, unlikePhoto, updatePhotoHeart } = usePhotoStore();
 
   const mainUserId = localStorage.getItem('mainUserId');
 
@@ -32,19 +28,18 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
     }
 
     try {
-      if (mainUserId) {
-        if (isLike) {
-          await unlikePhoto(photo.photoId, mainUserId);
-          setIsLike(false);
-          setLikeCount((prev) => prev - 1);
-        } else {
-          await likePhoto(photo.photoId, mainUserId);
-          setIsLike(true);
-          setLikeCount((prev) => prev + 1);
-        }
+      const newHeart = !photo.heart;
+      const newHeartCount = newHeart ? photo.heartCount + 1 : photo.heartCount - 1;
+
+      if (newHeart) {
+        await likePhoto(photo.photoId, mainUserId);
+      } else {
+        await unlikePhoto(photo.photoId, mainUserId);
       }
+
+      updatePhotoHeart(photo.photoId, newHeart, newHeartCount);
     } catch {
-      alert('자신의 게시물에는 좋아요를 누를 수 없습니다.');
+      alert('좋아요 처리 중 오류가 발생했습니다.');
     }
   };
 
@@ -81,11 +76,11 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
               className={`w-4 h-4 ${isUserPhoto || !mainUserId ? 'cursor-not-allowed' : ''}`}
             >
               <img
-                src={isLike ? '/icons/events/full-heart.svg' : '/icons/events/empty-heart.svg'}
+                src={photo.heart ? '/icons/events/full-heart.svg' : '/icons/events/empty-heart.svg'}
                 className="w-full h-full"
               />
             </button>
-            <span>{likeCount}</span>
+            <span>{photo.heartCount}</span>
           </div>
         </div>
       </div>

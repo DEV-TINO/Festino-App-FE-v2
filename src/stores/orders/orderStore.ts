@@ -119,7 +119,7 @@ export const useOrderStore = create<OrderState>((set, get) => ({
     orderType: 0,
     menuInfo: [],
     remainingMinutes: 10,
-  },
+  },  
   remainingMinutes: 10,
   isOrderInProgress: false,
   orderingSessionId: null,
@@ -191,9 +191,8 @@ export const useOrderStore = create<OrderState>((set, get) => ({
           isKakaoPay: res.data.isKakaoPay,
           kakaoPayUrl: res.data.kakaoPay,
         });
-        console.log('✅ 카카오페이 세팅 완료:', res.data);
       } else {
-        console.warn('⚠️ 카카오페이 사용 불가:', res.message);
+        return;
       }
     } catch (e) {
       console.error('카카오페이 정보 조회 실패:', e);
@@ -211,9 +210,8 @@ export const useOrderStore = create<OrderState>((set, get) => ({
           isTossPay: res.data.isTossPay,
           tossPayUrl: res.data.tossPay,
         });
-        console.log('✅ 토스페이 세팅 완료:', res.data);
       } else {
-        console.warn('⚠️ 토스페이 사용 불가:', res.message);
+        return;
       }
     } catch (e) {
       console.error('토스페이 정보 조회 실패:', e);

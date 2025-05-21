@@ -14,7 +14,7 @@ const OneMinuteModal: React.FC = () => {
         <img src="/icons/commons/error.svg" />
       </div>
       <div className="w-full flex flex-col gap-3 items-center break-keep text-center whitespace-nowrap ">
-        <p className="text-secondary-700 text-xl font-bold">제한 시간 1분 전 ⏰</p>
+        <p className="text-secondary-700 text-xl font-bold">제한 시간 1분 전</p>
         <p className="text-secondary-500">
           1분 뒤 세션이 종료됩니다.
           <br />

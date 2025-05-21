@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { formatPrice } from '@/utils/utils';
@@ -45,50 +45,77 @@ const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
   }, [remainingMinutes]);
 
-  const { openModal } = useBaseModal();
+  const { openModal, setExitConfirmCallback } = useBaseModal();
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
+
+  useEffect(() => {
+    if (!boothId || !tableNum || !isUUID(boothId)) return;
+    const tableIndex = Number(tableNum);
+
+    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+      connectOrderSocket(boothId, Number(tableNum));
+    }
+  
+    return () => {
+      disconnectOrderSocket(boothId, tableIndex);
+    };
+  }, [boothId, tableNum]);
+
+  const hasConnected = useRef(false);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && boothId && tableNum && !hasConnected.current) {
+        if (!isSocketConnected()) {
+          connectOrderSocket(boothId, Number(tableNum));
+          hasConnected.current = true;
+        }
+      }
+    };
+  
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [boothId, tableNum]);
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const tableIndex = Number(tableNum);
-
+  
     if (!boothId || !isUUID(boothId) || isNaN(tableIndex)) {
       navigate('/error/NotFound');
       return;
     }
-
-    try {
-      connectOrderSocket(boothId, tableIndex);
-    } catch (e) {
-      console.error(e);
-    }
-
+  
+    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+      connectOrderSocket(boothId, Number(tableNum));
+    }    
+  
     setBoothId(boothId);
     setTableNum(tableIndex);
-
+  
     fetchMenuByCategory('ALL');
-  }, [boothId, tableNum]);
+  }, [boothId, tableNum]);  
 
   useEffect(() => {
-
-    const tableIndex = Number(tableNum);
-
     const handleBeforeUnload = () => {
-      if (boothId && !isNaN(tableIndex)) {
-        disconnectOrderSocket(boothId, tableIndex);
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
       }
     };
-
+  
     window.addEventListener('beforeunload', handleBeforeUnload);
-
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      if (boothId && !isNaN(tableIndex)) {
-        disconnectOrderSocket(boothId, tableIndex);
-      }
     };
-  }, [boothId, tableNum]);
-
+  }, [boothId, tableNum]);  
+  
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
 
@@ -100,12 +127,11 @@ const OrderPaymentPage: React.FC = () => {
 
     try {
       const res = await api.get(endpoint);
-      console.log('📦 받은 메뉴 목록:', res.data);
 
       if (Array.isArray(res.data)) {
-        setMenuInfo(res.data); // ✅ 여기는 res.data만 씁니다
+        setMenuInfo(res.data);
       } else {
-        setMenuInfo([]); // 메뉴가 없는 경우
+        setMenuInfo([]);
       }
 
       window.scrollTo({
@@ -117,8 +143,6 @@ const OrderPaymentPage: React.FC = () => {
       setMenuInfo([]);
     }
   };
-
-
 
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
@@ -140,15 +164,26 @@ const OrderPaymentPage: React.FC = () => {
       boothId: boothId!,
       tableNum: Number(tableNum),
     });
-
-    sendWebSocketMessage({
-      type: 'ORDERINPROGRESS',
-      boothId: boothId!,
-      tableNum: Number(tableNum),
-    });
-
+    
     openModal('orderModal');
   };
+
+  useEffect(() => {
+    const handleExit = () => {
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+    
+        disconnectOrderSocket(boothId, Number(tableNum));
+        navigate(`/order/${boothId}/${tableNum}`);
+      }
+    };
+  
+    setExitConfirmCallback(handleExit);
+  }, [boothId, tableNum]);
 
   return (
     <div className="flex flex-col h-full pt-[60px]">
