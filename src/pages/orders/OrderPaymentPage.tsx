@@ -91,6 +91,7 @@ const OrderPaymentPage: React.FC = () => {
 
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
+
     const mappedCategory = CATEGORY_ENDPOINT_MAP[category];
     const endpoint =
       mappedCategory === 'all'
@@ -99,21 +100,26 @@ const OrderPaymentPage: React.FC = () => {
 
     try {
       const res = await api.get(endpoint);
-      if (res.success && Array.isArray(res.data)) {
-        setMenuInfo(res.data);
+      console.log('📦 받은 메뉴 목록:', res.data);
 
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+      if (Array.isArray(res.data)) {
+        setMenuInfo(res.data); // ✅ 여기는 res.data만 씁니다
       } else {
-        navigate('/error/NotFound');
+        setMenuInfo([]); // 메뉴가 없는 경우
       }
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     } catch (err) {
       console.error('메뉴 불러오기 실패:', err);
-      navigate('/error/NotFound');
+      setMenuInfo([]);
     }
   };
+
+
+
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
   const handleClickReserveButton = () => {
