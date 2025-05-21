@@ -22,8 +22,8 @@ const QuizModal: React.FC = () => {
 
   useEffect(() => {
     const checkEvent = async () => {
+      await getNextQuestion();
       if (!startTime || !endTime) {
-        await getNextQuestion();
         return;
       }
   

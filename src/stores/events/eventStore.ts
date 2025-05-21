@@ -27,8 +27,8 @@ export const useEventStore = create<IEventStore>((set, get) => ({
   getQuestion: async () => {
     try {
       const res = await api.get('/main/event/real/time/question');
-      if (res.data.success) {
-        const { realTimeQuestionId, question } = res.data.responseRealTimeQuestionGetDTO;
+      if (res.success) {
+        const { realTimeQuestionId, question } = res.data;
         set({
           questionInfo: {
             questionId: realTimeQuestionId,
@@ -45,8 +45,8 @@ export const useEventStore = create<IEventStore>((set, get) => ({
   getNextQuestion: async () => {
     try {
       const res = await api.get('/main/event/real/time/next/question');
-      if (res.data.success) {
-        const { startTime, endTime } = res.data.responseRealTimeQuestionNextTimeGetDTO;
+      if (res.success) {
+        const { startTime, endTime } = res.data;
         set({ startTime, endTime });
       } else {
       }
@@ -62,7 +62,7 @@ export const useEventStore = create<IEventStore>((set, get) => ({
         mainUserId: userId,
         answer: answer,
       });
-      if (!res.data.success) {
+      if (!res.success) {
         alert("답변을 저장하지 못했습니다.");
       }
     } catch (err) {
@@ -73,7 +73,7 @@ export const useEventStore = create<IEventStore>((set, get) => ({
     const { questionInfo } = get();
     try {
       const res = await api.get(`/main/event/real/time/participated/mainUserId/${mainUserId}/realTimeQuestionId/${questionInfo?.questionId}`);
-      return res.data.success;
+      return res.success;
     } catch (err) {
       console.error(err);
       return true;
