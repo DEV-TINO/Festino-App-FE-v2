@@ -67,7 +67,6 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
           openModal('searchReservationModal');
         }
       } catch {
-        console.log('getReservation 실패');
         openModal('noReserveModal');
         return;
       }

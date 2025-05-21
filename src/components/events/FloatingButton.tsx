@@ -193,7 +193,7 @@ const FloatingButton: React.FC = () => {
             transition-all duration-300 text-center
             ${isOpen ? `opacity-100 ${translateHeights[idx]}` : 'opacity-0 translate-y-0'}
             ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}
-            shadow-xl shadow-gray-400
+            shadow-md shadow-gray-700
           `}
         >
           <div className="w-full h-full absolute top-0 left-0 z-0 rounded-full overflow-hidden">
@@ -217,7 +217,7 @@ const FloatingButton: React.FC = () => {
           w-[60px] h-[60px] 
           rounded-full text-xs font-bold cursor-grab
           select-none touch-none
-          shadow-xl shadow-gray-400
+          shadow-md shadow-gray-700
           bg-white
           overflow-hidden
         `}
