@@ -15,7 +15,7 @@ const QuizModal: React.FC = () => {
     endTime,
     questionInfo,
   } = useEventStore();
-  const { isLogin, mainUserId } = useAuthStore();
+  const { isLogin } = useAuthStore();
 
   const [answer, setAnswer] = useState("");
   const [message, setMessage] = useState("*답안은 제출 시 변경할 수 없습니다!");
@@ -51,6 +51,7 @@ const QuizModal: React.FC = () => {
   }, [startTime, endTime, questionInfo]);
 
   const handleSubmit = async () => {
+    const mainUserId = localStorage.getItem('mainUserId');
     if (!isLogin()) {
       setMessage("*로그인 이후 참여 가능합니다.");
       return;

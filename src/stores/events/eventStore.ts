@@ -9,8 +9,8 @@ interface IEventStore {
   setModalType: (type: string) => void;
   getQuestion: () => void;
   getNextQuestion: () => void;
-  saveAnswer: (userId: string, answer: string) => void;
-  checkJoin: (mainUserId: string) => Promise<boolean>;
+  saveAnswer: (userId: string | null, answer: string) => void;
+  checkJoin: (mainUserId: string | null) => Promise<boolean>;
 }
 
 interface IQuestion {
@@ -55,6 +55,7 @@ export const useEventStore = create<IEventStore>((set, get) => ({
     }
   },
   saveAnswer: async (userId, answer) => {
+    if (!userId) return;
     const { questionInfo } = get();
     try {
       const res = await api.post('/main/event/real/time/answer', {
@@ -70,6 +71,7 @@ export const useEventStore = create<IEventStore>((set, get) => ({
     }
   },
   checkJoin: async (mainUserId) => {
+    if (!mainUserId) return true;
     const { questionInfo } = get();
     try {
       const res = await api.get(`/main/event/real/time/participated/mainUserId/${mainUserId}/realTimeQuestionId/${questionInfo?.questionId}`);
