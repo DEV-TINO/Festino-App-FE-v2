@@ -9,7 +9,7 @@ const PersonalInfo: React.FC = () => {
         checked={isAgreed}
         onChange={toggleIsAgreed}
         type="checkbox"
-        className="w-4 h-4 mr-2 accent-primary-700 text-primary-700 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-700 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl"
+        className="w-4 h-4 mr-2 accent-primary-900 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl"
       />
       개인정보 수집 • 이용 동의 (필수)
     </label>
