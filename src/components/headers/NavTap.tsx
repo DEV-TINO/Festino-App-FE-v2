@@ -87,7 +87,9 @@ const NavTap = () => {
               }}
               className="px-6 cursor-pointer flex items-center gap-4"
             >
-              <TimeTableIcon />
+              <div className="p-[3px]">
+                <TimeTableIcon />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">타임테이블</div>
             </li>
 
@@ -98,7 +100,9 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <BoothIcon />
+              <div className="p-[3px]">
+                <BoothIcon />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">부스 정보</div>
             </li>
 
@@ -109,7 +113,9 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <TablingIcon />
+              <div className="p-[3px]">
+                <TablingIcon />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">테이블링</div>
             </li>
 
@@ -120,7 +126,9 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <IconNotice />
+              <div className="p-1">
+                <IconNotice />
+              </div>
               <div className="text-xl text-secondary-300 font-bold">공지사항</div>
             </li>
 
@@ -131,7 +139,7 @@ const NavTap = () => {
               }}
               className="px-6 pt-2 cursor-pointer flex items-center gap-4"
             >
-              <div className="p-[2px]">
+              <div className="p-1.5">
                 <IconDeveloper />
               </div>
               <div className="text-xl text-secondary-300 font-bold">개발자 소개</div>

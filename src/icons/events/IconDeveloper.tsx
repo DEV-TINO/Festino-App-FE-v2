@@ -2,7 +2,7 @@ import React from 'react';
 
 const IconDeveloper: React.FC = () => {
   return (
-    <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
       <mask id="mask0_6765_18003" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
         <rect width="32" height="32" fill="url(#pattern0_6765_18003)"/>
       </mask>
