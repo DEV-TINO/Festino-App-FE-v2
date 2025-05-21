@@ -1,0 +1,15 @@
+{
+  "name": "Festino",
+  "short_name": "Festino",
+  "icons": [
+    {
+      "src": "/images/tinos/tino-cheer-up.svg",
+      "type": "image/svg",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
+}

@@ -15,15 +15,15 @@ const QuizModal: React.FC = () => {
     endTime,
     questionInfo,
   } = useEventStore();
-  const { isLogin, mainUserId } = useAuthStore();
+  const { isLogin } = useAuthStore();
 
   const [answer, setAnswer] = useState("");
   const [message, setMessage] = useState("*답안은 제출 시 변경할 수 없습니다!");
 
   useEffect(() => {
     const checkEvent = async () => {
+      await getNextQuestion();
       if (!startTime || !endTime) {
-        await getNextQuestion();
         return;
       }
   
@@ -51,21 +51,26 @@ const QuizModal: React.FC = () => {
   }, [startTime, endTime, questionInfo]);
 
   const handleSubmit = async () => {
-    if (!isLogin()) {
-      setMessage("*로그인 이후 참여 가능합니다.");
-      return;
-    } else {
-      const isJoined = await checkJoin(mainUserId);
-      if (isJoined) {
-        closeModal();
-        setModalType("join");
-        openModal("confirm");
+    if (answer) {
+      const mainUserId = localStorage.getItem('mainUserId');
+      if (!isLogin()) {
+        setMessage("*로그인 이후 참여 가능합니다.");
         return;
+      } else {
+        const isJoined = await checkJoin(mainUserId);
+        if (isJoined) {
+          closeModal();
+          setModalType("join");
+          openModal("confirm");
+          return;
+        }
       }
+  
+      await saveAnswer(mainUserId, answer);
+      closeModal();
+    } else {
+      alert("답을 입력해주세요");
     }
-
-    await saveAnswer(mainUserId, answer);
-    closeModal();
   };
 
   return (

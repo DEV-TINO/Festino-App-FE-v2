@@ -1,28 +1,52 @@
-import { useState } from "react";
-import { InputPhoneNumProps } from "@/types/Tabling.types";
+import { useRef, useState } from 'react';
+import { InputPhoneNumProps } from '@/types/Tabling.types';
 
 const InputPhoneNum: React.FC<InputPhoneNumProps> = ({ value, onChange }) => {
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
-    const formatted = formatPhoneNumber(rawValue);
+    const digitsOnly = rawValue.replace(/\D/g, '');
+
+    const cursorPosition = e.target.selectionStart ?? rawValue.length;
+
+    const countBeforeCursor = rawValue.slice(0, cursorPosition).replace(/\D/g, '').length;
+
+    const formatted = formatPhoneNumber(digitsOnly);
+
     onChange(formatted);
+
+    requestAnimationFrame(() => {
+      if (inputRef.current) {
+        const newCursor = getCursorPositionAfterFormat(formatted, countBeforeCursor);
+        inputRef.current.setSelectionRange(newCursor, newCursor);
+      }
+    });
   };
 
   const formatPhoneNumber = (input: string): string => {
-    const digits = input.replace(/\D/g, '');
-    if (digits.length < 4) return digits;
-    if (digits.length < 8) return digits.replace(/(\d{3})(\d{1,4})/, '$1-$2');
-    return digits.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+    if (input.length < 4) return input;
+    if (input.length < 8) return input.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+    return input.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+  };
+
+  const getCursorPositionAfterFormat = (formatted: string, count: number) => {
+    let digitsSeen = 0;
+    for (let i = 0; i < formatted.length; i++) {
+      if (/\d/.test(formatted[i])) digitsSeen++;
+      if (digitsSeen === count) return i + 1;
+    }
+    return formatted.length;
   };
 
   return (
     <>
-      <div className="text-xs">전화번호</div>
+      <div className="text-xs select-none">전화번호</div>
       <div className="h-11 w-full flex flex-row items-center py-2.5 gap-2.5">
         <img src="/icons/tablings/phone.svg" className="w-6 h-6" />
         <input
+          ref={inputRef}
           className="flex-1 focus:outline-none bg-inherit"
           type="tel"
           value={value}

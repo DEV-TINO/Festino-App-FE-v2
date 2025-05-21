@@ -14,7 +14,7 @@ const OrderCancelConfirmModal: React.FC = () => {
         className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-12 h-12 bg-error rounded-full grid place-items-center">
+        <div className="w-12 h-12 bg-error rounded-full grid place-items-center select-none">
           <img src="/icons/commons/error.svg" />
         </div>
         <div className="w-full flex flex-col gap-3 items-center break-keep text-center">

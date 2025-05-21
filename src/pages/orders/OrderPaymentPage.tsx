@@ -31,7 +31,7 @@ export const isSocketConnected = (): boolean => {
 
 const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
-    alert('제한시간은 10분입니다');
+    alert('제한 시간 10분!\n10분 이내에 주문을 완료해 주세요');
   }, []);
   const navigate = useNavigate();
   const { boothId, tableNum } = useParams<{ boothId: string; tableNum: string }>();
@@ -91,6 +91,7 @@ const OrderPaymentPage: React.FC = () => {
 
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
+
     const mappedCategory = CATEGORY_ENDPOINT_MAP[category];
     const endpoint =
       mappedCategory === 'all'
@@ -99,21 +100,26 @@ const OrderPaymentPage: React.FC = () => {
 
     try {
       const res = await api.get(endpoint);
-      if (res.success && Array.isArray(res.data)) {
-        setMenuInfo(res.data);
+      console.log('📦 받은 메뉴 목록:', res.data);
 
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+      if (Array.isArray(res.data)) {
+        setMenuInfo(res.data); // ✅ 여기는 res.data만 씁니다
       } else {
-        navigate('/error/NotFound');
+        setMenuInfo([]); // 메뉴가 없는 경우
       }
+
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     } catch (err) {
       console.error('메뉴 불러오기 실패:', err);
-      navigate('/error/NotFound');
+      setMenuInfo([]);
     }
   };
+
+
+
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
   const handleClickReserveButton = () => {
@@ -155,14 +161,14 @@ const OrderPaymentPage: React.FC = () => {
           <img src="/icons/header-arrow-back.svg" alt="Back" />
         </button>
 
-        <h1 className="text-lg font-bold">주문하기</h1>
+        <h1 className="text-lg font-bold select-none">주문하기</h1>
         <div className="w-6" />
       </div>
       <div className="fixed top-[60px] w-full max-w-[500px] z-10 bg-white">
         <div className="w-full max-w-[500px] fixed bg-primary-700 text-white text-center py-3 flex justify-between px-4">
           <span>{memberCount}명이 주문에 참여하고 있어요.</span>
           <span className="flex items-center gap-1">
-            <img src="/icons/orders/10Clock.svg" /> {remainingMinutes}분
+            <img src="/icons/orders/10Clock.svg" style={{ width: '18px', height: '18px' }} /> {remainingMinutes}분
           </span>
         </div>
         <div className="fixed w-full max-w-[500px] bg-white ">

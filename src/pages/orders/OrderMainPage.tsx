@@ -44,7 +44,7 @@ const OrderMainPage: React.FC = () => {
     <div className="flex flex-col">
       <OrderMainBanner />
       <div className="w-full rounded-t-3xl bg-white pt-6 flex flex-col items-center -translate-y-12">
-        <div className="h-11 rounded-10xl bg-primary-900-light font-semibold text-primary-700 grid place-items-center px-6 bg-primary-700-lighter">
+        <div className="h-11 rounded-10xl bg-primary-900-light font-semibold text-primary-700 grid place-items-center px-6 bg-primary-700-lighter select-none">
           테이블 번호 {customTableNum}
         </div>
         <div className="py-11 flex flex-col w-full px-2 gap-y-11 h-full">
@@ -72,8 +72,10 @@ const OrderMainPage: React.FC = () => {
               alt="Festino Banner"
             />
             <div className="absolute flex flex-col top-2 items-end pointer-events-none xs:right-10 right-5">
-              <p className="text-white font-jalnan2 text-xs pt-5">2024 한국공학대학교 축제의 모든 것을 한눈에!</p>
-              <h2 className="text-white drop-shadow-lg text-transparent bg-clip-text font-jalnan2 text-2xl">
+              <p className="text-white font-jalnan2 text-xs pt-5 select-none">
+                2024 한국공학대학교 축제의 모든 것을 한눈에!
+              </p>
+              <h2 className="text-white drop-shadow-lg text-transparent bg-clip-text font-jalnan2 text-2xl select-none">
                 ‘한국공대 축제’
               </h2>
               <button className="border-2 border-white w-[155px] h-[26px] text-white font-bold text-xs rounded-full mt-1">

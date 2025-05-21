@@ -4,7 +4,7 @@ const IconProfile: React.FC = () => {
   return (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="40" r="40" fill="#999999"/>
-      <circle cx="40" cy="30" r="11" stroke="white" stroke-width="2"/>
+      <circle cx="40" cy="30" r="11" stroke="white" strokeWidth="2"/>
       <mask id="path-3-inside-1_6304_17286" fill="white">
         <path d="M19 56C19 47.1634 26.1634 40 35 40H45C53.8366 40 61 47.1634 61 56V57H19V56Z"/>
       </mask>

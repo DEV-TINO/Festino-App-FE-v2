@@ -66,29 +66,29 @@ const OrderModal: React.FC = () => {
     >
       <div className="font-semibold text-xl text-secondary-700 text-center mb-3">주문하기</div>
       <div className="flex flex-col gap-3 w-full flex-grow overflow-y-auto overflow-x-hidden">
-        <div className="px-4 w-full">
+        <div className="w-full flex flex-col">
           <InputName value={recentName} onChange={setRecentName} />
           <InputPhoneNum value={recentPhoneNum} onChange={setRecentPhoneNum} />
         </div>
         <div className="w-full gap-1 flex flex-col">
-          <div className="font-semibold text-secondary-700">주문하기</div>
-          <div className="w-full rounded-xl  p-4" style={{ backgroundColor: '#f0f6ff' }}>
+          <div className="font-semibold text-secondary-700 select-none">주문하기</div>
+          <div className="w-full rounded-xl  p-4 bg-primary-700-lighter">
             {orderMenus.map((item) => (
               <div key={item.menuId} className="grid grid-cols-3 pb-[12px] text-secondary-700 text-sm">
-                <div className="text-left text-wrap">{item.menuName}</div>
-                <div className="text-center">{item.menuCount}개</div>
-                <div className="text-right">{formatPrice(item.menuPrice)}원</div>
+                <div className="text-left text-wrap select-none">{item.menuName}</div>
+                <div className="text-center select-none">{item.menuCount}개</div>
+                <div className="text-right select-none">{formatPrice(item.menuPrice)}원</div>
               </div>
             ))}
             <div className="w-full border-[1px] border-secondary-300"></div>
             <div className="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-700">
-              <div>총 가격</div>
-              <div>{formatPrice(totalPrice)}원</div>
+              <div className="select-none">총 가격</div>
+              <div className="select-none">{formatPrice(totalPrice)}원</div>
             </div>
           </div>
         </div>
         <div className="relative w-full flex flex-col gap-1">
-          <div className="font-semibold text-secondary-700">메모</div>
+          <div className="font-semibold text-secondary-700 select-none">메모</div>
           <textarea
             className="text-sm w-full resize-none border border-primary p-4 h-24 rounded-2xl focus:outline-none focus:border-primary-700"
             placeholder="메모를 입력해주세요."
@@ -105,9 +105,9 @@ const OrderModal: React.FC = () => {
               type="checkbox"
               checked={isAgreed}
               onChange={() => setIsAgreed(!isAgreed)}
-              className="w-4 h-4 mr-2 ml-1 text-primary-700 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-900 focus:ring-offset-1"
+              className="w-4 h-4 mr-2 ml-1 text-primary-700 bg-gray-100 border-gray-300 rounded-[12px] focus:ring-1 focus:ring-primary-900 focus:ring-offset-1 select-none"
             />
-            개인정보 수집 이용 동의 <span className="text-red-500">&nbsp;(필수)</span>
+            개인정보 수집 이용 동의 <span className="text-red-500 ">&nbsp;(필수)</span>
           </label>
         </div>
         <div className="gap-5 flex w-full font-bold">

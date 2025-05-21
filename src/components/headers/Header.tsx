@@ -34,11 +34,10 @@ const Header: React.FC = () => {
       {isLogin() ? (
         <div
           className="w-[32px] h-[32px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:32px_32px] cursor-pointer"
-          onClick={handleClickTinoSymbol}
+          onClick={() => handleClickTinoSymbol()}
         />
       ) : (
         <div onClick={() => {
-          close();
           openModal('loginModal');
         }} className="text-sm cursor-pointer">
           Login

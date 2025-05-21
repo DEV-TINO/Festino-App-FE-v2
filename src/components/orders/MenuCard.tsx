@@ -119,7 +119,7 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
   };
 
   return (
-    <div className="flex gap-4 mb-6 border-b pb-4">
+    <div className="flex gap-4 mb-6 border-b pb-4 select-none">
       <div
         className="w-24 h-24 rounded-xl bg-center bg-cover border"
         style={{

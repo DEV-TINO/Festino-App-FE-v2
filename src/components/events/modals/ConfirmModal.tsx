@@ -13,10 +13,10 @@ const ConfirmModal: React.FC = () => {
 
   const getEventTime = () => {
     const [datePart, timePart] = startTime.split("T");
-    const [month, day] = datePart.split("-");
+    const [year, month, day] = datePart.split("-");
     const [hour, minute] = timePart.split(":");
 
-    return `${parseInt(month)}월 ${parseInt(day)}일 ${hour}:${minute} ~`;
+    return `${parseInt(year)}년 ${parseInt(month)}월 ${parseInt(day)}일 ${hour}:${minute} ~`;
   };
 
   return (
@@ -25,8 +25,8 @@ const ConfirmModal: React.FC = () => {
         className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
         onClick={(e) => { e.stopPropagation(); }}
       >
-        <div className="w-12 h-12 rounded-full bg-primary-900-light-16 grid place-items-center">
-          <img src="/icons/commons/info.svg" />
+        <div className="w-12 h-12 rounded-full bg-error grid place-items-center">
+          <img src="/icons/commons/error.svg" />
         </div>
         <div className="w-full flex flex-col gap-3 items-center">
           <p className="text-secondary-700 text-xl font-bold">참여 불가</p>
