@@ -31,13 +31,13 @@ const SearchPhoto: React.FC = () => {
           <p className="text-xl font-bold pl-2">내 사진</p>
           <div
             id="user-photo"
-            className="w-full flex overflow-x-scroll scroll-smooth"
+            className="w-full flex overflow-x-scroll overflow-y-hidden scroll-smooth"
             onTouchStart={(e) => e.stopPropagation()}
           >
             {mainUserId ? (
               myPhotoCount === 0 ? (
                 // 로그인 상태, 내 게시물이 존재하지 않을 때
-                <div className="w-full text-center text-primary-700">사진을 업로드 해보세요!</div>
+                <div className="w-full text-center text-primary-900">사진을 업로드 해보세요!</div>
               ) : (
                 // 로그인 상태, 내 게시물 존재
                 <>
@@ -56,7 +56,7 @@ const SearchPhoto: React.FC = () => {
               )
             ) : (
               // 로그아웃 상태
-              <div className="w-full text-center text-primary-700" onClick={() => openModal('requireLoginModal')}>
+              <div className="w-full text-center text-primary-900" onClick={() => openModal('requireLoginModal')}>
                 로그인 후 이벤트에 참여하세요!
               </div>
             )}
@@ -67,7 +67,7 @@ const SearchPhoto: React.FC = () => {
           <p className="text-xl font-bold pl-2">모든 사진</p>
           {allPhotoCount === 0 ? (
             // 게시물이 존재하지 않을 때
-            <div className="w-full text-center text-primary-700">첫 번째 이벤트 참가자가 되어보세요!</div>
+            <div className="w-full text-center text-primary-900">첫 번째 이벤트 참가자가 되어보세요!</div>
           ) : (
             // 게시물 존재
             <div id="all-photo" className="w-full" onTouchStart={(e) => e.stopPropagation()}>

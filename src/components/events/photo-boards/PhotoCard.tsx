@@ -68,7 +68,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
       )}
 
       <div className="flex flex-col justify-end text-white p-5 relative rounded-3xl dynamic-item">
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-slate-900 via-slate-800 opacity-50 rounded-b-3xl"></div>
+        <div className="absolute bottom-[1px] left-0 w-full h-1/2 bg-gradient-to-t from-slate-900 via-slate-800 opacity-50 rounded-b-3xl"></div>
         <div className="relative z-10">
           <h2 className="font-bold mb-1 break-keep">{photo.mainUserName}</h2>
 
