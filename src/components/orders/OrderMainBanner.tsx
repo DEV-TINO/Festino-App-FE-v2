@@ -14,19 +14,16 @@ const OrderMainBanner: React.FC = () => {
       try {
         const res = await api.get(`/main/booth/night/${boothId}`);
         if (!res.success) {
-          console.warn('❌ 부스 정보 success === false');
           return navigate('/error/order');
         }
 
         const adminName = res.data?.adminName;
         if (!adminName) {
-          console.warn('❌ adminName 없음 → navigate');
           return navigate('/error/order');
         }
 
         setOrderMajor(adminName);
       } catch (err) {
-        console.error('❌ 부스 정보 API 실패:', err);
         navigate('/error/order');
       }
     };
