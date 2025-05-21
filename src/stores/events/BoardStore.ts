@@ -34,11 +34,10 @@ export const usePhotoStore = create<PhotoStore>()((set) => ({
 
   getAllPhotos: async (type: 'new' | 'heart'): Promise<PhotoInfo> => {
     const mainUserId = localStorage.getItem('mainUserId');
-    const { data, message, success } = await api.get(`/main/event/photo/all/${type}`, {
+    const { data, success } = await api.get(`/main/event/photo/all/${type}`, {
       params: mainUserId ? { 'main-user-id': mainUserId } : {},
     });
     if (!success) {
-      console.error('Error fetching all photos:', message);
       return {
         photoTotalCount: 0,
         photoList: [],
@@ -49,7 +48,7 @@ export const usePhotoStore = create<PhotoStore>()((set) => ({
 
   getMyPhotos: async (type: 'new' | 'heart'): Promise<PhotoInfo> => {
     const mainUserId = localStorage.getItem('mainUserId');
-    const { data, message, success } = await api.get(`/main/event/photo/my/${type}/user/${mainUserId}`);
+    const { data, success } = await api.get(`/main/event/photo/my/${type}/user/${mainUserId}`);
 
     if (typeof data === 'string') {
       try {
@@ -66,7 +65,6 @@ export const usePhotoStore = create<PhotoStore>()((set) => ({
     }
 
     if (!success) {
-      console.error('Error fetching my photos:', message);
       return {
         photoTotalCount: 0,
         photoList: [],
