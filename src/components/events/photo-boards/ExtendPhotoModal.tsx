@@ -37,14 +37,10 @@ const ExtendPhotoModal: React.FC = () => {
     try {
       if (isLike) {
         await unlikePhoto(selectedPhoto.photoId, mainUserId);
-        // setIsLike(false);
-        // setLikeCount((prev) => prev - 1);
         updatePhotoHeart(selectedPhoto.photoId, false, likeCount - 1);
         updateSelectedPhotoHeart(false, likeCount - 1);
       } else {
         await likePhoto(selectedPhoto.photoId, mainUserId);
-        // setIsLike(true);
-        // setLikeCount((prev) => prev + 1);
         updatePhotoHeart(selectedPhoto.photoId, true, likeCount + 1);
         updateSelectedPhotoHeart(true, likeCount + 1);
       }
