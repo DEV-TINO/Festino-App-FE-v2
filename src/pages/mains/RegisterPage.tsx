@@ -28,6 +28,7 @@ const RegisterPage: React.FC = () => {
   const [inputName, setInputName] = useState('');
   const [inputPhoneNum, setInputPhoneNum] = useState('');
   const [inputStudentNum, setInputStudentNum] = useState('');
+  const [isVerification, setIsVerification] = useState(false);
 
   const [timeLeft, setTimeLeft] = useState(0);
   const [timerId, setTimerId] = useState<NodeJS.Timeout | null>(null);
@@ -71,6 +72,7 @@ const RegisterPage: React.FC = () => {
     if (result.success) {
       alert('인증번호가 전송되었습니다.');
       setShowCodeInput(true);
+      setIsVerification(true);
 
       if (timerId) clearInterval(timerId);
 
@@ -207,7 +209,7 @@ const RegisterPage: React.FC = () => {
                 onClick={handleClickVerifyButton}
                 className="w-1/5 px-4 py-4 font-bold text-white bg-primary-900 rounded-10xl"
               >
-                인증
+                {isVerification ? '재전송' : '인증'}
               </button>
             </div>
             {errors.phone && <p className="text-xs text-red-600 mt-1 px-1">{errors.phone}</p>}
