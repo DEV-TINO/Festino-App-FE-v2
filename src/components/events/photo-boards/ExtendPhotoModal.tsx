@@ -52,7 +52,10 @@ const ExtendPhotoModal: React.FC = () => {
   if (!selectedPhoto) return null;
 
   return (
-    <div className="relative dynamic-width col-start-2 row-start-2 bg-white flex flex-col items-center">
+    <div
+      className="relative dynamic-width col-start-2 row-start-2 bg-white flex flex-col items-center"
+      onClick={(e) => e.stopPropagation()}
+    >
       <img
         src={selectedPhoto.imageUrl}
         className="min-w-full h-[380px] flex-shrink-0 aspect-auto bg-no-repeat bg-center object-contain"
