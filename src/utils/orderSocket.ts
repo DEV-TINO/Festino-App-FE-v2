@@ -5,13 +5,23 @@ import { useSocketStore } from '@/stores/socketStore';
 import useBaseModal from '@/stores/baseModal';
 
 export const connectOrderSocket = (boothId: string, tableNum: number) => {
-  const { client, setClient } = useSocketStore.getState();
+  const { client, setClient, clearClient } = useSocketStore.getState();
 
-  if (client && client.connected) return;
+  if (client) {
+    if (client.connected || client.active) return; // 중복 방지: 연결 중이면 리턴
+  
+    try {
+      client.deactivate(); // 이전 연결 명시적 해제
+    } catch (e) {
+      console.warn('기존 소켓 종료 실패:', e);
+    }
+    clearClient(); // 상태 초기화
+  }  
 
   const newClient = new Client({
     brokerURL: `wss://api.festino.dev-tino.com/ws`,
     reconnectDelay: 5000,
+    debug: () => {},
     onConnect: (frame) => {
       const sessionId = frame.headers['user-name'];
       useSocketStore.getState().setSessionId(sessionId);
@@ -21,7 +31,12 @@ export const connectOrderSocket = (boothId: string, tableNum: number) => {
 
       newClient.publish({
         destination: '/app/order',
-        body: JSON.stringify({ type: 'SUBSCRIBE', boothId, tableNum }),
+        body: JSON.stringify({
+          type: 'SUBSCRIBE',
+          boothId,
+          tableNum,
+          sessionId,
+        }),
       });
     },
   });
@@ -29,16 +44,27 @@ export const connectOrderSocket = (boothId: string, tableNum: number) => {
   newClient.activate();
   setClient(newClient);
 };
-export const disconnectOrderSocket = (boothId: string, tableNum: number) => {
-  const { client, clearClient } = useSocketStore.getState();
+
+export const disconnectOrderSocket = async (boothId: string, tableNum: number) => {
+  const { client, clearClient, sessionId } = useSocketStore.getState();
 
   if (client && client.connected) {
-    client.publish({
-      destination: '/app/order',
-      body: JSON.stringify({ type: 'UNSUB', boothId, tableNum }),
-    });
+    try {
+      client.publish({
+        destination: '/app/order',
+        body: JSON.stringify({
+          type: 'UNSUBSCRIBE',
+          boothId,
+          tableNum,
+          sessionId,
+        }),
+      });
 
-    client.deactivate();
+      await client.deactivate();
+    } catch (err) {
+      console.warn('disconnectOrderSocket WebSocket 오류:', err);
+    }
+
     clearClient();
   }
 };
@@ -97,9 +123,14 @@ const onMessage = (message: IMessage) => {
 
     case 'MEMBERUPDATE': {
       const { memberCount } = data.payload;
-      useOrderStore.getState().setMemberCount(memberCount);
+      const current = useOrderStore.getState().memberCount;
+    
+      if (memberCount !== current) {
+        useOrderStore.getState().setMemberCount(memberCount);
+      }
       break;
-    }
+    }    
+    
     case 'MENUUPDATE': {
       const { menuId, menuCount, totalPrice } = data.payload;
 
@@ -162,11 +193,15 @@ const onMessage = (message: IMessage) => {
     }
 
     case 'ORDERDONE': {
-      useOrderStore.getState().setIsOrderInProgress(false);
-      useOrderStore.getState().setOrderingSessionId(null);
+      const set = useOrderStore.getState();
+    
+      set.setIsOrderInProgress(false);
+      set.setOrderingSessionId(null);
+      set.resetOrderInfo();
+    
       useBaseModal.getState().openModal('orderCompleteModal');
       break;
-    }
+    }    
 
     case 'ORDERCANCEL': {
       useOrderStore.getState().setIsOrderInProgress(false);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { formatPrice } from '@/utils/utils';
@@ -45,98 +45,77 @@ const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
   }, [remainingMinutes]);
 
-  const { openModal } = useBaseModal();
+  const { openModal, setExitConfirmCallback } = useBaseModal();
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
 
   useEffect(() => {
+    if (!boothId || !tableNum || !isUUID(boothId)) return;
     const tableIndex = Number(tableNum);
-    if (!boothId || isNaN(tableIndex)) return;
 
-    connectOrderSocket(boothId, tableIndex);
-
-    const handleBeforeUnload = () => {
-      disconnectOrderSocket(boothId, tableIndex);
-    };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    let hiddenTimer: NodeJS.Timeout | null = null;
-
-    const handleVisibilityChange = () => {
-      const visibility = document.visibilityState;
-      const socket = useSocketStore.getState().client;
-
-      if (visibility === 'hidden') {
-        hiddenTimer = setTimeout(
-          () => {
-            console.log('[백그라운드] 3분 경과 → WebSocket 연결 해제');
-            disconnectOrderSocket(boothId, tableIndex);
-          },
-          3 * 60 * 1000,
-        );
-      } else if (visibility === 'visible') {
-        if (hiddenTimer) {
-          clearTimeout(hiddenTimer);
-          hiddenTimer = null;
-        }
-
-        if (!socket || !socket.connected) {
-          console.log('[복귀] WebSocket이 끊겨 있어 다시 연결합니다.');
-          connectOrderSocket(boothId, tableIndex);
-        }
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
+    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+      connectOrderSocket(boothId, Number(tableNum));
+    }
+  
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      if (hiddenTimer) clearTimeout(hiddenTimer);
+      disconnectOrderSocket(boothId, tableIndex);
     };
   }, [boothId, tableNum]);
 
+  const hasConnected = useRef(false);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible' && boothId && tableNum && !hasConnected.current) {
+        if (!isSocketConnected()) {
+          connectOrderSocket(boothId, Number(tableNum));
+          hasConnected.current = true;
+        }
+      }
+    };
+  
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [boothId, tableNum]);
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const tableIndex = Number(tableNum);
-
+  
     if (!boothId || !isUUID(boothId) || isNaN(tableIndex)) {
       navigate('/error/NotFound');
       return;
     }
-
-    try {
-      connectOrderSocket(boothId, tableIndex);
-    } catch (e) {
-      console.error(e);
-    }
-
+  
+    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+      connectOrderSocket(boothId, Number(tableNum));
+    }    
+  
     setBoothId(boothId);
     setTableNum(tableIndex);
-
+  
     fetchMenuByCategory('ALL');
-  }, [boothId, tableNum]);
+  }, [boothId, tableNum]);  
 
   useEffect(() => {
-
-    const tableIndex = Number(tableNum);
-
     const handleBeforeUnload = () => {
-      if (boothId && !isNaN(tableIndex)) {
-        disconnectOrderSocket(boothId, tableIndex);
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
       }
     };
-
+  
     window.addEventListener('beforeunload', handleBeforeUnload);
-
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
-      if (boothId && !isNaN(tableIndex)) {
-        disconnectOrderSocket(boothId, tableIndex);
-      }
     };
-  }, [boothId, tableNum]);
-
+  }, [boothId, tableNum]);  
+  
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
 
@@ -165,8 +144,6 @@ const OrderPaymentPage: React.FC = () => {
     }
   };
 
-
-
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
   const handleClickReserveButton = () => {
@@ -187,15 +164,26 @@ const OrderPaymentPage: React.FC = () => {
       boothId: boothId!,
       tableNum: Number(tableNum),
     });
-
-    sendWebSocketMessage({
-      type: 'ORDERINPROGRESS',
-      boothId: boothId!,
-      tableNum: Number(tableNum),
-    });
-
+    
     openModal('orderModal');
   };
+
+  useEffect(() => {
+    const handleExit = () => {
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+    
+        disconnectOrderSocket(boothId, Number(tableNum));
+        navigate(`/order/${boothId}/${tableNum}`);
+      }
+    };
+  
+    setExitConfirmCallback(handleExit);
+  }, [boothId, tableNum]);
 
   return (
     <div className="flex flex-col h-full pt-[60px]">

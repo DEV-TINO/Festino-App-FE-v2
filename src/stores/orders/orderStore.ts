@@ -119,7 +119,7 @@ export const useOrderStore = create<OrderState>((set, get) => ({
     orderType: 0,
     menuInfo: [],
     remainingMinutes: 10,
-  },
+  },  
   remainingMinutes: 10,
   isOrderInProgress: false,
   orderingSessionId: null,
