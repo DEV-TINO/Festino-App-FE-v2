@@ -90,7 +90,7 @@ const OrderModal: React.FC = () => {
         <div className="relative w-full flex flex-col gap-1">
           <div className="font-semibold text-secondary-700 select-none">메모</div>
           <textarea
-            className="text-sm w-full resize-none border border-primary p-4 h-24 rounded-2xl focus:outline-none focus:border-primary-700"
+            className="text-base w-full resize-none border border-primary p-4 h-24 rounded-2xl focus:outline-none focus:border-primary-700"
             placeholder="메모를 입력해주세요."
             value={currentNote}
             onChange={handleInputNote}
