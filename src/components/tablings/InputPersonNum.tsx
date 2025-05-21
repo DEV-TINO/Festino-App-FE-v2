@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { InputPersonNumberProps } from "@/types/Tabling.types";
+import { useState } from 'react';
+import { InputPersonNumberProps } from '@/types/Tabling.types';
 
 const InputPersonNum: React.FC<InputPersonNumberProps> = ({ value, onChange }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const InputPersonNum: React.FC<InputPersonNumberProps> = ({ value, onChange }) =
           onBlur={() => setIsFocused(false)}
         />
       </div>
-      <hr className={`border-0 h-[1px] ${isFocused ? 'bg-primary-900' : 'bg-secondary-500-light-20'}`} />
+      <hr className={`border-0 h-[1px] ${isFocused ? 'bg-primary-700' : 'bg-secondary-500-light-20'}`} />
     </>
   );
 };

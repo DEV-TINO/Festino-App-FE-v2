@@ -38,7 +38,7 @@ const RegisterPage: React.FC = () => {
     phone: '',
     code: '',
     personalInfo: '',
-  });  
+  });
 
   const handleClickBackButton = () => {
     navigate(-1);
@@ -122,18 +122,15 @@ const RegisterPage: React.FC = () => {
       name: inputName ? '' : '이름을 입력해주세요.',
       studentNum: inputStudentNum ? '' : '학번을 입력해주세요.',
       phone: inputPhoneNum ? '' : '전화번호를 입력해주세요.',
-      code:
-        showCodeInput && (verifyCode.trim() === '' || timeLeft === 0)
-          ? '유효한 인증번호를 입력해주세요.'
-          : '',
+      code: showCodeInput && (verifyCode.trim() === '' || timeLeft === 0) ? '유효한 인증번호를 입력해주세요.' : '',
       personalInfo: isAgreed ? '' : '개인정보 수집에 동의해주세요.',
     };
-  
+
     setErrors(newErrors);
-  
+
     const hasError = Object.values(newErrors).some((v) => v !== '');
     if (hasError) return;
-  
+
     const result = await saveUserInfo();
     if (result.success) {
       alert('회원가입에 성공했습니다!');
@@ -143,7 +140,7 @@ const RegisterPage: React.FC = () => {
     } else {
       alert(`회원가입 실패: ${result.message}`);
     }
-  };  
+  };
 
   useEffect(() => {
     return () => {
@@ -163,7 +160,7 @@ const RegisterPage: React.FC = () => {
         <div className="w-7"></div>
       </div>
 
-      <div className="dynamic-padding flex flex-col min-h-[calc(100vh-200px)] justify-between">
+      <div className="dynamic-padding dynamic-bottom flex flex-col justify-between">
         <div className="flex flex-col gap-6">
           <div className="pt-6">
             <label className="flex text-base font-medium pb-2 px-1">이름</label>
@@ -182,7 +179,7 @@ const RegisterPage: React.FC = () => {
             <label className="flex text-base font-medium pb-2 px-1">학번</label>
             <input
               type="tel"
-              inputMode='numeric'
+              inputMode="numeric"
               id="studentNum"
               placeholder="학번을 입력해주세요"
               value={inputStudentNum}
@@ -215,7 +212,6 @@ const RegisterPage: React.FC = () => {
             </div>
             {errors.phone && <p className="text-xs text-red-600 mt-1 px-1">{errors.phone}</p>}
 
-
             {showCodeInput && (
               <div className="pt-3">
                 <input
@@ -242,14 +238,14 @@ const RegisterPage: React.FC = () => {
             <PersonalInfo />
             {errors.personalInfo && <p className="text-xs text-red-600 mt-1 px-1">{errors.personalInfo}</p>}
           </div>
+          <button
+            type="button"
+            className="w-full h-14 py-4 px-5 text-base font-bold text-white bg-primary-900  border-primary-800 rounded-10xl focus:outline-none"
+            onClick={() => handleClickRegister()}
+          >
+            회원가입하기
+          </button>
         </div>
-        <button
-          type="button"
-          className="w-full h-14 py-4 px-5 mt-6 text-base font-bold text-white bg-primary-900  border-primary-800 rounded-10xl focus:outline-none"
-          onClick={() => handleClickRegister()}
-        >
-          회원가입하기
-        </button>
       </div>
     </>
   );
