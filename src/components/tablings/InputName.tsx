@@ -15,7 +15,7 @@ const InputName: React.FC<InputNameProps> = ({ value, onChange }) => {
 
   return (
     <>
-      <div className="text-xs">이름</div>
+      <div className="text-xs select-none">이름</div>
       <div className="h-11 w-full flex flex-row items-center py-2.5 gap-2.5">
         <img src="/icons/tablings/person.svg" className="w-6 h-6" />
         <input

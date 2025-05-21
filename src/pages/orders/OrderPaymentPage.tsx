@@ -31,7 +31,7 @@ export const isSocketConnected = (): boolean => {
 
 const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
-    alert('제한시간은 10분입니다');
+    alert('제한 시간 10분!\n10분 이내에 주문을 완료해 주세요');
   }, []);
   const navigate = useNavigate();
   const { boothId, tableNum } = useParams<{ boothId: string; tableNum: string }>();
@@ -161,7 +161,7 @@ const OrderPaymentPage: React.FC = () => {
           <img src="/icons/header-arrow-back.svg" alt="Back" />
         </button>
 
-        <h1 className="text-lg font-bold">주문하기</h1>
+        <h1 className="text-lg font-bold select-none">주문하기</h1>
         <div className="w-6" />
       </div>
       <div className="fixed top-[60px] w-full max-w-[500px] z-10 bg-white">
