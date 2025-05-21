@@ -19,7 +19,7 @@ const RegisterPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const { openModal } = useBaseModal();
+  const { openModal, closeModal } = useBaseModal();
 
   const { isAgreed } = usePersonalInfoStore();
 
@@ -68,9 +68,12 @@ const RegisterPage: React.FC = () => {
     setUserPhoneNum(inputPhoneNum);
     setUserStudentNum(inputStudentNum);
 
+    openModal('loadingModal');
+
     const result = await sendAuthorizationCode();
     if (result.success) {
-      alert('인증번호가 전송되었습니다.');
+      closeModal();
+
       setShowCodeInput(true);
       setIsVerification(true);
 
@@ -207,7 +210,7 @@ const RegisterPage: React.FC = () => {
               />
               <button
                 onClick={handleClickVerifyButton}
-                className="w-1/5 px-4 py-4 font-bold text-white bg-primary-900 rounded-10xl"
+                className="w-1/5 px-4 py-4 font-bold text-primary-900 bg-white border-2 border-primary-900 rounded-10xl active:text-white active:bg-primary-900"
               >
                 {isVerification ? '재전송' : '인증'}
               </button>
@@ -236,8 +239,10 @@ const RegisterPage: React.FC = () => {
               </div>
             )}
           </div>
-          <div className="px-1">
-            <PersonalInfo />
+          <div>
+            <div className="px-1">
+              <PersonalInfo />
+            </div>
             {errors.personalInfo && <p className="text-xs text-red-600 mt-1 px-1">{errors.personalInfo}</p>}
           </div>
           <button
