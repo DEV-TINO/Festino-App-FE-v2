@@ -1,7 +1,6 @@
 import { usePersonalInfoStore } from '@/stores/personalInfoStore';
-import check from '../../../public/icons/commons/check.svg';
 
-const PersonalInfo: React.FC = () => {
+const EventPersonalInfo: React.FC = () => {
   const { isAgreed, toggleIsAgreed } = usePersonalInfoStore();
 
   return (
@@ -16,10 +15,10 @@ const PersonalInfo: React.FC = () => {
       개인정보 수집 • 이용 동의 (필수) */}
       <input type="checkbox" checked={isAgreed} onChange={toggleIsAgreed} className="hidden peer" />
       <span
-        className={`w-4 h-4 border-2 rounded-sm  flex items-center justify-center transition-colors duration-200 ${isAgreed ? 'bg-primary-700 border-primary-700' : 'bg-white border-gray-500'}`}
+        className={`w-4 h-4 border-2 rounded-sm  flex items-center justify-center transition-colors duration-200 ${isAgreed ? 'bg-primary-900 border-primary-900' : 'bg-white border-gray-500'}`}
       >
         <img
-          src={check}
+          src="/icons/commons/check.svg"
           alt="check"
           className={`w-2.5 h-2.5 ${isAgreed ? 'opacity-100' : 'opacity-0'} transition-opacity duration-200`}
         />
@@ -29,4 +28,4 @@ const PersonalInfo: React.FC = () => {
   );
 };
 
-export default PersonalInfo;
+export default EventPersonalInfo;
