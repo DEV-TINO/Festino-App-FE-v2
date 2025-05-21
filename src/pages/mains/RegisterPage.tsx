@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/auths/authStore';
-import PersonalInfo from '@/components/commons/PersonalInfo';
+import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import Header from '@/components/headers/Header';
 import useBaseModal from '@/stores/baseModal';
-import { usePersonalInfoStore } from '@/stores/personalInfoStore';
+import EventPersonalInfo from '@/components/commons/EventPersonalInfo';
 
 const RegisterPage: React.FC = () => {
   const {
@@ -40,6 +40,14 @@ const RegisterPage: React.FC = () => {
     code: '',
     personalInfo: '',
   });
+
+  const formData =
+    inputName.trim() !== '' &&
+    inputPhoneNum.trim() !== '' &&
+    inputStudentNum.trim() !== '' &&
+    verifyCode.trim() !== '' &&
+    timeLeft > 0 &&
+    isAgreed;
 
   const handleClickBackButton = () => {
     navigate(-1);
@@ -242,14 +250,17 @@ const RegisterPage: React.FC = () => {
           </div>
           <div>
             <div className="px-1">
-              <PersonalInfo />
+              <EventPersonalInfo />
             </div>
             {errors.personalInfo && <p className="text-xs text-red-600 mt-1 px-1">{errors.personalInfo}</p>}
           </div>
           <button
             type="button"
-            className="w-full h-14 py-4 px-5 text-base font-bold text-white bg-primary-900  border-primary-800 rounded-10xl focus:outline-none"
+            className={`w-full h-14 py-4 px-5 text-base font-bold text-white  rounded-10xl focus:outline-none duration-200 ${
+              formData ? 'bg-primary-900' : 'bg-secondary-100 cursor-not-allowed'
+            }`}
             onClick={() => handleClickRegister()}
+            disabled={!formData}
           >
             회원가입하기
           </button>
