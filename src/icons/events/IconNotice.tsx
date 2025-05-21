@@ -2,7 +2,7 @@ import React from 'react';
 
 const IconNotice: React.FC = () => {
   return (
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+    <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
       <mask id="mask0_6589_15258" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="28" height="28">
         <rect width="28" height="28" fill="url(#pattern0_6589_15258)"/>
       </mask>
