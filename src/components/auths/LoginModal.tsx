@@ -68,28 +68,36 @@ const LoginModal: React.FC = () => {
 
       <div className="w-full flex flex-col gap-6">
         <h2 className="text-primary-900 text-3xl font-bold text-center">Login</h2>
+        <div>
+          <label className="flex text-base pb-2 px-1 font-medium">이름</label>
 
-        <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-2">
-          <img src="/icons/tablings/person.svg" alt="user" className="w-5 h-5 opacity-50" />
-          <input
-            type="text"
-            placeholder="이름"
-            value={inputName}
-            onChange={handleChangeUserId}
-            className="flex-1 text-base placeholder-secondary-400 focus:outline-none"
-          />
+          <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-2">
+            <img src="/icons/tablings/person.svg" alt="user" className="w-5 h-5 opacity-50" />
+            <input
+              id="inputName"
+              type="text"
+              placeholder="이름"
+              value={inputName}
+              onChange={handleChangeUserId}
+              className="flex-1 text-base placeholder-secondary-400 focus:outline-none"
+            />
+          </div>
         </div>
 
-        <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-2">
-          <img src="/icons/tablings/phone.svg" className="w-5 h-5 opacity-50" />
-          <input
-            type="text"
-            placeholder="전화번호"
-            value={inputPhoneNum}
-            onChange={handleChangePhone}
-            className="flex-1 text-base placeholder-secondary-400 focus:outline-none"
-            maxLength={13}
-          />
+        <div>
+          <label className="flex text-base pb-2 px-1 font-medium">전화번호</label>
+          <div className="flex w-full h-14 items-center border border-primary-900 rounded-full px-4 py-3 gap-2">
+            <img src="/icons/tablings/phone.svg" alt="phone" className="w-5 h-5 opacity-50" />
+            <input
+              id="inputPhoneNum"
+              type="text"
+              placeholder="전화번호"
+              value={inputPhoneNum}
+              onChange={handleChangePhone}
+              className="flex-1 text-base placeholder-secondary-400 focus:outline-none"
+              maxLength={13}
+            />
+          </div>
         </div>
 
         <button

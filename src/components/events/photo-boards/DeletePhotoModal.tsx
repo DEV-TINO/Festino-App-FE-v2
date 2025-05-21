@@ -27,7 +27,7 @@ const DeletePhotoModal: React.FC = () => {
   return (
     <>
       <div
-        className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
+        className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-6"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -41,7 +41,7 @@ const DeletePhotoModal: React.FC = () => {
         </div>
         <div className="flex w-full gap-2">
           <button
-            className="w-1/2 h-12 bg-white border-1 border-red-500 rounded-3xl text-red-500 font-semibold text-xl"
+            className="w-1/2 h-12 bg-white border-2 border-red-500 rounded-3xl text-red-500 font-semibold text-xl"
             onClick={() => closeModal()}
           >
             돌아가기

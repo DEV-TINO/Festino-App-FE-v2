@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import PersonalInfo from '../commons/PersonalInfo';
 import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
 import { submitReview } from '@/stores/events/reviewStore';
 import { formatPhoneNum } from '@/utils/utils';
+import EventPersonalInfo from '../commons/EventPersonalInfo';
 
 const Review: React.FC = () => {
   const [rating, setRating] = useState(0);
@@ -48,7 +48,7 @@ const Review: React.FC = () => {
     setter: React.Dispatch<React.SetStateAction<string[]>>,
   ) => {
     const isNone = option === '없음';
-  
+
     if (isNone) {
       setter(selectedList.includes('없음') ? [] : ['없음']);
     } else {
@@ -60,7 +60,6 @@ const Review: React.FC = () => {
       }
     }
   };
-  
 
   const handleSubmit = async () => {
     if (
@@ -243,7 +242,7 @@ const Review: React.FC = () => {
 
       <div className="flex flex-col gap-[0.5rem]">
         <p className="text-sm font-bold">이벤트 상품 수령에 필요한 개인정보를 입력해주세요!</p>
-        <div className="flex items-center">  
+        <div className="flex items-center">
           <label className="text-xs text-secondary-500 w-16">이름</label>
           <input
             className="w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
@@ -277,7 +276,7 @@ const Review: React.FC = () => {
         </div>
       </div>
 
-      <PersonalInfo />
+      <EventPersonalInfo />
 
       <button
         className="w-full text-white bg-primary-900 h-[45px] flex items-center justify-center rounded-full"
