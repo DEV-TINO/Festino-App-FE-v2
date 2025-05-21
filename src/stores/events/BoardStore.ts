@@ -6,6 +6,17 @@ export const usePhotoModalStore = create<PhotoModalState>((set) => ({
   selectedPhoto: null,
   setSelectedPhoto: (photo) => set({ selectedPhoto: photo }),
   clearSelectedPhoto: () => set({ selectedPhoto: null }),
+  updateSelectedPhotoHeart: (heart: boolean, heartCount: number) =>
+    set((state) => {
+      if (!state.selectedPhoto) return {};
+      return {
+        selectedPhoto: {
+          ...state.selectedPhoto,
+          heart,
+          heartCount,
+        },
+      };
+    }),
 }));
 
 export const usePhotoStore = create<PhotoStore>()((set) => ({

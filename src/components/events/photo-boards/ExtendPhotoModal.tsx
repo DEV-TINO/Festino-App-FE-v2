@@ -3,9 +3,9 @@ import { usePhotoModalStore, usePhotoStore } from '@/stores/events/BoardStore';
 import { useEffect, useState } from 'react';
 
 const ExtendPhotoModal: React.FC = () => {
-  const { selectedPhoto } = usePhotoModalStore();
+  const { selectedPhoto, updateSelectedPhotoHeart } = usePhotoModalStore();
   const { closeModal, openModal } = useBaseModal();
-  const { myPhotos, likePhoto, unlikePhoto } = usePhotoStore();
+  const { myPhotos, likePhoto, unlikePhoto, updatePhotoHeart } = usePhotoStore();
 
   const [isLike, setIsLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -37,12 +37,16 @@ const ExtendPhotoModal: React.FC = () => {
     try {
       if (isLike) {
         await unlikePhoto(selectedPhoto.photoId, mainUserId);
-        setIsLike(false);
-        setLikeCount((prev) => prev - 1);
+        // setIsLike(false);
+        // setLikeCount((prev) => prev - 1);
+        updatePhotoHeart(selectedPhoto.photoId, false, likeCount - 1);
+        updateSelectedPhotoHeart(false, likeCount - 1);
       } else {
         await likePhoto(selectedPhoto.photoId, mainUserId);
-        setIsLike(true);
-        setLikeCount((prev) => prev + 1);
+        // setIsLike(true);
+        // setLikeCount((prev) => prev + 1);
+        updatePhotoHeart(selectedPhoto.photoId, true, likeCount + 1);
+        updateSelectedPhotoHeart(true, likeCount + 1);
       }
     } catch {
       alert('좋아요 처리 중 오류가 발생했습니다.');
