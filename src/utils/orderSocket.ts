@@ -10,7 +10,7 @@ export const connectOrderSocket = (boothId: string, tableNum: number) => {
   if (client && client.connected) return;
 
   const newClient = new Client({
-    brokerURL: `wss://api.festino.dev-tino.com//ws`,
+    brokerURL: `wss://api.festino.dev-tino.com/ws`,
     reconnectDelay: 5000,
     onConnect: (frame) => {
       const sessionId = frame.headers['user-name'];
