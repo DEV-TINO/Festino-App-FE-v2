@@ -67,11 +67,11 @@ const NavTap = () => {
           <div className="flex flex-col items-center justify-center gap-4">
             {login ? (
               <div
-                className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]
-                cursor-pointer`}
+                className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]`}
               ></div>
             ) : (
               <div
+                className="cursor-pointer"  
                 onClick={() => {
                   close();
                   openModal('loginModal');
@@ -84,7 +84,7 @@ const NavTap = () => {
             <div
               className="text-center font-bold text-lg cursor-pointer"
               onClick={() => {
-                if (!isLogin) {
+                if (!login) {
                   close();
                   openModal('loginModal');
                 }
