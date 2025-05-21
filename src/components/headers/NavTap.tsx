@@ -53,7 +53,7 @@ const NavTap = () => {
         onClick={close}
       />
       <div
-        className={`fixed top-0 left-0 w-5/6 h-screen bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'} overflow-hidden`}
+        className={`fixed top-0 left-0 w-5/6 h-screen bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'} overflow-x-hidden overflow-y-scroll`}
       >
         <div className="flex flex-col gap-12">
           <div className="flex h-[60px] w-full items-center justify-end px-5">
