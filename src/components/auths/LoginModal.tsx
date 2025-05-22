@@ -1,6 +1,6 @@
 import useBaseModal from '@/stores/baseModal';
 import { useAuthStore } from '@/stores/auths/authStore';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const LoginModal: React.FC = () => {
@@ -8,6 +8,7 @@ const LoginModal: React.FC = () => {
   const { setUserName, setUserPhoneNum, login } = useAuthStore();
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleClickClose = () => {
     closeModal();
@@ -28,8 +29,12 @@ const LoginModal: React.FC = () => {
     setUserPhoneNum(inputPhoneNum);
 
     const success = await login();
+
     if (success) {
       closeModal();
+      if (pathname.includes('/register')) {
+        navigate('/');
+      }
     }
   };
 

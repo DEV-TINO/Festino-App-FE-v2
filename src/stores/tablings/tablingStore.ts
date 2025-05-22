@@ -37,15 +37,8 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
         const { data } = await api.post('/main/reservation', payload);
         closeModal();
 
-        // if (!success) {
-        //   console.error('saveReservation 실패:', message);
-        //   openModal('failReservationModal');
-        //   return;
-        // }
-
-        console.log('data:', data);
         const msgStatus = data.messageStatus;
-        if (msgStatus === 'SEND_FAIL') openModal('messageFailModal');
+        if (msgStatus === 'PHONE_NUM_FAIL') openModal('messageFailModal');
         else if (msgStatus === 'SEND_SUCCESS') openModal('completeReserveModal');
 
         await get().getAllNightBooth();
@@ -100,25 +93,6 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
       }
     },
 
-    // checkDuplicateReserve: async (phoneNum, { openModal, closeModal, navigate }) => {
-    //   try {
-    //     const { data, success, message } = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
-
-    //     if (!success) {
-    //       console.error('checkDuplicateReserve 실패:', message);
-    //       openModal('loadingModal');
-    //       await get().saveReservation(get().reserveInfo, { openModal, closeModal, navigate });
-    //       return;
-    //     }
-
-    //     set({ prevReserveBoothName: data });
-    //     openModal('duplicateModal');
-    //   } catch {
-    //     closeModal();
-    //     navigate(`/error/main`);
-    //     console.error('Error checking duplicate');
-    //   }
-    // },
     checkDuplicateReserve: async (phoneNum, { openModal, closeModal, navigate }) => {
       try {
         const { data } = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
