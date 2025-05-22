@@ -11,13 +11,14 @@ const QuizModal: React.FC = () => {
     setModalType,
     saveAnswer,
     checkJoin,
+    setAnswer,
     startTime,
     endTime,
     questionInfo,
+    answer,
   } = useEventStore();
   const { isLogin } = useAuthStore();
 
-  const [answer, setAnswer] = useState("");
   const [message, setMessage] = useState("*답안은 제출 시 변경할 수 없습니다!");
 
   useEffect(() => {
@@ -65,9 +66,8 @@ const QuizModal: React.FC = () => {
           return;
         }
       }
-  
       await saveAnswer(mainUserId, answer);
-      closeModal();
+      openModal("submit");
     } else {
       alert("답을 입력해주세요");
     }

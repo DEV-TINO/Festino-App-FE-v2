@@ -30,6 +30,7 @@ import ExitPaymentModal from '@/components/orders/modals/ExitPayment';
 import OverrideOrderModal from '@/components/orders/modals/OverrideOrderModal';
 import OrderCancelConfirmModal from '@/components/orders/modals/OrderCancelConfirmModal';
 import NonCloseModalBackground from '@/components/modals/NonCloseModalBackground';
+import SubmitModal from '@/components/events/modals/SubmitModal';
 
 const ModalPage = () => {
   const { isModalOpen, modalType } = useBaseModal();
@@ -75,6 +76,7 @@ const ModalPage = () => {
       {modalType === 'exitPaymentModal' && <ExitPaymentModal />}
       {modalType === 'overrideOrderModal' && <OverrideOrderModal />}
       {modalType === 'orderCancelConfirmModal' && <OrderCancelConfirmModal />}
+      {modalType === 'submit' && <SubmitModal />}
     </ModalBackground>
   );
 };
