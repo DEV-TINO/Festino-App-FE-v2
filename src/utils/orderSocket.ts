@@ -214,18 +214,38 @@ const onMessage = (message: IMessage) => {
       useOrderStore.getState().setRemainingMinutes(data.payload.remainingMinutes);
       break;
     }
+
     case 'PRESESSIONEND': {
       const minutes = data.payload?.remainingMinutes;
+    
       if (minutes === 1) {
+        useOrderStore.getState().setRemainingMinutes(1); 
         useBaseModal.getState().openModal('oneMinuteModal');
       }
+    
       break;
     }
-    case 'SESSIONEND': {
-      useBaseModal.getState().openModal('timeOverModal');
-      break;
-    }
+    
 
+    case 'SESSIONEND': {
+      const state = useOrderStore.getState();
+      const boothId = state.boothId;
+      const tableNum = state.tableNum;
+      const sessionId = useSocketStore.getState().sessionId;
+    
+      if (boothId && typeof tableNum === 'number' && sessionId) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum,
+        });
+      }
+    
+      useBaseModal.getState().openModal('timeOverModal');
+    
+      break;
+    }
+    
     case 'ERROR': {
       console.error('서버 오류:', data.payload);
       break;
