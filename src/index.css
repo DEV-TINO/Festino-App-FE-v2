@@ -59,9 +59,10 @@ body {
   position: relative;
 }
 
-html, body, #root {
-  height: var(--real-vh);
-  overflow: hidden;
+html,
+body {
+  height: 100% !important;
+  overflow-x: hidden;
 }
 
 @media (min-width: 500px) {

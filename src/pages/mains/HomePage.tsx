@@ -4,11 +4,11 @@ import HomeTab from "@/components/homes/HomeTab";
 
 const HomePage : React.FC = () => {
   return (
-    <>
+    <div className="h-screen">
       <Header />
       <HomeBanner />
       <HomeTab />
-    </>
+    </div>
   )
 }
 
