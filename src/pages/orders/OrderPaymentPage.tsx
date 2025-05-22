@@ -219,7 +219,7 @@ const OrderPaymentPage: React.FC = () => {
         <div className="w-full max-w-[500px] fixed bg-primary-700 text-white text-center py-3 flex justify-between px-4">
           <span>{memberCount}명이 주문에 참여하고 있어요.</span>
           <span className="flex items-center gap-1">
-            <img src="/icons/orders/10Clock.svg" style={{ width: '18px', height: '18px' }} /> {remainingMinutes}분
+            <img src="/icons/orders/10Clock.png" style={{ width: '18px', height: '18px' }} /> {remainingMinutes}분
           </span>
         </div>
         <div className="fixed w-full max-w-[500px] bg-white ">
