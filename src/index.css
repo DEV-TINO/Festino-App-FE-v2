@@ -44,25 +44,26 @@ html {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
+  height: auto;
 }
 
 body {
   margin: 0px;
   padding: 0px;
+  padding-bottom: 50px;
   font-family: 'Pretendard Variable';
   min-width: 375px;
   max-width: 500px;
-  height: auto;
   min-height: 100vh;
+  height: auto;
   overflow-x: hidden;
   -ms-overflow-style: none;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
 }
 
 html,
 body {
-  height: 100% !important;
   overflow-x: hidden;
 }
 
@@ -82,6 +83,10 @@ body {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.some-class {
+  height: calc(var(--real-vh, 1vh) * 100);
 }
 
 .limit-width {
