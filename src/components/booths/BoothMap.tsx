@@ -28,24 +28,24 @@ const BoothMap: React.FC = () => {
         { markerNum: 75, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 }, // 종관
         { markerNum: 76, left: 500, bottom: 367, scrollLeft: 1200, scrollTop: 110 }, // GS
       ],
+      general: [
+        // 총학 이벤트 추가되면 활성화
+        { markerNum: 90, left: 370, bottom: 350, scrollLeft: 830, scrollTop: 170 },
+        { markerNum: 92, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
+        { markerNum: 95, left: 500, bottom: 340, scrollLeft: 1200, scrollTop: 170 },
+      ],
       toilet: [
         { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 90 },
         { markerNum: 72, left: 70, bottom: 350, scrollLeft: 20, scrollTop: 130 },
         { markerNum: 73, left: 520, bottom: 367, scrollLeft: 1200, scrollTop: 110 },
         { markerNum: 74, left: 440, bottom: 367, scrollLeft: 970, scrollTop: 110 },
       ],
-      general: [
-        // 총학 이벤트 추가되면 활성화
-        { markerNum: 92, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
-        { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
-        { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 390 },
-      ],
       ticket: [
         //총학 티켓
         { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
         { markerNum: 94, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 },
       ],
-      alcohol: [{ markerNum: 95, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }],
+      alcohol: [{ markerNum: 94, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }],
       // music: [{ markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 }],
       join: [
         // B동 앞
