@@ -47,8 +47,8 @@ const OrderMainPage: React.FC = () => {
         <div className="h-11 rounded-10xl bg-primary-900-light font-semibold text-primary-700 grid place-items-center px-6 bg-primary-700-lighter select-none">
           테이블 번호 {customTableNum}
         </div>
-        <div className="py-11 flex flex-col w-full px-2 gap-y-11 h-full">
-          <div className="flex flex-row justify-evenly gap-x-2">
+        <div className="py-11 flex flex-col w-full dynamic-padding gap-y-11 h-full">
+          <div className="flex flex-row justify-evenly gap-x-1">
             <button
               onClick={handleClickPayment}
               className="h-72 w-40 min-w-[170px] rounded-3xl flex flex-col justify-start items-center border-2 border-primary-900-lighter gap-6 shadow overflow-hidden cursor-pointer"
@@ -64,10 +64,10 @@ const OrderMainPage: React.FC = () => {
               <img src="/icons/orders/orderSearch.svg" alt="Order Search Icon" />
             </button>
           </div>
-          <div className="relative">
+          <div className="relative rounded-3xl">
             <img
               src="/images/orders/tino-order-main.svg"
-              className="w-full h-full cursor-pointer"
+              className="w-full h-full cursor-pointer rounded-3xl shadow-lg"
               onClick={handleClickFestinoButton}
               alt="Festino Banner"
             />
