@@ -200,7 +200,7 @@ const Review: React.FC = () => {
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-sm font-bold">왜 그렇게 생각하셨나요? (선택)</div>
           <textarea
-            className="text-xs border border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
+            className="touch-action: manipulation text-xs border border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
             placeholder="내용을 작성해주세요."
             value={reason}
             onChange={(e) => setReason(e.target.value)}
@@ -233,7 +233,7 @@ const Review: React.FC = () => {
       <div className="flex flex-col gap-[0.5rem]">
         <div className="text-sm font-bold">이 외에도 좋았던 점이나 불편했던 점을 작성해주세요! (선택)</div>
         <textarea
-          className="text-xs border-2 border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
+          className="touch-action: manipulation text-xs border-2 border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
           placeholder="내용을 입력해주세요."
           value={feedback}
           onChange={(e) => setFeedBack(e.target.value)}
@@ -245,7 +245,7 @@ const Review: React.FC = () => {
         <div className="flex items-center">
           <label className="text-xs text-secondary-500 w-16">이름</label>
           <input
-            className="w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
+            className="touch-action: manipulation w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
             placeholder="이름"
             value={name}
             onChange={handleNameChange}
@@ -255,7 +255,7 @@ const Review: React.FC = () => {
         <div className="flex items-center">
           <label className="text-xs text-secondary-500 w-16">전화번호</label>
           <input
-            className="w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
+            className="touch-action: manipulation w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
             placeholder="전화번호"
             inputMode="numeric"
             value={phoneNum}
@@ -266,7 +266,7 @@ const Review: React.FC = () => {
         <div className="flex items-center">
           <label className="text-xs text-secondary-500 w-16">학번</label>
           <input
-            className="w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
+            className="touch-action: manipulation w-full h-10 text-xs border border-primary-900-light-20 rounded-xl px-4 py-4 resize-none focus:outline-none"
             placeholder="학번"
             inputMode="numeric"
             value={studentNum}
