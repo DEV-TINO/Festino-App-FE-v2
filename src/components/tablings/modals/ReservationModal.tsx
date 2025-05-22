@@ -74,7 +74,7 @@ const ReservationModal: React.FC = () => {
   return (
     <>
       <div
-        className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
+        className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-8"
         onClick={(e) => {
           e.stopPropagation();
         }}
@@ -96,7 +96,7 @@ const ReservationModal: React.FC = () => {
         </div>
         <div className="w-full flex flex-row justify-between gap-[10px] pt-[1px]">
           <button
-            className="w-full h-[43px] bg-white text-primary-700 font-bold rounded-10xl border-1 border-primary-700"
+            className="w-full h-[43px] bg-white text-primary-700 font-bold rounded-10xl border-2 border-primary-700"
             onClick={() => closeModal()}
           >
             닫기

@@ -5,7 +5,10 @@ const useBaseModal = create<IBaseModal>((set) => ({
   isModalOpen: false,
   modalType: '',
   orderCancelConfirmCallback: null,
+  exitConfirmCallback: null, 
+
   setOrderCancelConfirmCallback: (cb) => set({ orderCancelConfirmCallback: cb }),
+  setExitConfirmCallback: (cb) => set({ exitConfirmCallback: cb }),
 
   setModalType: (type) => set({ modalType: type }),
   openModal: (type) =>

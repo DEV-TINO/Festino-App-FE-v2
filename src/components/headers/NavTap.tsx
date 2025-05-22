@@ -28,7 +28,7 @@ const NavTap = () => {
 
   useEffect(() => {
     const root = document.getElementById('root');
-  
+
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       document.documentElement.style.overflow = 'hidden';
@@ -38,13 +38,13 @@ const NavTap = () => {
       document.documentElement.style.overflow = '';
       if (root) root.style.overflow = '';
     }
-  
+
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       if (root) root.style.overflow = '';
     };
-  }, [isOpen]); 
+  }, [isOpen]);
 
   return (
     <>
@@ -53,12 +53,12 @@ const NavTap = () => {
         onClick={close}
       />
       <div
-        className={`fixed top-0 left-0 w-5/6 h-screen bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'} overflow-hidden`}
+        className={`absolute top-0 left-0 w-5/6 bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'} overflow-y-scroll`}
       >
-        <div className="flex flex-col gap-12">
+        <div className="flex h-screen flex-col gap-12">
           <div className="flex h-[60px] w-full items-center justify-end px-5">
             <div
-              className="w-[22px] h-[22px] bg-header-navigation-bar bg-center bg-no-repeat bg-[length:22px_22px]
+              className="fixed top-4 w-[22px] h-[22px] bg-header-navigation-bar bg-center bg-no-repeat bg-[length:22px_22px]
             cursor-pointer"
               onClick={close}
             />
@@ -67,22 +67,24 @@ const NavTap = () => {
           <div className="flex flex-col items-center justify-center gap-4">
             {login ? (
               <div
-                className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]
-                cursor-pointer`}
+                className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]`}
               ></div>
             ) : (
-              <div onClick={() => {
-                close();
-                openModal('loginModal');
-              }}>
-              <IconProfile />
+              <div
+                className="cursor-pointer"  
+                onClick={() => {
+                  close();
+                  openModal('loginModal');
+                }}
+              >
+                <IconProfile />
               </div>
             )}
 
             <div
               className="text-center font-bold text-lg cursor-pointer"
               onClick={() => {
-                if (!isLogin) {
+                if (!login) {
                   close();
                   openModal('loginModal');
                 }
@@ -92,7 +94,7 @@ const NavTap = () => {
             </div>
           </div>
 
-          <ul className="space-y-6 text-sm text-secondary-700">
+          <ul className="space-y-6 text text-secondary-700 select-none">
             <li
               onClick={() => {
                 navigate('/timetable');
@@ -103,7 +105,7 @@ const NavTap = () => {
               <div className="p-[3px]">
                 <TimeTableIcon />
               </div>
-              <div className="text-xl text-secondary-300 font-bold">타임테이블</div>
+              <div className="text-lg text-secondary-300 font-bold">타임테이블</div>
             </li>
 
             <li
@@ -116,7 +118,7 @@ const NavTap = () => {
               <div className="p-[3px]">
                 <BoothIcon />
               </div>
-              <div className="text-xl text-secondary-300 font-bold">부스 정보</div>
+              <div className="text-lg text-secondary-300 font-bold">부스 정보</div>
             </li>
 
             <li
@@ -129,7 +131,7 @@ const NavTap = () => {
               <div className="p-[3px]">
                 <TablingIcon />
               </div>
-              <div className="text-xl text-secondary-300 font-bold">테이블링</div>
+              <div className="text-lg text-secondary-300 font-bold">테이블링</div>
             </li>
 
             <li
@@ -142,7 +144,7 @@ const NavTap = () => {
               <div className="p-1">
                 <IconNotice />
               </div>
-              <div className="text-xl text-secondary-300 font-bold">공지사항</div>
+              <div className="text-lg text-secondary-300 font-bold">공지사항</div>
             </li>
 
             <li
@@ -155,7 +157,7 @@ const NavTap = () => {
               <div className="p-1.5">
                 <IconDeveloper />
               </div>
-              <div className="text-xl text-secondary-300 font-bold">개발자 소개</div>
+              <div className="text-lg text-secondary-300 font-bold">개발자 소개</div>
             </li>
 
             <div
@@ -165,10 +167,12 @@ const NavTap = () => {
                 <div className="flex w-full justify-between">
                   <div className="flex gap-4">
                     <IconEvent />
-                    <div className="text-xl text-secondary-300 font-bold">이벤트</div>
+                    <div className="text-lg text-secondary-300 font-bold">이벤트</div>
                   </div>
                   <div>
-                    <div className={`w-7 h-7 flex items-center justify-center bg-center bg-no-repeat transition-transform duration-300 ${isEventOpen ? 'rotate-180' : 'rotate-0'} `}>
+                    <div
+                      className={`w-7 h-7 flex items-center justify-center bg-center bg-no-repeat transition-transform duration-300 ${isEventOpen ? 'rotate-180' : 'rotate-0'} `}
+                    >
                       <IconDropDown />
                     </div>
                   </div>
@@ -178,9 +182,9 @@ const NavTap = () => {
               <div
                 className={`transition-all duration-300 ease-in-out overflow-hidden origin-top ${isEventOpen ? 'opacity-100 scale-y-100 max-h-40' : 'opacity-0 scale-y-0 max-h-0'}`}
               >
-                <ul className="pl-9 py-5 space-y-6 text-lg font-semibold text-secondary-400">
+                <ul className="pl-[42px]  space-y-4 text-base font-semibold text-secondary-400">
                   <li
-                    className="cursor-pointer px-2"
+                    className="cursor-pointer px-2 pt-2"
                     onClick={() => {
                       navigate('/review');
                       close();

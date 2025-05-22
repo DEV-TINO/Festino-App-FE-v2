@@ -100,6 +100,7 @@ const OrderConfirmModal: React.FC = () => {
 
         closeModal();
         openModal('orderCompleteModal');
+        
       } else {
         console.warn(' 주문 실패:', res.message);
         alert(`주문 실패: ${res.message}`);

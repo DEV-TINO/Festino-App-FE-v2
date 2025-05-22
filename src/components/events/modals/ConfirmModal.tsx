@@ -13,10 +13,10 @@ const ConfirmModal: React.FC = () => {
 
   const getEventTime = () => {
     const [datePart, timePart] = startTime.split("T");
-    const [month, day] = datePart.split("-");
+    const [year, month, day] = datePart.split("-");
     const [hour, minute] = timePart.split(":");
 
-    return `${parseInt(month)}월 ${parseInt(day)}일 ${hour}:${minute} ~`;
+    return `${parseInt(year)}년 ${parseInt(month)}월 ${parseInt(day)}일 ${hour}:${minute} ~`;
   };
 
   return (

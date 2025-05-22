@@ -19,8 +19,20 @@ import OrderSearchPage from './pages/orders/OrderSearchPage';
 import RetryQRPage from './pages/orders/ReTryQRPage';
 import PhotoBoardPage from './pages/mains/PhotoBoardPage';
 import ReviewPage from './pages/mains/ReviewPage';
+import { useEffect } from 'react';
 
 const App: React.FC = () => {
+  useEffect(() => {
+    const updateRealVh = () => {
+      const realHeight = window.visualViewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty('--real-vh', `${realHeight}px`);
+    };
+
+    updateRealVh();
+    window.addEventListener('resize', updateRealVh);
+    return () => window.removeEventListener('resize', updateRealVh);
+  }, []);
+
   return (
     <BrowserRouter>
       <ScrollToTop />

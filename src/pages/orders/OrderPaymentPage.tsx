@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { formatPrice } from '@/utils/utils';
@@ -30,11 +30,9 @@ export const isSocketConnected = (): boolean => {
 };
 
 const OrderPaymentPage: React.FC = () => {
-  useEffect(() => {
-    alert('제한 시간 10분!\n10분 이내에 주문을 완료해 주세요');
-  }, []);
   const navigate = useNavigate();
   const { boothId, tableNum } = useParams<{ boothId: string; tableNum: string }>();
+  const [showConfirm, setShowConfirm] = useState(true);
 
   const { setBoothId, setTableNum, setMenuInfo, menuInfo, addOrderItem, userOrderList, totalPrice, isOrderInProgress } =
     useOrderStore();
@@ -45,98 +43,95 @@ const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
   }, [remainingMinutes]);
 
-  const { openModal } = useBaseModal();
+  const { openModal, setExitConfirmCallback } = useBaseModal();
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
 
+  const hasConnected = useRef(false);
+
   useEffect(() => {
-    const tableIndex = Number(tableNum);
-    if (!boothId || isNaN(tableIndex)) return;
-
-    connectOrderSocket(boothId, tableIndex);
-
-    const handleBeforeUnload = () => {
-      disconnectOrderSocket(boothId, tableIndex);
-    };
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    let hiddenTimer: NodeJS.Timeout | null = null;
-
     const handleVisibilityChange = () => {
-      const visibility = document.visibilityState;
-      const socket = useSocketStore.getState().client;
-
-      if (visibility === 'hidden') {
-        hiddenTimer = setTimeout(
-          () => {
-            console.log('[백그라운드] 3분 경과 → WebSocket 연결 해제');
-            disconnectOrderSocket(boothId, tableIndex);
-          },
-          3 * 60 * 1000,
-        );
-      } else if (visibility === 'visible') {
-        if (hiddenTimer) {
-          clearTimeout(hiddenTimer);
-          hiddenTimer = null;
-        }
-
-        if (!socket || !socket.connected) {
-          console.log('[복귀] WebSocket이 끊겨 있어 다시 연결합니다.');
-          connectOrderSocket(boothId, tableIndex);
+      if (document.visibilityState === 'visible' && boothId && tableNum && !hasConnected.current) {
+        if (!isSocketConnected()) {
+          connectOrderSocket(boothId, Number(tableNum));
+          hasConnected.current = true;
         }
       }
     };
-
+  
     document.addEventListener('visibilitychange', handleVisibilityChange);
-
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      if (hiddenTimer) clearTimeout(hiddenTimer);
     };
   }, [boothId, tableNum]);
-
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const tableIndex = Number(tableNum);
-
+  
     if (!boothId || !isUUID(boothId) || isNaN(tableIndex)) {
       navigate('/error/NotFound');
       return;
     }
-
-    try {
-      connectOrderSocket(boothId, tableIndex);
-    } catch (e) {
-      console.error(e);
-    }
-
+  
+    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+      connectOrderSocket(boothId, Number(tableNum));
+    }    
+  
     setBoothId(boothId);
     setTableNum(tableIndex);
-
+  
     fetchMenuByCategory('ALL');
-  }, [boothId, tableNum]);
+  }, [boothId, tableNum]);  
 
   useEffect(() => {
-
-    const tableIndex = Number(tableNum);
-
     const handleBeforeUnload = () => {
-      if (boothId && !isNaN(tableIndex)) {
-        disconnectOrderSocket(boothId, tableIndex);
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+        disconnectOrderSocket(boothId, Number(tableNum));
       }
     };
-
+  
     window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [boothId, tableNum]);  
 
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-      if (boothId && !isNaN(tableIndex)) {
-        disconnectOrderSocket(boothId, tableIndex);
+  useEffect(() => {
+    const handlePopState = () => {
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+        disconnectOrderSocket(boothId, Number(tableNum));
       }
     };
+  
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, [boothId, tableNum]);
-
+  
+  useEffect(() => {
+    const handlePageHide = () => {
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+        disconnectOrderSocket(boothId, Number(tableNum));
+      }
+    };
+  
+    window.addEventListener('pagehide', handlePageHide);
+    return () => window.removeEventListener('pagehide', handlePageHide);
+  }, [boothId, tableNum]);  
+  
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
 
@@ -165,8 +160,6 @@ const OrderPaymentPage: React.FC = () => {
     }
   };
 
-
-
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
   const handleClickReserveButton = () => {
@@ -187,15 +180,26 @@ const OrderPaymentPage: React.FC = () => {
       boothId: boothId!,
       tableNum: Number(tableNum),
     });
-
-    sendWebSocketMessage({
-      type: 'ORDERINPROGRESS',
-      boothId: boothId!,
-      tableNum: Number(tableNum),
-    });
-
+    
     openModal('orderModal');
   };
+
+  useEffect(() => {
+    const handleExit = () => {
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+    
+        disconnectOrderSocket(boothId, Number(tableNum));
+        navigate(`/order/${boothId}/${tableNum}`);
+      }
+    };
+  
+    setExitConfirmCallback(handleExit);
+  }, [boothId, tableNum]);
 
   return (
     <div className="flex flex-col h-full pt-[60px]">
@@ -228,8 +232,8 @@ const OrderPaymentPage: React.FC = () => {
                   fetchMenuByCategory(cat.value);
                 }}
                 className={`flex-1 leading-none whitespace-nowrap text-center min-w-0 basis-0 px-4 py-3 rounded-full border text-sm transition-colors
-        ${selectedCategory === cat.value ? 'bg-primary-700 text-white ' : 'bg-white text-primary-700 border-primary-700-light'}
-      `}
+                  ${selectedCategory === cat.value ? 'bg-primary-700 text-white ' : 'bg-white text-primary-700 border-primary-700-light'}
+                `}
               >
                 {cat.label}
               </button>
@@ -265,9 +269,9 @@ const OrderPaymentPage: React.FC = () => {
         )}
       </div>
 
-      <div className="shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] drop-shadow-lg w-full max-w-[500px] shadow-xs rounded-t-3xl fixed bottom-0 bg-white flex justify-center px-[20px] py-[30px]">
+      <div className="shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] drop-shadow-lg w-full max-w-[500px] shadow-xs rounded-t-3xl fixed bottom-0 bg-white flex justify-center px-[20px] py-[20px]">
         <div
-          className={`flex items-center justify-center w-full h-[60px] rounded-full text-white font-extrabold cursor-pointer ${
+          className={`flex items-center justify-center w-full h-[50px] rounded-full text-white text-base font-extrabold cursor-pointer ${
             totalPrice === 0 ? 'bg-secondary-100' : 'bg-primary-700'
           }`}
           onClick={() => {
@@ -277,6 +281,35 @@ const OrderPaymentPage: React.FC = () => {
           {formatPrice(totalPrice)}원 • 주문하기
         </div>
       </div>
+      {showConfirm && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-xl shadow-md p-6 w-[300px] text-center">
+            <p className="text-base text-gray-800 mb-4">제한 시간 10분!<br />10분 이내에 주문을 완료해 주세요</p>
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                className="w-1/2 px-4 py-2 border border-gray-300 rounded-full"
+                onClick={() => {
+                  setShowConfirm(false);
+                  navigate(`/order/${boothId}/${tableNum}`);
+                }}
+              >
+                돌아가기
+              </button>
+              <button
+                className="w-1/2 px-4 py-2 bg-primary-700 text-white rounded-full"
+                onClick={() => {
+                  setShowConfirm(false);
+                  if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+                    connectOrderSocket(boothId, Number(tableNum));
+                  }
+                }}
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

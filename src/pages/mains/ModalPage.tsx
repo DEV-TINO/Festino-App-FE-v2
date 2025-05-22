@@ -29,12 +29,20 @@ import OrderInprocessModal from '@/components/orders/modals/OrderInprocessModal'
 import ExitPaymentModal from '@/components/orders/modals/ExitPayment';
 import OverrideOrderModal from '@/components/orders/modals/OverrideOrderModal';
 import OrderCancelConfirmModal from '@/components/orders/modals/OrderCancelConfirmModal';
+import NonCloseModalBackground from '@/components/modals/NonCloseModalBackground';
 
 const ModalPage = () => {
-  
   const { isModalOpen, modalType } = useBaseModal();
 
   if (!isModalOpen) return null;
+
+  if (modalType === 'extendPhotoModal') {
+    return (
+      <NonCloseModalBackground>
+        <ExtendPhotoModal />
+      </NonCloseModalBackground>
+    );
+  }
 
   return (
     <ModalBackground>

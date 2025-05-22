@@ -35,6 +35,9 @@
   .dynamic-left-padding {
     padding-left: calc(20 / 430 * 100%) !important;
   }
+  .dynamic-right-padding {
+    padding-right: calc(20 / 430 * 100%) !important;
+  }
 }
 
 html {
@@ -53,10 +56,12 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   -ms-overflow-style: none;
+  overflow-y: scroll;
   position: relative;
 }
 
-html, body {
+html,
+body {
   height: 100% !important;
   overflow-x: hidden;
 }
