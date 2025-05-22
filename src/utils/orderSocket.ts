@@ -225,7 +225,6 @@ const onMessage = (message: IMessage) => {
     
       break;
     }
-    
 
     case 'SESSIONEND': {
       const state = useOrderStore.getState();
