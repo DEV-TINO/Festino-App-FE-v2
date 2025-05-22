@@ -6,11 +6,13 @@ interface IEventStore {
   endTime: string;
   questionInfo: IQuestion | null;
   modalType: string;
+  answer: string,
   setModalType: (type: string) => void;
   getQuestion: () => void;
   getNextQuestion: () => void;
   saveAnswer: (userId: string | null, answer: string) => void;
   checkJoin: (mainUserId: string | null) => Promise<boolean>;
+  setAnswer: (answer: string) => void;
 }
 
 interface IQuestion {
@@ -19,10 +21,12 @@ interface IQuestion {
 }
 
 export const useEventStore = create<IEventStore>((set, get) => ({
+  answer: '',
   startTime: '',
   endTime: '',
   questionInfo: null,
   modalType: 'time',
+  setAnswer: (answer) => { set({ answer })},
   setModalType: (type) => { set({ modalType: type })},
   getQuestion: async () => {
     try {
