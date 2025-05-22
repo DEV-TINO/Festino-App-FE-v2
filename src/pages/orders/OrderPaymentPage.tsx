@@ -46,19 +46,6 @@ const OrderPaymentPage: React.FC = () => {
   const { openModal, setExitConfirmCallback } = useBaseModal();
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
 
-  useEffect(() => {
-    if (!boothId || !tableNum || !isUUID(boothId) || showConfirm) return;
-    const tableIndex = Number(tableNum);
-  
-    if (!isSocketConnected()) {
-      connectOrderSocket(boothId, tableIndex);
-    }
-  
-    return () => {
-      disconnectOrderSocket(boothId, tableIndex);
-    };
-  }, [boothId, tableNum, showConfirm]);  
-
   const hasConnected = useRef(false);
 
   useEffect(() => {
