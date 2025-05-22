@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { formatPrice } from '@/utils/utils';
@@ -24,6 +24,8 @@ const CATEGORY_ENDPOINT_MAP: Record<CategoryValue, string> = {
   2: 'callservice',
 };
 
+const SESSION_TIMEOUT = 1000 * 30; // 30초
+
 export const isSocketConnected = (): boolean => {
   const { client } = useSocketStore.getState();
   return !!client && client.connected;
@@ -40,98 +42,91 @@ const OrderPaymentPage: React.FC = () => {
   const remainingMinutes = useOrderStore((state) => state.remainingMinutes);
   const memberCount = useOrderStore((state) => state.memberCount);
 
-  useEffect(() => {
-  }, [remainingMinutes]);
-
   const { openModal, setExitConfirmCallback } = useBaseModal();
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
 
-  const hasConnected = useRef(false);
-
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible' && boothId && tableNum && !hasConnected.current) {
-        if (!isSocketConnected()) {
-          connectOrderSocket(boothId, Number(tableNum));
-          hasConnected.current = true;
-        }
-      }
-    };
-  
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [boothId, tableNum]);
-  
+    // Initialize the Session ID
+    const sessionId = localStorage.getItem('orderSessionId');
+    if (!showConfirm && sessionId) {
+      console.log('Session ID:', sessionId);
+      sendWebSocketMessage({
+        type: 'INIT',
+        boothId: boothId!,
+        tableNum: Number(tableNum),
+        sessionId: sessionId,
+      });
+    }
+  }, [showConfirm]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     const tableIndex = Number(tableNum);
-  
+
     if (!boothId || !isUUID(boothId) || isNaN(tableIndex)) {
       navigate('/error/NotFound');
       return;
     }
-  
-    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
-      connectOrderSocket(boothId, Number(tableNum));
-    }    
-  
+
     setBoothId(boothId);
     setTableNum(tableIndex);
-  
+
     fetchMenuByCategory('ALL');
-  }, [boothId, tableNum]);  
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
+    // Initialize the WebSocket connection
+    if (!boothId || !tableNum) return;
+    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+      connectOrderSocket(boothId, Number(tableNum));
+    }
+
+    // End of the session
+    let timer: NodeJS.Timeout | null = null;
+
+    const sendLogout = async () => {
       if (boothId && tableNum) {
-        sendWebSocketMessage({
-          type: 'UNSUB',
-          boothId,
-          tableNum: Number(tableNum),
-        });
-        disconnectOrderSocket(boothId, Number(tableNum));
+        // TODO: Change to use a modal
+        // Wait for the user to confirm before navigating away
+        const conf = confirm('주문이 완료되지 않았습니다. 정말로 나가시겠습니까?');
+
+        if (conf) {
+          sendWebSocketMessage({
+            type: 'UNSUB',
+            boothId: boothId!,
+            tableNum: Number(tableNum),
+          });
+          disconnectOrderSocket(boothId!, Number(tableNum));
+          navigate('/order/retry-qr');
+        } else {
+          if (!isSocketConnected()) {
+            // 소켓이 연결되어 있지 않은 경우 연결
+            connectOrderSocket(boothId!, Number(tableNum));
+          }
+        }
       }
     };
-  
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [boothId, tableNum]);  
 
-  useEffect(() => {
-    const handlePopState = () => {
-      if (boothId && tableNum) {
-        sendWebSocketMessage({
-          type: 'UNSUB',
-          boothId,
-          tableNum: Number(tableNum),
-        });
-        disconnectOrderSocket(boothId, Number(tableNum));
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        console.log('[Visibility Change] Page is hidden');
+        if (timer) clearTimeout(timer!);
+        timer = setTimeout(sendLogout, SESSION_TIMEOUT);
+      } else {
+        console.log('[Visibility Change] Page is visible');
+        if (!timer) clearTimeout(timer!);
       }
+    });
+
+    return () => {
+      document.removeEventListener('visibilitychange', sendLogout);
+      sendWebSocketMessage({
+        type: 'UNSUB',
+        boothId: boothId!,
+        tableNum: Number(tableNum),
+      });
+      disconnectOrderSocket(boothId!, Number(tableNum));
     };
-  
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
   }, [boothId, tableNum]);
-  
-  useEffect(() => {
-    const handlePageHide = () => {
-      if (boothId && tableNum) {
-        sendWebSocketMessage({
-          type: 'UNSUB',
-          boothId,
-          tableNum: Number(tableNum),
-        });
-        disconnectOrderSocket(boothId, Number(tableNum));
-      }
-    };
-  
-    window.addEventListener('pagehide', handlePageHide);
-    return () => window.removeEventListener('pagehide', handlePageHide);
-  }, [boothId, tableNum]);  
-  
+
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
 
@@ -168,7 +163,7 @@ const OrderPaymentPage: React.FC = () => {
       return;
     }
 
-    const mySessionId = useSocketStore.getState().sessionId;
+    const mySessionId = localStorage.getItem('orderSessionId');
 
     if (isOrderInProgress && orderingSessionId !== mySessionId) {
       openModal('overrideOrderModal');
@@ -180,7 +175,7 @@ const OrderPaymentPage: React.FC = () => {
       boothId: boothId!,
       tableNum: Number(tableNum),
     });
-    
+
     openModal('orderModal');
   };
 
@@ -192,12 +187,11 @@ const OrderPaymentPage: React.FC = () => {
           boothId,
           tableNum: Number(tableNum),
         });
-    
         disconnectOrderSocket(boothId, Number(tableNum));
         navigate(`/order/${boothId}/${tableNum}`);
       }
     };
-  
+
     setExitConfirmCallback(handleExit);
   }, [boothId, tableNum]);
 
@@ -308,9 +302,6 @@ const OrderPaymentPage: React.FC = () => {
                 className="w-full h-11 rounded-full text-white bg-primary-700"
                 onClick={() => {
                   setShowConfirm(false);
-                  if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
-                    connectOrderSocket(boothId, Number(tableNum));
-                  }
                 }}
               >
                 확인
