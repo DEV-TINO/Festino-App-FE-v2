@@ -11,7 +11,7 @@ const OrderMainPage: React.FC = () => {
   const { customTableNum, setBoothId, setTableNum, setCustomTableNum, resetOrderInfo } = useOrderStore();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const tableIndex = Number(tableNum);
 
@@ -41,7 +41,7 @@ const OrderMainPage: React.FC = () => {
   const handleClickPayment = () => navigate(`/order/${boothId}/${tableNum}/payment`);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <OrderMainBanner />
       <div className="w-full rounded-t-3xl bg-white pt-6 flex flex-col items-center -translate-y-12">
         <div className="h-11 rounded-10xl bg-primary-900-light font-semibold text-primary-700 grid place-items-center px-6 bg-primary-700-lighter select-none">
