@@ -64,7 +64,7 @@ const LoginModal: React.FC = () => {
 
   return (
     <div
-      className="relative col-start-2 row-start-2 h-full dynamic-width dynamic-padding bg-white rounded-3xl flex flex-col items-center px-6 py-6 gap-6"
+      className="relative col-start-2 row-start-2 h-full dynamic-width dynamic-padding bg-white rounded-3xl flex flex-col items-center px-8 py-6 gap-6"
       onClick={(e) => e.stopPropagation()}
     >
       <button className="absolute top-[30px] right-8 w-[32px] h-[32px]" onClick={() => handleClickClose()}>
