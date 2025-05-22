@@ -214,8 +214,8 @@ const OrderPaymentPage: React.FC = () => {
                   fetchMenuByCategory(cat.value);
                 }}
                 className={`flex-1 leading-none whitespace-nowrap text-center min-w-0 basis-0 px-4 py-3 rounded-full border text-sm transition-colors
-        ${selectedCategory === cat.value ? 'bg-primary-700 text-white ' : 'bg-white text-primary-700 border-primary-700-light'}
-      `}
+                  ${selectedCategory === cat.value ? 'bg-primary-700 text-white ' : 'bg-white text-primary-700 border-primary-700-light'}
+                `}
               >
                 {cat.label}
               </button>
@@ -269,7 +269,7 @@ const OrderPaymentPage: React.FC = () => {
             <p className="text-base text-gray-800 mb-4">제한 시간 10분!<br />10분 이내에 주문을 완료해 주세요</p>
             <div className="flex justify-center gap-4 mt-4">
               <button
-                className="px-4 py-2 border border-gray-300 rounded"
+                className="w-1/2 px-4 py-2 border border-gray-300 rounded-full"
                 onClick={() => {
                   setShowConfirm(false);
                   navigate(`/order/${boothId}/${tableNum}`);
@@ -278,7 +278,7 @@ const OrderPaymentPage: React.FC = () => {
                 돌아가기
               </button>
               <button
-                className="px-4 py-2 bg-primary-700 text-white rounded"
+                className="w-1/2 px-4 py-2 bg-primary-700 text-white rounded-full"
                 onClick={() => {
                   setShowConfirm(false);
                   if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
