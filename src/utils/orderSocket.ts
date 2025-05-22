@@ -32,7 +32,7 @@ export const connectOrderSocket = (boothId: string, tableNum: number) => {
       newClient.publish({
         destination: '/app/order',
         body: JSON.stringify({
-          type: 'SUBSCRIBE',
+          type: 'INIT',
           boothId,
           tableNum,
           sessionId,
