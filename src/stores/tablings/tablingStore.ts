@@ -66,7 +66,7 @@ export const useReservationStore = create<ReservationStore>((set, get) => {
       }
     },
 
-    getAllNightㅈBooth: async () => {
+    getAllNightBooth: async () => {
       try {
         const { data, success, message } = await api.get('/main/booth/night/reservation/all');
 
