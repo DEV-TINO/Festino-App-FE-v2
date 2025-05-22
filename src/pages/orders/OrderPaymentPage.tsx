@@ -30,11 +30,9 @@ export const isSocketConnected = (): boolean => {
 };
 
 const OrderPaymentPage: React.FC = () => {
-  useEffect(() => {
-    alert('제한 시간 10분!\n10분 이내에 주문을 완료해 주세요');
-  }, []);
   const navigate = useNavigate();
   const { boothId, tableNum } = useParams<{ boothId: string; tableNum: string }>();
+  const [showConfirm, setShowConfirm] = useState(true);
 
   const { setBoothId, setTableNum, setMenuInfo, menuInfo, addOrderItem, userOrderList, totalPrice, isOrderInProgress } =
     useOrderStore();
@@ -47,19 +45,6 @@ const OrderPaymentPage: React.FC = () => {
 
   const { openModal, setExitConfirmCallback } = useBaseModal();
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
-
-  useEffect(() => {
-    if (!boothId || !tableNum || !isUUID(boothId)) return;
-    const tableIndex = Number(tableNum);
-
-    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
-      connectOrderSocket(boothId, Number(tableNum));
-    }
-  
-    return () => {
-      disconnectOrderSocket(boothId, tableIndex);
-    };
-  }, [boothId, tableNum]);
 
   const hasConnected = useRef(false);
 
@@ -81,21 +66,13 @@ const OrderPaymentPage: React.FC = () => {
   
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const tableIndex = Number(tableNum);
-  
-    if (!boothId || !isUUID(boothId) || isNaN(tableIndex)) {
+    if (!boothId || !isUUID(boothId) || isNaN(Number(tableNum))) {
       navigate('/error/NotFound');
       return;
     }
   
-    if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
-      connectOrderSocket(boothId, Number(tableNum));
-    }    
-  
     setBoothId(boothId);
-    setTableNum(tableIndex);
-  
+    setTableNum(Number(tableNum));
     fetchMenuByCategory('ALL');
   }, [boothId, tableNum]);  
 
@@ -265,6 +242,35 @@ const OrderPaymentPage: React.FC = () => {
           {formatPrice(totalPrice)}원 • 주문하기
         </div>
       </div>
+      {showConfirm && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+          <div className="bg-white rounded-xl shadow-md p-6 w-[300px] text-center">
+            <p className="text-base text-gray-800 mb-4">제한 시간 10분!<br />10분 이내에 주문을 완료해 주세요</p>
+            <div className="flex justify-center gap-4 mt-4">
+              <button
+                className="w-1/2 px-4 py-2 border border-gray-300 rounded-full"
+                onClick={() => {
+                  setShowConfirm(false);
+                  navigate(`/order/${boothId}/${tableNum}`);
+                }}
+              >
+                돌아가기
+              </button>
+              <button
+                className="w-1/2 px-4 py-2 bg-primary-700 text-white rounded-full"
+                onClick={() => {
+                  setShowConfirm(false);
+                  if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
+                    connectOrderSocket(boothId, Number(tableNum));
+                  }
+                }}
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
