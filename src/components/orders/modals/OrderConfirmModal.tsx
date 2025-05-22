@@ -164,7 +164,7 @@ const OrderConfirmModal: React.FC = () => {
               rel="noopener noreferrer"
               className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
             >
-              <img src="/icons/orders/kakao-pay.svg" alt="카카오페이" className="w-8 h-8" />
+              <img src="/icons/orders/kakao-pay.png" alt="카카오페이" className="w-8 h-8" />
               <span className="text-xs mt-1 select-none">카카오페이</span>
             </a>
           )}
@@ -175,7 +175,7 @@ const OrderConfirmModal: React.FC = () => {
               rel="noopener noreferrer"
               className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
             >
-              <img src="/icons/orders/toss-pay.svg" alt="토스페이" className="w-8 h-8" />
+              <img src="/icons/orders/toss-pay.png" alt="토스페이" className="w-8 h-8" />
               <span className="text-xs mt-1">토스페이</span>
             </a>
           )}
