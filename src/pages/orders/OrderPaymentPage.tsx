@@ -92,13 +92,44 @@ const OrderPaymentPage: React.FC = () => {
           boothId,
           tableNum: Number(tableNum),
         });
+        disconnectOrderSocket(boothId, Number(tableNum));
       }
     };
   
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [boothId, tableNum]);  
+
+  useEffect(() => {
+    const handlePopState = () => {
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+        disconnectOrderSocket(boothId, Number(tableNum));
+      }
     };
+  
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [boothId, tableNum]);
+  
+  useEffect(() => {
+    const handlePageHide = () => {
+      if (boothId && tableNum) {
+        sendWebSocketMessage({
+          type: 'UNSUB',
+          boothId,
+          tableNum: Number(tableNum),
+        });
+        disconnectOrderSocket(boothId, Number(tableNum));
+      }
+    };
+  
+    window.addEventListener('pagehide', handlePageHide);
+    return () => window.removeEventListener('pagehide', handlePageHide);
   }, [boothId, tableNum]);  
   
   const fetchMenuByCategory = async (category: CategoryValue) => {
