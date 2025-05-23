@@ -4,15 +4,16 @@ import { MenuItemProps } from '@/types/Booth.types';
 import { priceToString } from '@/utils/utils';
 import { useLocation } from 'react-router-dom';
 import { getBoothImageProps } from '@/hooks/getBoothImageProps';
+import useBaseModal from '@/stores/baseModal';
 
 const MenuItem: React.FC<MenuItemProps> = ({ menu }) => {
-  const defaultOption = 0;
   const { pathname } = useLocation();
-
   const { className, style } = getBoothImageProps(menu.menuImage);
+  const { openModal, setMenuImageSrc } = useBaseModal();
 
   return (
     <div key={menu.menuId} className="dynamic-padding">
+      {/* 카드 */}
       <div
         className={`w-full h-[120px] p-[13px] rounded-3xl shadow-4xl flex mb-[10px] ${
           menu.isSoldOut ? 'bg-gray-200 border border-gray-300' : 'bg-white border border-primary-700-light'
@@ -20,10 +21,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ menu }) => {
       >
         {/* 이미지 영역 */}
         <div
-          className={`min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-cover bg-center bg-no-repeat ${className} ${
+          className={`min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-cover bg-center bg-no-repeat cursor-pointer ${className} ${
             menu.isSoldOut ? 'brightness-[0.95]' : ''
           }`}
           style={style}
+          onClick={() => {
+            setMenuImageSrc(menu.menuImage || '');
+            openModal('menuImage');
+          }}
         />
 
         {/* 텍스트 영역 */}
@@ -35,7 +40,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menu }) => {
                 <div className="flex flex-shrink-0">
                   {pathname.includes('night') && (
                     <div className="mr-1 flex items-center px-2 py-1 w-fit h-fit bg-secondary-50 text-secondary-500 text-3xs rounded-full">
-                      {menu.menuType === defaultOption ? '메인 메뉴' : '서브 메뉴'}
+                      {menu.menuType === 0 ? '메인 메뉴' : '서브 메뉴'}
                     </div>
                   )}
                   <StateLabel isState={!menu.isSoldOut}>{!menu.isSoldOut ? '판매중' : '준비중'}</StateLabel>
