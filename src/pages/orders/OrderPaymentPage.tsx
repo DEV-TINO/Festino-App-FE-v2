@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { formatPrice } from '@/utils/utils';
@@ -45,6 +45,8 @@ const OrderPaymentPage: React.FC = () => {
   const { openModal, setExitConfirmCallback } = useBaseModal();
   const [selectedCategory, setSelectedCategory] = useState<CategoryValue>('ALL');
 
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     // Initialize the Session ID
     const sessionId = localStorage.getItem('orderSessionId');
@@ -80,8 +82,6 @@ const OrderPaymentPage: React.FC = () => {
     }
 
     // End of the session
-    let timer: NodeJS.Timeout | null = null;
-
     const sendLogout = async () => {
       if (boothId && tableNum) {
         // TODO: Change to use a modal
@@ -109,16 +109,17 @@ const OrderPaymentPage: React.FC = () => {
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {
         console.log('[Visibility Change] Page is hidden');
-        if (timer) clearTimeout(timer!);
-        timer = setTimeout(sendLogout, SESSION_TIMEOUT);
+        if (timerRef.current) clearTimeout(timerRef.current);
+        timerRef.current = setTimeout(sendLogout, SESSION_TIMEOUT);
       } else {
         console.log('[Visibility Change] Page is visible');
-        if (!timer) clearTimeout(timer!);
+        if (!timerRef.current) clearTimeout(timerRef.current!);
       }
     });
 
     return () => {
       document.removeEventListener('visibilitychange', sendLogout);
+      if (timerRef.current) clearTimeout(timerRef.current);
       sendWebSocketMessage({
         type: 'UNSUB',
         boothId: boothId!,
@@ -175,6 +176,7 @@ const OrderPaymentPage: React.FC = () => {
       type: 'STARTORDER',
       boothId: boothId!,
       tableNum: Number(tableNum),
+      clientId: mySessionId!,
     });
 
     openModal('orderModal');
