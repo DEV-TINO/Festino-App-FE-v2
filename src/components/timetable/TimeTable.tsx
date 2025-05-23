@@ -4,13 +4,19 @@ import { openNewTap } from '@/utils/utils';
 import { COUNCIL_URL } from '@/constants';
 import { useTimetableStore } from '@/stores/homes/timetableStore';
 import { useDateStore } from '@/stores/homes/dateStore';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 const TimeTable: React.FC = () => {
   const { clubData, talentData, getClubTimetable, getTalentTimetable } = useTimetableStore();
   const { festivalDate } = useDateStore();
 
   const isShowing = true;
+
+  const isFestivalDate = useMemo(() => {
+    const now = new Date();
+    const showTime = new Date('2025-05-26T00:00:00');
+    return now >= showTime;
+  }, []);
 
   useEffect(() => {
     getClubTimetable(festivalDate);
@@ -52,7 +58,9 @@ const TimeTable: React.FC = () => {
             </div>
           </div>
         ))}
-        {talentData.map((talent, index) => (
+
+      {isFestivalDate &&
+        talentData.map((talent, index) => (
           <div key={index} className="flex h-full w-full justify-center">
             <div className="flex flex-col items-center text-secondary-700 gap-[162px] pt-1 mt-[-9px]">
               <div className={isShowingTime()}>
