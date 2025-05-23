@@ -47,6 +47,8 @@ const OrderPaymentPage: React.FC = () => {
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const isButtonDisabled = userOrderList.length === 0;
+
   useEffect(() => {
     // Initialize the Session ID
     const sessionId = localStorage.getItem('orderSessionId');
@@ -160,7 +162,7 @@ const OrderPaymentPage: React.FC = () => {
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
   const handleClickReserveButton = () => {
-    if (totalPrice === 0) {
+    if (userOrderList.length === 0) {
       alert('메뉴를 선택해주세요.');
       return;
     }
@@ -269,10 +271,10 @@ const OrderPaymentPage: React.FC = () => {
       <div className="shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] drop-shadow-lg w-full max-w-[500px] shadow-xs rounded-t-3xl fixed bottom-0 bg-white flex justify-center px-[20px] py-[20px]">
         <div
           className={`flex items-center justify-center w-full h-[50px] rounded-full text-white text-base font-extrabold cursor-pointer ${
-            totalPrice === 0 ? 'bg-secondary-100' : 'bg-primary-700'
+            isButtonDisabled ? 'bg-secondary-100' : 'bg-primary-700'
           }`}
           onClick={() => {
-            handleClickReserveButton();
+            if (!isButtonDisabled) handleClickReserveButton();
           }}
         >
           {formatPrice(totalPrice)}원 • 주문하기
