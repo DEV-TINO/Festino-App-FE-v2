@@ -1,17 +1,26 @@
-import TimeTableDetail from './TimeTableDetail';
+import ClubDetail from './ClubDetail';
+import TalentDetail from './TalentDetail';
 import { openNewTap } from '@/utils/utils';
 import { COUNCIL_URL } from '@/constants';
 import { useTimetableStore } from '@/stores/homes/timetableStore';
 import { useDateStore } from '@/stores/homes/dateStore';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 const TimeTable: React.FC = () => {
-  const { clubData, getClubTimetable } = useTimetableStore();
+  const { clubData, talentData, getClubTimetable, getTalentTimetable } = useTimetableStore();
   const { festivalDate } = useDateStore();
+
   const isShowing = true;
+
+  const isFestivalDate = useMemo(() => {
+    const now = new Date();
+    const showTime = new Date('2025-05-26T00:00:00');
+    return now >= showTime;
+  }, []);
 
   useEffect(() => {
     getClubTimetable(festivalDate);
+    getTalentTimetable(festivalDate);
   }, [festivalDate]);
 
   const isShowingTime = () => (isShowing ? 'text-secondary-700' : 'text-secondary-100');
@@ -45,7 +54,28 @@ const TimeTable: React.FC = () => {
               </div>
             </div>
             <div className="flex flex-col items-center gap-6">
-              <TimeTableDetail key={index} club={club} />
+              <ClubDetail key={index} club={club} />
+            </div>
+          </div>
+        ))}
+
+      {isFestivalDate &&
+        talentData.map((talent, index) => (
+          <div key={index} className="flex h-full w-full justify-center">
+            <div className="flex flex-col items-center text-secondary-700 gap-[162px] pt-1 mt-[-9px]">
+              <div className={isShowingTime()}>
+                {talent.showStartTime} ~ {talent.showEndTime}
+              </div>
+            </div>
+            <div className="pt-3 pl-4 sm:pl-7 pr-3 xs:pr-4 sm:pr-7">
+              <div className="border-2 border-primary-700 w-0 border-dashed flex flex-col items-center pb-40 mt-[-10px]">
+                <div className={`w-4 h-4 mt-[-5px] rounded-full flex items-center justify-center ${isShowingBgPin()}`}>
+                  <div className={`w-2 h-2 rounded-full ${isShowingPin()}`} />
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-6">
+              <TalentDetail key={index} talent={talent} />
             </div>
           </div>
         ))}
