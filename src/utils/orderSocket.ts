@@ -131,8 +131,8 @@ const onMessage = (message: IMessage) => {
     case 'MENUUPDATE': {
       const { menuId, menuCount, totalPrice } = data.payload;
 
-      const { userOrderList, addOrderItem, setTotalPrice } = useOrderStore.getState();
-      const existing = userOrderList.find((item) => item.menuId === menuId);
+      const { menuInfo, addOrderItem, setTotalPrice } = useOrderStore.getState();
+      const existing = menuInfo.find((item) => item.menuId === menuId);
 
       addOrderItem({
         menuId,
