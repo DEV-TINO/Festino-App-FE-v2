@@ -116,7 +116,7 @@ const BoothDetailPage: React.FC = () => {
               위치
             </div>
             <div className="pl-4 text-secondary-500 font-light text-xs">
-              {boothDetail.location ?? boothDetail.adminCategory === '야간부스' ? '운동장' : '벙커'}
+              {boothDetail.location ?? '교내'}
             </div>
           </div>
           <div className="flex items-center">
