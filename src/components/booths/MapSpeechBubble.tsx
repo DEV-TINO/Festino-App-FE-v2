@@ -40,7 +40,7 @@ export const MapSpeechBubble: React.FC<MapSpeechBubbleProps> = ({ booth }) => {
         <>
           <div className="flex items-center">
             <div className="w-[10px] h-[10px] bg-[url('/icons/booths/location_on.svg')]" />
-            <div className="text-[8px] pl-[2px] text-secondary-500">{booth.location}</div>
+            <div className="text-[8px] pl-[2px] text-secondary-500">{booth.location ?? '교내'}</div>
           </div>
           <div className="flex items-center">
             <div className="w-[10px] h-[10px] bg-[url('/icons/booths/alarm.svg')]" />

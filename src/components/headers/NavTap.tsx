@@ -50,12 +50,13 @@ const NavTap = () => {
     <>
       <div
         className={`fixed inset-0 bg-black/60 z-40 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'} transition-opacity duration-300`}
+        style={{ height: 'var(--real-vh)' }}
         onClick={close}
       />
       <div
-        className={`absolute top-0 left-0 w-5/6 bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'} overflow-y-scroll`}
+        className={`absolute top-0 left-0 w-5/6 h-screen bg-white z-50 shadow-md transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <div className="flex h-screen flex-col gap-12">
+        <div className="flex flex-col h-full overflow-y-auto pb-[110px]">
           <div className="flex h-[60px] w-full items-center justify-end px-5">
             <div
               className="fixed top-4 w-[22px] h-[22px] bg-header-navigation-bar bg-center bg-no-repeat bg-[length:22px_22px]
@@ -64,7 +65,7 @@ const NavTap = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4 pb-12">
             {login ? (
               <div
                 className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]`}
@@ -164,8 +165,8 @@ const NavTap = () => {
               className={`px-6 py-2 w-full items-center transition-colors duration-200 ${isEventOpen ? 'bg-gray-100' : ''}`}
             >
               <li className="cursor-pointer flex items-center gap-2" onClick={toggleEvent}>
-                <div className="flex w-full justify-between">
-                  <div className="flex gap-4">
+                <div className="flex w-full justify-between py-1 items-center">
+                  <div className="flex gap-4 items-center">
                     <IconEvent />
                     <div className="text-lg text-secondary-300 font-bold">이벤트</div>
                   </div>
@@ -184,7 +185,7 @@ const NavTap = () => {
               >
                 <ul className="pl-[42px]  space-y-4 text-base font-semibold text-secondary-400">
                   <li
-                    className="cursor-pointer px-2 pt-2"
+                    className="cursor-pointer px-2 py-2 pt-4"
                     onClick={() => {
                       navigate('/review');
                       close();
@@ -193,7 +194,7 @@ const NavTap = () => {
                     리뷰 이벤트
                   </li>
                   <li
-                    className="cursor-pointer px-2"
+                    className="cursor-pointer px-2 py-2"
                     onClick={() => {
                       openModal('quizModal');
                       close();
@@ -202,7 +203,7 @@ const NavTap = () => {
                     실시간 퀴즈 이벤트
                   </li>
                   <li
-                    className="cursor-pointer px-2"
+                    className="cursor-pointer px-2 py-2"
                     onClick={() => {
                       navigate('/photo-board');
                       close();

@@ -9,35 +9,32 @@ export const connectOrderSocket = (boothId: string, tableNum: number) => {
 
   if (client) {
     if (client.connected || client.active) return; // 중복 방지: 연결 중이면 리턴
-  
+
     try {
       client.deactivate(); // 이전 연결 명시적 해제
     } catch (e) {
       console.warn('기존 소켓 종료 실패:', e);
     }
     clearClient(); // 상태 초기화
-  }  
+  }
 
   const newClient = new Client({
-    brokerURL: `wss://api.festino.dev-tino.com/ws`,
-    reconnectDelay: 5000,
+    brokerURL: import.meta.env.VITE_SOCKET_URL,
+    reconnectDelay: 0,
     debug: () => {},
+    onWebSocketError: (error) => {
+      alert('주문 연결 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      console.error('WebSocket 오류:', error);
+      localStorage.removeItem('orderSessionId');
+    },
     onConnect: (frame) => {
-      const sessionId = frame.headers['user-name'];
-      useSocketStore.getState().setSessionId(sessionId);
+      if (!localStorage.getItem('orderSessionId')) {
+        const sessionId = frame.headers['user-name'];
+        localStorage.setItem('orderSessionId', sessionId);
+      }
 
       newClient.subscribe(`/topic/${boothId}/${tableNum}`, onMessage);
       newClient.subscribe(`/user/topic/${boothId}/${tableNum}`, onMessage);
-
-      newClient.publish({
-        destination: '/app/order',
-        body: JSON.stringify({
-          type: 'INIT',
-          boothId,
-          tableNum,
-          sessionId,
-        }),
-      });
     },
   });
 
@@ -105,7 +102,7 @@ const onMessage = (message: IMessage) => {
       set.setTotalPrice(payload.totalPrice);
       set.setRemainingMinutes(payload.remainingMinutes);
 
-      const mySessionId = useSocketStore.getState().sessionId;
+      const mySessionId = localStorage.getItem('orderSessionId');
 
       if (orderInProgress) {
         set.setIsOrderInProgress(true);
@@ -124,18 +121,18 @@ const onMessage = (message: IMessage) => {
     case 'MEMBERUPDATE': {
       const { memberCount } = data.payload;
       const current = useOrderStore.getState().memberCount;
-    
+
       if (memberCount !== current) {
         useOrderStore.getState().setMemberCount(memberCount);
       }
       break;
-    }    
-    
+    }
+
     case 'MENUUPDATE': {
       const { menuId, menuCount, totalPrice } = data.payload;
 
-      const { userOrderList, addOrderItem, setTotalPrice } = useOrderStore.getState();
-      const existing = userOrderList.find((item) => item.menuId === menuId);
+      const { menuInfo, addOrderItem, setTotalPrice } = useOrderStore.getState();
+      const existing = menuInfo.find((item) => item.menuId === menuId);
 
       addOrderItem({
         menuId,
@@ -153,11 +150,11 @@ const onMessage = (message: IMessage) => {
 
     case 'STARTORDER': {
       const senderSessionId = message.headers['excludeSessionId'];
-      const mySessionId = useSocketStore.getState().sessionId;
+      const mySessionId = localStorage.getItem('orderSessionId');
 
       if (!senderSessionId || !mySessionId) {
         alert('세션 정보가 없습니다. 다시 접속해주세요.');
-        window.location.reload();
+        window.location.href = '/order/retry-qr';
         return;
       }
 
@@ -174,7 +171,7 @@ const onMessage = (message: IMessage) => {
 
     case 'ORDERINPROGRESS': {
       const senderSessionId = message.headers['excludeSessionId'];
-      const mySessionId = useSocketStore.getState().sessionId;
+      const mySessionId = localStorage.getItem('orderSessionId');
 
       if (!senderSessionId || !mySessionId) {
         console.warn('세션 ID 없음: ORDERINPROGRESS 메시지');
@@ -194,14 +191,14 @@ const onMessage = (message: IMessage) => {
 
     case 'ORDERDONE': {
       const set = useOrderStore.getState();
-    
+
       set.setIsOrderInProgress(false);
       set.setOrderingSessionId(null);
       set.resetOrderInfo();
-    
+
       useBaseModal.getState().openModal('orderCompleteModal');
       break;
-    }    
+    }
 
     case 'ORDERCANCEL': {
       useOrderStore.getState().setIsOrderInProgress(false);
@@ -217,39 +214,45 @@ const onMessage = (message: IMessage) => {
 
     case 'PRESESSIONEND': {
       const minutes = data.payload?.remainingMinutes;
-    
+
       if (minutes === 1) {
-        useOrderStore.getState().setRemainingMinutes(1); 
+        useOrderStore.getState().setRemainingMinutes(1);
         useBaseModal.getState().openModal('oneMinuteModal');
       }
-    
+
       break;
     }
-    
 
     case 'SESSIONEND': {
       const state = useOrderStore.getState();
       const boothId = state.boothId;
       const tableNum = state.tableNum;
-      const sessionId = useSocketStore.getState().sessionId;
-    
+      const sessionId = localStorage.getItem('orderSessionId');
+
       if (boothId && typeof tableNum === 'number' && sessionId) {
         sendWebSocketMessage({
           type: 'UNSUB',
           boothId,
           tableNum,
         });
+        disconnectOrderSocket(boothId, tableNum);
       }
-    
+
       useBaseModal.getState().openModal('timeOverModal');
-    
+
       break;
     }
-    
+
+    case 'UNSUB': {
+      console.log('Someone unsubscribed:', data);
+      break;
+    }
+
     case 'ERROR': {
       console.error('서버 오류:', data.payload);
       break;
     }
+
     default:
       console.warn('알 수 없는 메시지 타입:', data);
       break;
@@ -266,6 +269,7 @@ type WebSocketPayload = {
     totalPrice?: number;
     totalCount?: number;
   };
+  clientId?: string;
 };
 
 export const sendWebSocketMessage = (payload: WebSocketPayload) => {
@@ -274,6 +278,8 @@ export const sendWebSocketMessage = (payload: WebSocketPayload) => {
   if (!client || !client.connected) {
     return;
   }
+
+  console.log(payload);
 
   try {
     client.publish({

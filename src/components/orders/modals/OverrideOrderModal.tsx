@@ -3,8 +3,8 @@ import { sendWebSocketMessage } from '@/utils/orderSocket';
 import { useOrderStore } from '@/stores/orders/orderStore';
 
 const OverrideOrderModal: React.FC = () => {
-    const { closeModal } = useBaseModal();
-    const { boothId, tableNum } = useOrderStore(); 
+  const { closeModal } = useBaseModal();
+  const { boothId, tableNum } = useOrderStore();
 
   const { openModal } = useBaseModal();
 
@@ -16,10 +16,13 @@ const OverrideOrderModal: React.FC = () => {
 
     closeModal();
 
+    const mySessionId = localStorage.getItem('orderSessionId');
+
     sendWebSocketMessage({
       type: 'STARTORDER',
       boothId,
       tableNum: Number(tableNum),
+      clientId: mySessionId!,
     });
 
     sendWebSocketMessage({
@@ -48,10 +51,7 @@ const OverrideOrderModal: React.FC = () => {
         </p>
       </div>
       <div className="flex w-full gap-3 font-bold">
-        <button
-          className="w-full h-11 rounded-full border-2 border-primary-700 text-primary-700"
-          onClick={closeModal}
-        >
+        <button className="w-full h-11 rounded-full border-2 border-primary-700 text-primary-700" onClick={closeModal}>
           아니오
         </button>
         <button className="w-full h-11 rounded-full text-white bg-primary-700" onClick={handleOverride}>

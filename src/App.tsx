@@ -24,14 +24,14 @@ import { useEffect } from 'react';
 const App: React.FC = () => {
   useEffect(() => {
     const updateRealVh = () => {
-      const realHeight = window.innerHeight;
-      document.documentElement.style.setProperty('--real-vh', `${realHeight * 0.01}px`);
+      const vh = window.visualViewport?.height ?? window.innerHeight;
+      document.documentElement.style.setProperty('--real-vh', `${vh}px`);
     };
-  
+
     updateRealVh();
     window.addEventListener('resize', updateRealVh);
     return () => window.removeEventListener('resize', updateRealVh);
-  }, []);  
+  }, []);
 
   return (
     <BrowserRouter>

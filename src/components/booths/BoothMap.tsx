@@ -15,7 +15,7 @@ const BoothMap: React.FC = () => {
     more: [
       { left: 160, bottom: 120, count: 14, tab: 1 },
       { left: 425, bottom: 240, count: 21, tab: 2 },
-      { left: 100, bottom: 280, count: 13, tab: 3 },
+      // { left: 100, bottom: 280, count: 13, tab: 3 },
       { left: 100, bottom: 350, count: 4, tab: 4 },
       { left: 290, bottom: 320, count: 2 },
     ],
@@ -28,43 +28,43 @@ const BoothMap: React.FC = () => {
         { markerNum: 75, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 }, // 종관
         { markerNum: 76, left: 500, bottom: 367, scrollLeft: 1200, scrollTop: 110 }, // GS
       ],
+      general: [
+        // 총학 이벤트 추가되면 활성화
+        { markerNum: 90, left: 370, bottom: 350, scrollLeft: 830, scrollTop: 170 },
+        { markerNum: 92, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
+        { markerNum: 95, left: 500, bottom: 340, scrollLeft: 1200, scrollTop: 170 },
+      ],
       toilet: [
         { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 90 },
         { markerNum: 72, left: 70, bottom: 350, scrollLeft: 20, scrollTop: 130 },
         { markerNum: 73, left: 520, bottom: 367, scrollLeft: 1200, scrollTop: 110 },
         { markerNum: 74, left: 440, bottom: 367, scrollLeft: 970, scrollTop: 110 },
       ],
-      general: [
-        // 총학 이벤트 추가되면 활성화
-        { markerNum: 92, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
-        { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
-        { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 390 },
-      ],
       ticket: [
         //총학 티켓
         { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
         { markerNum: 94, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 },
       ],
-      alcohol: [{ markerNum: 95, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }],
-      music: [{ markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 }],
+      alcohol: [{ markerNum: 94, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }],
+      // music: [{ markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 }],
       join: [
         // B동 앞
-        { markerNum: 21, left: 385, bottom: 310, scrollLeft: 835, scrollTop: 240 },
-        { markerNum: 22, left: 405, bottom: 310, scrollLeft: 890, scrollTop: 240 },
+        // { markerNum: 21, left: 385, bottom: 310, scrollLeft: 835, scrollTop: 240 },
+        // { markerNum: 22, left: 405, bottom: 310, scrollLeft: 890, scrollTop: 240 },
         // B동이랑 벙커 사이 통로
-        { markerNum: 23, left: 420, bottom: 300, scrollLeft: 925, scrollTop: 270 },
-        { markerNum: 24, left: 440, bottom: 285, scrollLeft: 970, scrollTop: 310 },
-        { markerNum: 25, left: 420, bottom: 270, scrollLeft: 925, scrollTop: 340 },
-        { markerNum: 26, left: 440, bottom: 255, scrollLeft: 970, scrollTop: 370 },
-        { markerNum: 28, left: 440, bottom: 220, scrollLeft: 970, scrollTop: 480 },
-        { markerNum: 29, left: 420, bottom: 205, scrollLeft: 925, scrollTop: 490 },
-        { markerNum: 30, left: 440, bottom: 190, scrollLeft: 970, scrollTop: 540 },
-        { markerNum: 36, left: 528, bottom: 300, scrollLeft: 1200, scrollTop: 270 },
-        { markerNum: 35, left: 510, bottom: 280, scrollLeft: 1200, scrollTop: 310 },
-        { markerNum: 34, left: 528, bottom: 235, scrollLeft: 1200, scrollTop: 450 },
-        { markerNum: 33, left: 510, bottom: 220, scrollLeft: 1200, scrollTop: 470 },
-        { markerNum: 32, left: 528, bottom: 205, scrollLeft: 1200, scrollTop: 510 },
-        { markerNum: 31, left: 510, bottom: 190, scrollLeft: 1200, scrollTop: 530 },
+        { markerNum: 21, left: 420, bottom: 300, scrollLeft: 925, scrollTop: 270 },
+        { markerNum: 22, left: 440, bottom: 285, scrollLeft: 970, scrollTop: 310 },
+        { markerNum: 23, left: 420, bottom: 270, scrollLeft: 925, scrollTop: 340 },
+        // { markerNum: 26, left: 440, bottom: 255, scrollLeft: 970, scrollTop: 370 },
+        { markerNum: 24, left: 440, bottom: 220, scrollLeft: 970, scrollTop: 480 },
+        { markerNum: 25, left: 420, bottom: 205, scrollLeft: 925, scrollTop: 490 },
+        { markerNum: 26, left: 440, bottom: 190, scrollLeft: 970, scrollTop: 550 },
+        { markerNum: 27, left: 528, bottom: 300, scrollLeft: 1200, scrollTop: 270 },
+        { markerNum: 28, left: 510, bottom: 280, scrollLeft: 1200, scrollTop: 310 },
+        { markerNum: 29, left: 528, bottom: 270, scrollLeft: 1200, scrollTop: 340 },
+        { markerNum: 30, left: 510, bottom: 220, scrollLeft: 1200, scrollTop: 470 },
+        { markerNum: 31, left: 528, bottom: 205, scrollLeft: 1200, scrollTop: 510 },
+        { markerNum: 32, left: 510, bottom: 190, scrollLeft: 1200, scrollTop: 530 },
       ],
       food: [
         // 야간부스
