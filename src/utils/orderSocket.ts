@@ -283,8 +283,6 @@ export const sendWebSocketMessage = (payload: WebSocketPayload) => {
     return;
   }
 
-  console.log(payload);
-
   try {
     client.publish({
       destination: '/app/order',
