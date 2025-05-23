@@ -162,29 +162,30 @@ const BoothDetailPage: React.FC = () => {
         <>
           {/* 구분선 */}
           <div className="w-full h-3 bg-tag" />
-
-          {/* 메뉴 요약 */}
-          {boothDetail.adminCategory === '야간부스' && (
-            <div className="dynamic-padding py-4">
-              <div className="w-full h-auto bg-tag rounded-2xl p-4">
-                <div className="flex items-center pb-3">
-                  <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
-                    메인메뉴
+          <div className="pt-4">
+            {/* 메뉴 요약 */}
+            {boothDetail.adminCategory === '야간부스' && (
+              <div className="dynamic-padding pb-4">
+                <div className="w-full h-auto bg-tag rounded-2xl p-4">
+                  <div className="flex items-center pb-4">
+                    <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
+                      메인메뉴
+                    </div>
+                    <div className="pl-4 text-secondary-500 font-light text-xs">{getMainMenu()}</div>
                   </div>
-                  <div className="pl-4 text-secondary-500 font-light text-xs">{getMainMenu()}</div>
-                </div>
-                <div className="flex items-center">
-                  <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
-                    서브메뉴
+                  <div className="flex items-center">
+                    <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
+                      서브메뉴
+                    </div>
+                    <div className="pl-4 text-secondary-500 font-light text-xs">{getSubMenu()}</div>
                   </div>
-                  <div className="pl-4 text-secondary-500 font-light text-xs">{getSubMenu()}</div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* 메뉴 상세 목록 */}
-          {boothDetail.menuList?.map((menu) => <MenuItem key={menu.menuId} menu={menu} />)}
+            {/* 메뉴 상세 목록 */}
+            {boothDetail.menuList?.map((menu) => <MenuItem key={menu.menuId} menu={menu} />)}
+          </div>
         </>
       )}
 
