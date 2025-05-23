@@ -157,30 +157,38 @@ const OrderConfirmModal: React.FC = () => {
         </div>
       </div>
       {(isTossPay || isKakaoPay) && (
-        <div className="flex gap-2 justify-center w-full">
-          {isKakaoPay && kakaoPayUrl && (
-            <a
-              href={kakaoPayUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
-            >
-              <img src="/icons/orders/kakao-pay.png" alt="카카오페이" className="w-[82px] h-8" />
-              <span className="text-xs mt-1 select-none">카카오페이</span>
-            </a>
+        <>
+          <div className="flex gap-2 justify-center w-full">
+            {isKakaoPay && kakaoPayUrl && (
+              <a
+                href={kakaoPayUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
+              >
+                <img src="/icons/orders/kakao-pay.png" alt="카카오페이" className="w-[61px] h-[24px]" />
+                <span className="text-xs mt-1 select-none">카카오페이</span>
+              </a>
+            )}
+            {isTossPay && tossPayUrl && (
+              <a
+                href={tossPayUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
+              >
+                <img src="/icons/orders/toss-pay.png" alt="토스페이" className="w-8 h-8" />
+                <span className="text-xs mt-1">토스페이</span>
+              </a>
+            )}
+          </div>
+          {isKakaoPay && (
+            <div>
+              <p className="text-red-500 text-xs select-none text-center">카카오페이는 입금을 완료한 후</p>
+              <p className="text-red-500 text-xs select-none text-center">새로 열린 창을 닫고 해당 페이지로 복귀해 주세요</p>
+            </div>
           )}
-          {isTossPay && tossPayUrl && (
-            <a
-              href={tossPayUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
-            >
-              <img src="/icons/orders/toss-pay.png" alt="토스페이" className="w-8 h-8" />
-              <span className="text-xs mt-1">토스페이</span>
-            </a>
-          )}
-        </div>
+        </>
       )}
 
       <div className="text-xs text-secondary-500 flex flex-col items-start w-full">
