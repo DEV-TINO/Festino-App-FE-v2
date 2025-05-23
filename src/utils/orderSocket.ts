@@ -269,7 +269,7 @@ type WebSocketPayload = {
     totalPrice?: number;
     totalCount?: number;
   };
-  sessionId?: string;
+  clientId?: string;
 };
 
 export const sendWebSocketMessage = (payload: WebSocketPayload) => {

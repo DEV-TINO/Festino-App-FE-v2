@@ -54,7 +54,7 @@ const OrderPaymentPage: React.FC = () => {
         type: 'INIT',
         boothId: boothId!,
         tableNum: Number(tableNum),
-        sessionId: sessionId,
+        clientId: sessionId,
       });
     }
   }, [showConfirm]);
