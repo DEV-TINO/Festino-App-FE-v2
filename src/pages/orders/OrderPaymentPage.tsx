@@ -24,7 +24,7 @@ const CATEGORY_ENDPOINT_MAP: Record<CategoryValue, string> = {
   2: 'callservice',
 };
 
-const SESSION_TIMEOUT = 1000 * 30; // 30초
+const SESSION_TIMEOUT = 1000 * 3; // 30초
 
 export const isSocketConnected = (): boolean => {
   const { client } = useSocketStore.getState();
@@ -47,6 +47,10 @@ const OrderPaymentPage: React.FC = () => {
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  const healthCheckInterval = useRef<NodeJS.Timeout | null>(null);
+
+  const isCloseingSession = useRef(false);
+
   useEffect(() => {
     // Initialize the Session ID
     const sessionId = localStorage.getItem('orderSessionId');
@@ -58,6 +62,20 @@ const OrderPaymentPage: React.FC = () => {
         tableNum: Number(tableNum),
         clientId: sessionId,
       });
+
+      if (healthCheckInterval.current) {
+        clearInterval(healthCheckInterval.current);
+      }
+
+      healthCheckInterval.current = setInterval(() => {
+        if (isCloseingSession.current) return;
+        sendWebSocketMessage({
+          type: 'TIMEUPDATE',
+          boothId: boothId!,
+          tableNum: Number(tableNum),
+          clientId: sessionId,
+        });
+      }, 1000 * 5);
     }
   }, [showConfirm]);
 
@@ -83,25 +101,22 @@ const OrderPaymentPage: React.FC = () => {
 
     // End of the session
     const sendLogout = async () => {
+      const sessionId = localStorage.getItem('orderSessionId')!;
+      const senderSessionId = useOrderStore.getState().orderingSessionId;
+
+      if (sessionId === senderSessionId) return;
+
       if (boothId && tableNum) {
         // TODO: Change to use a modal
         // Wait for the user to confirm before navigating away
-        const conf = confirm('주문이 완료되지 않았습니다. 정말로 나가시겠습니까?');
-
-        if (conf) {
-          sendWebSocketMessage({
-            type: 'UNSUB',
-            boothId: boothId!,
-            tableNum: Number(tableNum),
-          });
-          disconnectOrderSocket(boothId!, Number(tableNum));
-          navigate('/order/retry-qr');
-          localStorage.removeItem('orderSessionId');
-        } else {
-          if (!isSocketConnected()) {
-            // 소켓이 연결되어 있지 않은 경우 연결
-            connectOrderSocket(boothId!, Number(tableNum));
-          }
+        isCloseingSession.current = true;
+        if (healthCheckInterval.current) clearInterval(healthCheckInterval.current);
+        disconnectOrderSocket(boothId!, Number(tableNum));
+        navigate('/order/retry-qr');
+        localStorage.removeItem('orderSessionId');
+        if (!isSocketConnected()) {
+          // 소켓이 연결되어 있지 않은 경우 연결
+          connectOrderSocket(boothId!, Number(tableNum));
         }
       }
     };
@@ -113,18 +128,15 @@ const OrderPaymentPage: React.FC = () => {
         timerRef.current = setTimeout(sendLogout, SESSION_TIMEOUT);
       } else {
         console.log('[Visibility Change] Page is visible');
-        if (!timerRef.current) clearTimeout(timerRef.current!);
+        if (timerRef.current) clearTimeout(timerRef.current!);
       }
     });
 
     return () => {
       document.removeEventListener('visibilitychange', sendLogout);
+      isCloseingSession.current = true;
       if (timerRef.current) clearTimeout(timerRef.current);
-      sendWebSocketMessage({
-        type: 'UNSUB',
-        boothId: boothId!,
-        tableNum: Number(tableNum),
-      });
+      if (healthCheckInterval.current) clearInterval(healthCheckInterval.current);
       disconnectOrderSocket(boothId!, Number(tableNum));
     };
   }, [boothId, tableNum]);
@@ -185,11 +197,6 @@ const OrderPaymentPage: React.FC = () => {
   useEffect(() => {
     const handleExit = () => {
       if (boothId && tableNum) {
-        sendWebSocketMessage({
-          type: 'UNSUB',
-          boothId,
-          tableNum: Number(tableNum),
-        });
         disconnectOrderSocket(boothId, Number(tableNum));
         navigate(`/order/${boothId}/${tableNum}`);
       }
@@ -212,9 +219,9 @@ const OrderPaymentPage: React.FC = () => {
         <h1 className="text-lg font-bold select-none">주문하기</h1>
         <div className="w-6" />
       </div>
-      <div className="fixed top-[60px] w-full max-w-[500px] z-10 bg-white">
+      <div className="fixed top-[60px]  w-full max-w-[500px] z-10 bg-white">
         <div className="w-full max-w-[500px] fixed bg-primary-700 text-white text-center py-3 flex justify-between px-4">
-          <span>{memberCount}명이 주문에 참여하고 있어요.</span>
+          <span>{memberCount === 0 ? '-' : memberCount}명이 주문에 참여하고 있어요.</span>
           <span className="flex items-center gap-1">
             <img src="/icons/orders/10Clock.png" style={{ width: '18px', height: '18px' }} /> {remainingMinutes}분
           </span>
