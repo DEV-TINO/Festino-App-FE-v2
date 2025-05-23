@@ -96,6 +96,7 @@ const OrderPaymentPage: React.FC = () => {
           });
           disconnectOrderSocket(boothId!, Number(tableNum));
           navigate('/order/retry-qr');
+          localStorage.removeItem('orderSessionId');
         } else {
           if (!isSocketConnected()) {
             // 소켓이 연결되어 있지 않은 경우 연결

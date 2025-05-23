@@ -9,6 +9,7 @@ const TimeOverModal: React.FC = () => {
   const handleClick = () => {
     closeModal();
     navigate('/order/retry-qr'); // retry-qr 페이지로 이동
+    localStorage.removeItem('orderSessionId');
   };
 
   return (
