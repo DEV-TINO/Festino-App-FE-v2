@@ -78,7 +78,7 @@ const Reservation: React.FC = () => {
   return (
     <div className="flex flex-col">
       <div className="w-screen max-w-[500px] min-w-[375px]">
-        <div className="dynamic-padding w-full flex justify-start">
+        <div className="dynamic-left-padding w-full flex justify-start">
           <div
             id="reserve-container"
             className={`pt-12 w-full flex ${openNightBoothInfoLength > 4 ? 'overflow-x-scroll scroll-smooth' : ''}`}
