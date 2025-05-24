@@ -43,7 +43,6 @@ const ReservationModal: React.FC = () => {
         setRecentPhoneNum('');
       }
       setPersonNum(null);
-      (false);
     }
   }, [isModalOpen, modalType, setRecentName, setRecentPhoneNum]);
 
