@@ -195,7 +195,6 @@ export const useOrderStore = create<OrderState>((set, get) => ({
         return;
       }
     } catch (e) {
-      console.error('카카오페이 정보 조회 실패:', e);
     }
   },
 
@@ -214,7 +213,6 @@ export const useOrderStore = create<OrderState>((set, get) => ({
         return;
       }
     } catch (e) {
-      console.error('토스페이 정보 조회 실패:', e);
     }
   },
 }));
