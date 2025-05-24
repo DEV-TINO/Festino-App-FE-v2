@@ -91,7 +91,14 @@ const NavTap = () => {
                 }
               }}
             >
-              {login && userName ? `${userName}님 환영합니다!` : '로그인'}
+            {login && userName ? (
+              <div className="flex">
+                <div className="text-primary-900">{userName}</div>
+                <div>님 환영합니다!</div>
+              </div>
+            ) : (
+              <div>로그인</div>
+            )}
             </div>
           </div>
 
