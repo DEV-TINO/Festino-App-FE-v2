@@ -72,15 +72,20 @@ const OrderModal: React.FC = () => {
         </div>
         <div className="w-full gap-1 flex flex-col">
           <div className="font-semibold text-secondary-700 select-none">주문하기</div>
-          <div className="w-full rounded-xl  p-4 bg-primary-700-lighter">
-            {orderMenus.map((item) => (
-              <div key={item.menuId} className="grid grid-cols-3 pb-[12px] text-secondary-700 text-sm">
-                <div className="text-left text-wrap select-none">{item.menuName}</div>
-                <div className="text-center select-none">{item.menuCount}개</div>
-                <div className="text-right select-none">{formatPrice(item.menuPrice)}원</div>
-              </div>
-            ))}
-            <div className="w-full border-[1px] border-secondary-300"></div>
+          <div className="w-full rounded-xl p-4 bg-primary-700-lighter">
+            <div
+              className="relative max-h-[180px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent"
+              style={{ scrollbarWidth: 'thin', WebkitOverflowScrolling: 'touch' }}
+            >
+              {orderMenus.map((item) => (
+                <div key={item.menuId} className="grid grid-cols-3 pb-[12px] text-secondary-700 text-sm">
+                  <div className="text-left text-wrap select-none">{item.menuName}</div>
+                  <div className="text-center select-none">{item.menuCount}개</div>
+                  <div className="text-right select-none">{formatPrice(item.menuPrice)}원</div>
+                </div>
+              ))}
+            </div>
+            <div className="w-full border-[1px] border-secondary-300 mt-2"></div>
             <div className="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-700">
               <div className="select-none">총 가격</div>
               <div className="select-none">{formatPrice(totalPrice)}원</div>

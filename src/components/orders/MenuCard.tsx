@@ -137,10 +137,7 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
             {formatPrice(menu.menuPrice * count)}원
           </div>
           <div className="flex items-center gap-2">
-            <button
-              onClick={handleMinus}
-              className="w-6 h-6 flex items-center justify-center rounded-full"
-            >
+            <button onClick={handleMinus} className="w-6 h-6 flex items-center justify-center rounded-full">
               <img
                 src={count === 0 ? '/icons/orders/grayminus.svg' : '/icons/orders/minus.svg'}
                 alt="minus"
@@ -148,22 +145,17 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
               />
             </button>
             <input
+              readOnly
               disabled={isNotOrderingUser}
               className="w-[62px] h-7 rounded-3xl border text-center focus:outline-none"
               type="text"
               value={count}
-              onChange={handleCountInput}
               min="0"
               max="99"
               maxLength={2}
               placeholder="0"
-              inputMode="numeric"
-              pattern="\d*"
             />
-            <button
-              onClick={handlePlus}
-              className="w-6 h-6 flex items-center justify-center rounded-full"
-            >
+            <button onClick={handlePlus} className="w-6 h-6 flex items-center justify-center rounded-full">
               <img src="/icons/orders/plus.svg" alt="plus" className="w-5 h-5" />
             </button>
           </div>

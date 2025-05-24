@@ -60,7 +60,15 @@ body {
   -ms-overflow-style: none;
   overflow-y: auto;
   position: relative;
+  overflow-y: scroll; /* 항상 스크롤 가능하되 */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
 }
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 
 @media (min-width: 500px) {
   html {
@@ -117,4 +125,35 @@ body {
   border-bottom: 0;
   margin-left: -10px;
   margin-bottom: -9px;
+}
+
+
+
+.scrollbar-visible {
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
+
+.scrollbar-visible::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-visible::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.25); 
+  border-radius: 9999px; 
+  border: 1px solid transparent;
+  background-clip: content-box;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari, Opera */
 }

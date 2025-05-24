@@ -5,7 +5,7 @@ const ExitPaymentModal: React.FC = () => {
 
   const handleConfirm = () => {
     if (exitConfirmCallback) {
-      exitConfirmCallback(); 
+      exitConfirmCallback();
     }
     closeModal();
   };
@@ -29,10 +29,7 @@ const ExitPaymentModal: React.FC = () => {
         >
           취소
         </button>
-        <button
-          className="w-full h-11 rounded-full text-white bg-primary-700"
-          onClick={() => handleConfirm()}
-        >
+        <button className="w-full h-11 rounded-full text-white bg-primary-700" onClick={() => handleConfirm()}>
           확인
         </button>
       </div>

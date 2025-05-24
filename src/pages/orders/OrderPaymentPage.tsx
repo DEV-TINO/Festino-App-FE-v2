@@ -51,6 +51,8 @@ const OrderPaymentPage: React.FC = () => {
 
   const isCloseingSession = useRef(false);
 
+  const isButtonDisabled = userOrderList.length === 0;
+
   useEffect(() => {
     // Initialize the Session ID
     const sessionId = localStorage.getItem('orderSessionId');
@@ -87,6 +89,7 @@ const OrderPaymentPage: React.FC = () => {
       navigate('/error/NotFound');
       return;
     }
+    
 
     setBoothId(boothId);
     setTableNum(tableIndex);
@@ -98,6 +101,7 @@ const OrderPaymentPage: React.FC = () => {
     if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
       connectOrderSocket(boothId, Number(tableNum));
     }
+    
 
     // End of the session
     const sendLogout = async () => {
@@ -141,6 +145,22 @@ const OrderPaymentPage: React.FC = () => {
     };
   }, [boothId, tableNum]);
 
+  useEffect(() => {
+    if (showConfirm) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden'; 
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = ''; 
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = ''; 
+    };
+  }, [showConfirm]);
+  
+
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
 
@@ -172,7 +192,7 @@ const OrderPaymentPage: React.FC = () => {
   const orderingSessionId = useOrderStore((state) => state.orderingSessionId);
 
   const handleClickReserveButton = () => {
-    if (totalPrice === 0) {
+    if (userOrderList.length === 0) {
       alert('메뉴를 선택해주세요.');
       return;
     }
@@ -245,7 +265,7 @@ const OrderPaymentPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="p-5 mt-28 mb-5 overflow-scroll pb-[120px] ">
+      <div className="p-5 mt-28 mb-5 overflow-y-auto pb-[120px] scrollbar-hide">
         {menuInfo.filter((menu) => !menu.isSoldOut).length === 0 ? (
           <div className="text-gray-400 text-sm text-center">메뉴가 없습니다.</div>
         ) : (
@@ -276,10 +296,10 @@ const OrderPaymentPage: React.FC = () => {
       <div className="shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] drop-shadow-lg w-full max-w-[500px] shadow-xs rounded-t-3xl fixed bottom-0 bg-white flex justify-center px-[20px] py-[20px]">
         <div
           className={`flex items-center justify-center w-full h-[50px] rounded-full text-white text-base font-extrabold cursor-pointer ${
-            totalPrice === 0 ? 'bg-secondary-100' : 'bg-primary-700'
+            isButtonDisabled ? 'bg-secondary-100' : 'bg-primary-700'
           }`}
           onClick={() => {
-            handleClickReserveButton();
+            if (!isButtonDisabled) handleClickReserveButton();
           }}
         >
           {formatPrice(totalPrice)}원 • 주문하기
@@ -300,7 +320,7 @@ const OrderPaymentPage: React.FC = () => {
             </div>
             <div className="flex w-full gap-3 font-bold text-sm">
               <button
-                className="w-full h-11 rounded-full border-2 border-primary-700 text-primary-700"
+                className="w-full h-11 rounded-full border-2 border-primary-700 text-primary-700 min-w-[120px]"
                 onClick={() => {
                   setShowConfirm(false);
                   navigate(`/order/${boothId}/${tableNum}`);
@@ -309,7 +329,7 @@ const OrderPaymentPage: React.FC = () => {
                 돌아가기
               </button>
               <button
-                className="w-full h-11 rounded-full text-white bg-primary-700"
+                className="w-full h-11 rounded-full text-white bg-primary-700 min-w-[120px]"
                 onClick={() => {
                   setShowConfirm(false);
                 }}
