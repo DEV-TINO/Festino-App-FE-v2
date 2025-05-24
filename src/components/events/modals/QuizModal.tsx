@@ -7,13 +7,10 @@ const QuizModal: React.FC = () => {
   const { closeModal, openModal } = useBaseModal();
   const {
     getQuestion,
-    getNextQuestion,
     setModalType,
     saveAnswer,
     checkJoin,
     setAnswer,
-    startTime,
-    endTime,
     questionInfo,
     answer,
   } = useEventStore();
@@ -22,34 +19,8 @@ const QuizModal: React.FC = () => {
   const [message, setMessage] = useState("*답안은 제출 시 변경할 수 없습니다!");
 
   useEffect(() => {
-    const checkEvent = async () => {
-      await getNextQuestion();
-      if (!startTime || !endTime) {
-        return;
-      }
-  
-      const now = new Date();
-      const start = new Date(startTime);
-      const end = new Date(endTime);
-  
-      if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-        console.error("시간 파싱 실패:", startTime, endTime);
-        return;
-      }
-  
-      if (now >= start && now <= end) {
-        if (!questionInfo) {
-          await getQuestion();
-        }
-      } else {
-        closeModal();
-        setModalType("time");
-        openModal("confirm");
-      }
-    };
-  
-    checkEvent();
-  }, [startTime, endTime, questionInfo]);
+    getQuestion();
+  }, [questionInfo]);
 
   const handleSubmit = async () => {
     if (answer) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
@@ -19,7 +19,6 @@ const Review: React.FC = () => {
   const [studentNum, setStudentNum] = useState('');
 
   const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
-  const setIsAgreed = usePersonalInfoStore((state) => state.setIsAgreed);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
@@ -121,7 +120,6 @@ const Review: React.FC = () => {
     setName('');
     setPhoneNum('');
     setStudentNum('');
-    setIsAgreed(false);
   };
 
   const featureOptions = ['부스 위치 안내', '공연 정보 안내', '주문 기능', '예약 기능', '조회 기능', '없음'];
@@ -133,6 +131,15 @@ const Review: React.FC = () => {
     }, []);
 
   const stars = [1, 2, 3, 4, 5];
+
+  useEffect(() => {
+    const userName = localStorage.getItem('userName');
+    const userPhoneNum = localStorage.getItem('userPhoneNum');
+    if (userName && userPhoneNum) {
+      setName(userName);
+      setPhoneNum(userPhoneNum);
+    }
+  }, []);
 
   return (
     <div className="flex flex-col gap-6">

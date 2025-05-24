@@ -47,6 +47,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       localStorage.setItem('mainUserId', mainUserId);
       localStorage.setItem('userName', userName);
+      localStorage.setItem('userPhoneNum', userPhoneNum);
 
       return res.data.success;
     } catch {
@@ -123,6 +124,7 @@ sendAuthorizationCode: async () => {
     removeCookie('refreshToken');
     localStorage.removeItem('userName');
     localStorage.removeItem('mainUserId');
+    localStorage.removeItem('userPhoneNum');
 
     set({
       userName: '',

@@ -24,7 +24,7 @@ const Header: React.FC = () => {
   return (
     <div className="w-full h-[58px] flex flex-row bg-white justify-between px-5 items-center">
       <div
-        className="w-[22px] h-[22px] bg-header-navigation-bar bg-center bg-no-repeat bg-[length:22px_22px] cursor-pointer"
+        className="w-[34px] h-[32px] bg-header-navigation-bar bg-center bg-no-repeat bg-[length:22px_22px] cursor-pointer"
         onClick={toggle}
       />
       <div
@@ -33,13 +33,13 @@ const Header: React.FC = () => {
       />
       {isLogin() ? (
         <div
-          className="w-[32px] h-[32px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:32px_32px] cursor-pointer"
+          className="w-[34px] h-[32px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:32px_32px] cursor-pointer"
           onClick={() => handleClickTinoSymbol()}
         />
       ) : (
         <div onClick={() => {
           openModal('loginModal');
-        }} className="text-sm cursor-pointer">
+        }} className="w-[34px] text-sm cursor-pointer">
           Login
         </div>
       )}

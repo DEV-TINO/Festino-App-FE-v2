@@ -35,7 +35,6 @@ const OrderSearchPage: React.FC = () => {
     setBoothId(boothId);
     setTableNum(numericTableNum);
     window.scrollTo(0, 0);
-    setIsAgreed(false);
   }, [boothId, tableNum]);
 
   const navigate = useNavigate();

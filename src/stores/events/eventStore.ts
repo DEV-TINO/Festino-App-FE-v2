@@ -3,16 +3,16 @@ import { api } from "@/utils/api";
 
 interface IEventStore {
   startTime: string;
-  endTime: string;
   questionInfo: IQuestion | null;
   modalType: string;
   answer: string,
   setModalType: (type: string) => void;
   getQuestion: () => void;
-  getNextQuestion: () => void;
+  getNextQuestion: () => Promise<{ startTime: string | null; endTime: string | null }>;
   saveAnswer: (userId: string | null, answer: string) => void;
   checkJoin: (mainUserId: string | null) => Promise<boolean>;
   setAnswer: (answer: string) => void;
+  setStartTime: (startTime: string) => void;
 }
 
 interface IQuestion {
@@ -23,10 +23,10 @@ interface IQuestion {
 export const useEventStore = create<IEventStore>((set, get) => ({
   answer: '',
   startTime: '',
-  endTime: '',
   questionInfo: null,
   modalType: 'time',
   setAnswer: (answer) => { set({ answer })},
+  setStartTime: (startTime) => { set({ startTime })},
   setModalType: (type) => { set({ modalType: type })},
   getQuestion: async () => {
     try {
@@ -51,11 +51,13 @@ export const useEventStore = create<IEventStore>((set, get) => ({
       const res = await api.get('/main/event/real/time/next/question');
       if (res.success) {
         const { startTime, endTime } = res.data;
-        set({ startTime, endTime });
+        return { startTime, endTime };
       } else {
+        return { startTime: null, endTime: null };
       }
     } catch (err) {
       console.error(err);
+      return { startTime: null, endTime: null };
     }
   },
   saveAnswer: async (userId, answer) => {

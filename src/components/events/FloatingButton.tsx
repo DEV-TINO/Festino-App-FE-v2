@@ -2,6 +2,7 @@ import { FLOATING_SIZE, HIDE_PATHS } from '@/constants';
 import useBaseModal from '@/stores/baseModal';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useEventStore from '@/stores/events/eventStore';
 
 type Corner = 'bottom-left' | 'bottom-right';
 
@@ -18,6 +19,11 @@ const FloatingButton: React.FC = () => {
   const dragHistory = useRef(false);
 
   const { isModalOpen, openModal } = useBaseModal();
+  const {
+    setStartTime,
+    getNextQuestion,
+    setModalType,
+  } = useEventStore();
 
   const screenWidth = document.body.clientWidth;
   const screenHeight = document.body.clientHeight;
@@ -31,7 +37,33 @@ const FloatingButton: React.FC = () => {
   };
 
   const handleClickQuizEvent = () => {
-    openModal('quizModal');
+    const checkEvent = async () => {
+      const { startTime, endTime } = await getNextQuestion();
+  
+      if (!startTime || !endTime) {
+        alert("퀴즈 시간을 받아오지 못했습니다.")
+        return;
+      }
+      const now = new Date();
+      const start = new Date(startTime);
+      const end = new Date(endTime);
+  
+      if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+        console.error("시간 파싱 실패:", startTime, endTime);
+        return;
+      }
+  
+      if (!(now >= start && now <= end)) {
+        setStartTime(startTime);
+        setModalType("time");
+        openModal("confirm");
+        return;
+      }
+  
+      openModal("quizModal");
+    };
+  
+    checkEvent();
   };
 
   const subButtons = [
