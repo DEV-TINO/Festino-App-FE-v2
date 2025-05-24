@@ -19,8 +19,7 @@ const Review: React.FC = () => {
   const [studentNum, setStudentNum] = useState('');
 
   const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
-  const setIsAgreed = usePersonalInfoStore((state) => state.setIsAgreed);
-
+  
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value;
     const formatted = formatPhoneNumber(rawValue);
@@ -121,7 +120,6 @@ const Review: React.FC = () => {
     setName('');
     setPhoneNum('');
     setStudentNum('');
-    setIsAgreed(false);
   };
 
   const featureOptions = ['부스 위치 안내', '공연 정보 안내', '주문 기능', '예약 기능', '조회 기능', '없음'];

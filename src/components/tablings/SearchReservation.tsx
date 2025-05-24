@@ -15,7 +15,7 @@ const SearchReservation: React.FC = () => {
   const [inputName, setInputName] = useState<string>('');
 
   const { setUserName, getReservation } = useReservationStore();
-  const { isAgreed, setIsAgreed } = usePersonalInfoStore();
+  const { isAgreed } = usePersonalInfoStore();
   const { openModal, closeModal } = useBaseModal();
   const navigate = useNavigate();
 
@@ -23,9 +23,6 @@ const SearchReservation: React.FC = () => {
     if (!isInputFill || !isAgreed) return;
     const inputInfo = { userName: inputName, phoneNum: formatPhoneNum(inputPhoneNum) };
     await getReservation(inputInfo, { openModal, closeModal, navigate });
-    setInputName('');
-    setInputPhoneNum('');
-    setIsAgreed(false);
   };
 
   const formatPhoneNumber = (input: string): string => {
@@ -62,6 +59,18 @@ const SearchReservation: React.FC = () => {
       document.getElementById('phoneNumInput')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }, [isInputNameFocused, isInputPhoneNumFocused]);
+
+  useEffect(() => {
+      const userName = localStorage.getItem('userName');
+      const userPhoneNum = localStorage.getItem('userPhoneNum');
+      if (userName && userPhoneNum) {
+        setInputName(userName);
+        setInputPhoneNum(userPhoneNum);
+      } else {
+        setInputName('');
+        setInputPhoneNum('');
+      }
+  }, []);
 
   return (
     <>

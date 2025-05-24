@@ -22,7 +22,7 @@ const ReservationModal: React.FC = () => {
     recentPhoneNum,
   } = useReservationStore();
 
-  const { isAgreed, setIsAgreed } = usePersonalInfoStore();
+  const { isAgreed } = usePersonalInfoStore();
   const { openModal, closeModal, isModalOpen, modalType } = useBaseModal();
   const navigate = useNavigate();
 
@@ -32,18 +32,20 @@ const ReservationModal: React.FC = () => {
   const newNightBooth = openNightBoothInfo?.find((info) => info.boothId === selectedNightBoothInfo?.boothId);
 
   useEffect(() => {
-    setIsAgreed(false);
-  }, [setIsAgreed]);
-
-  useEffect(() => {
     if (isModalOpen && modalType === 'reservationModal') {
-      setRecentName('');
-      setRecentPhoneNum('');
+      const userName = localStorage.getItem('userName');
+      const userPhoneNum = localStorage.getItem('userPhoneNum');
+      if (userName && userPhoneNum) {
+        setRecentName(userName);
+        setRecentPhoneNum(userPhoneNum);
+      } else {
+        setRecentName('');
+        setRecentPhoneNum('');
+      }
       setPersonNum(null);
-      setIsSubmit(false);
-      setIsAgreed(false);
+      (false);
     }
-  }, [isModalOpen, modalType, setIsAgreed, setRecentName, setRecentPhoneNum]);
+  }, [isModalOpen, modalType, setRecentName, setRecentPhoneNum]);
 
   const handleClickReserveButton = async () => {
     if (
@@ -68,7 +70,6 @@ const ReservationModal: React.FC = () => {
     setRecentName(recentName);
     await checkDuplicateReserve(reserveInfo.phoneNum, { openModal, closeModal, navigate });
     setIsSubmit(false);
-    setIsAgreed(false);
   };
 
   return (
