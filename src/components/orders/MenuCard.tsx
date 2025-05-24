@@ -85,39 +85,6 @@ const MenuCard: React.FC<Props> = ({ menu, onCountChange, boothId, tableNum, tot
     updateCount(newCount, 'MENUADD');
   };
 
-  const handleCountInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.replace(/[^0-9]/g, '');
-    let numericValue = Number(inputValue);
-    if (numericValue > 99) numericValue = 99;
-
-    const performInputUpdate = () => {
-      addOrderItem({
-        menuId: menu.menuId,
-        menuName: menu.menuName,
-        menuCount: numericValue,
-        menuPrice: menu.menuPrice,
-      });
-
-      onCountChange(numericValue);
-      handleTotalPrice();
-    };
-
-    if (isNotOrderingUser) {
-      setOrderCancelConfirmCallback(() => () => {
-        sendWebSocketMessage({
-          type: 'ORDERCANCEL',
-          boothId,
-          tableNum,
-        });
-        performInputUpdate();
-      });
-      openModal('orderCancelConfirmModal');
-      return;
-    }
-
-    performInputUpdate();
-  };
-
   return (
     <div className="flex gap-4 mb-6 border-b pb-4 select-none">
       <div
