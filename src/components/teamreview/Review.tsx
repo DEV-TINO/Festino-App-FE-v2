@@ -210,6 +210,7 @@ const Review: React.FC = () => {
             className="touch-action: manipulation text-xs border border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
             placeholder="내용을 작성해주세요."
             value={reason}
+            maxLength={1000}
             onChange={(e) => setReason(e.target.value)}
           />
         </div>
@@ -242,6 +243,7 @@ const Review: React.FC = () => {
         <textarea
           className="touch-action: manipulation text-xs border-2 border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
           placeholder="내용을 입력해주세요."
+          maxLength={1000}
           value={feedback}
           onChange={(e) => setFeedBack(e.target.value)}
         />
