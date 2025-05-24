@@ -17,6 +17,7 @@ const Review: React.FC = () => {
   const [name, setName] = useState('');
   const [phoneNum, setPhoneNum] = useState('');
   const [studentNum, setStudentNum] = useState('');
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
 
@@ -61,6 +62,9 @@ const Review: React.FC = () => {
   };
 
   const handleSubmit = async () => {
+    if (isSubmit) return;
+    setIsSubmit(true);
+
     if (
       rating === 0 ||
       goodFunc.length === 0 ||
@@ -76,6 +80,7 @@ const Review: React.FC = () => {
         title: '필수 항목을 모두 입력해주세요!',
         confirmButtonText: '확인',
       });
+      setIsSubmit(false);
       return;
     }
 
@@ -107,6 +112,8 @@ const Review: React.FC = () => {
         text: 'Please resubmit your review',
         confirmButtonText: 'OK',
       });
+    } finally {
+      setIsSubmit(false);
     }
   };
 
@@ -290,6 +297,7 @@ const Review: React.FC = () => {
       <button
         className="w-full text-white bg-primary-900 h-[45px] flex items-center justify-center rounded-full"
         onClick={() => handleSubmit()}
+        disabled={isSubmit}
       >
         제출
       </button>
