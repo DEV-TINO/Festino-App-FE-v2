@@ -33,16 +33,49 @@ import NonCloseModalBackground from '@/components/modals/NonCloseModalBackground
 import SubmitModal from '@/components/events/modals/SubmitModal';
 import TalentModal from '@/components/homes/TalentModal';
 import MenuImageModal from '@/components/booths/MenuImageModal';
+import { useEffect } from 'react';
 
 const ModalPage = () => {
   const { isModalOpen, modalType } = useBaseModal();
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = ''; 
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isModalOpen]);
+
   if (!isModalOpen) return null;
 
-  if (modalType === 'extendPhotoModal') {
+  const nonCloseModals = [
+    'orderModal',
+    'orderConfirmModal',
+    'orderCompleteModal',
+    'oneMinuteModal',
+    'timeOverModal',
+    'orderInProgressModal',
+    'exitPaymentModal',
+    'overrideOrderModal',
+    'orderCancelConfirmModal',
+  ];
+
+  if (nonCloseModals.includes(modalType)) {
     return (
       <NonCloseModalBackground>
-        <ExtendPhotoModal />
+        {modalType === 'orderModal' && <OrderModal />}
+        {modalType === 'orderConfirmModal' && <OrderConfirmModal />}
+        {modalType === 'orderCompleteModal' && <OrderCompleteModal />}
+        {modalType === 'oneMinuteModal' && <OneMinuteModal />}
+        {modalType === 'timeOverModal' && <TimeOverModal />}
+        {modalType === 'orderInProgressModal' && <OrderInprocessModal />}
+        {modalType === 'exitPaymentModal' && <ExitPaymentModal />}
+        {modalType === 'overrideOrderModal' && <OverrideOrderModal />}
+        {modalType === 'orderCancelConfirmModal' && <OrderCancelConfirmModal />}
       </NonCloseModalBackground>
     );
   }
@@ -69,15 +102,6 @@ const ModalPage = () => {
       {modalType === 'requireLoginModal' && <RequireLoginModal />}
       {modalType === 'extendPhotoModal' && <ExtendPhotoModal />}
       {modalType === 'messageFailModal' && <MessageFailModal />}
-      {modalType === 'orderModal' && <OrderModal />}
-      {modalType === 'orderConfirmModal' && <OrderConfirmModal />}
-      {modalType === 'orderCompleteModal' && <OrderCompleteModal />}
-      {modalType === 'oneMinuteModal' && <OneMinuteModal />}
-      {modalType === 'timeOverModal' && <TimeOverModal />}
-      {modalType === 'orderInProgressModal' && <OrderInprocessModal />}
-      {modalType === 'exitPaymentModal' && <ExitPaymentModal />}
-      {modalType === 'overrideOrderModal' && <OverrideOrderModal />}
-      {modalType === 'orderCancelConfirmModal' && <OrderCancelConfirmModal />}
       {modalType === 'submit' && <SubmitModal />}
       {modalType === 'talent' && <TalentModal />}
       {modalType === 'menuImage' && <MenuImageModal />}

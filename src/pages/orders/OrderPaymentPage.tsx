@@ -89,6 +89,7 @@ const OrderPaymentPage: React.FC = () => {
       navigate('/error/NotFound');
       return;
     }
+    
 
     setBoothId(boothId);
     setTableNum(tableIndex);
@@ -100,6 +101,7 @@ const OrderPaymentPage: React.FC = () => {
     if (!isSocketConnected() && boothId && tableNum && isUUID(boothId)) {
       connectOrderSocket(boothId, Number(tableNum));
     }
+    
 
     // End of the session
     const sendLogout = async () => {
@@ -142,6 +144,22 @@ const OrderPaymentPage: React.FC = () => {
       disconnectOrderSocket(boothId!, Number(tableNum));
     };
   }, [boothId, tableNum]);
+
+  useEffect(() => {
+    if (showConfirm) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden'; 
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = ''; 
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = ''; 
+    };
+  }, [showConfirm]);
+  
 
   const fetchMenuByCategory = async (category: CategoryValue) => {
     if (!boothId) return;
@@ -247,7 +265,7 @@ const OrderPaymentPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="p-5 mt-28 mb-5 overflow-scroll pb-[120px] ">
+      <div className="p-5 mt-28 mb-5 overflow-y-auto pb-[120px] scrollbar-hide">
         {menuInfo.filter((menu) => !menu.isSoldOut).length === 0 ? (
           <div className="text-gray-400 text-sm text-center">메뉴가 없습니다.</div>
         ) : (
@@ -302,7 +320,7 @@ const OrderPaymentPage: React.FC = () => {
             </div>
             <div className="flex w-full gap-3 font-bold text-sm">
               <button
-                className="w-full h-11 rounded-full border-2 border-primary-700 text-primary-700"
+                className="w-full h-11 rounded-full border-2 border-primary-700 text-primary-700 min-w-[120px]"
                 onClick={() => {
                   setShowConfirm(false);
                   navigate(`/order/${boothId}/${tableNum}`);
@@ -311,7 +329,7 @@ const OrderPaymentPage: React.FC = () => {
                 돌아가기
               </button>
               <button
-                className="w-full h-11 rounded-full text-white bg-primary-700"
+                className="w-full h-11 rounded-full text-white bg-primary-700 min-w-[120px]"
                 onClick={() => {
                   setShowConfirm(false);
                 }}
