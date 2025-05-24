@@ -16,7 +16,7 @@ const BoothItem: React.FC<BoothItemProps> = ({ booth, onClick, getImageProps }) 
             </div>
             <div>
               <div className="py-1.5 text-[15px] font-semibold">{booth.boothName}</div>
-              <div className="pb-2 text-2xs text-secondary-500">{truncateText(booth.boothIntro, 50)}</div>
+              <div className="pb-2 text-2xs text-secondary-500">{truncateText(booth.boothIntro, 35)}</div>
             </div>
           </div>
           <div className="flex flex-row">

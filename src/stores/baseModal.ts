@@ -6,6 +6,8 @@ const useBaseModal = create<IBaseModal>((set) => ({
   modalType: '',
   orderCancelConfirmCallback: null,
   exitConfirmCallback: null, 
+  menuImageSrc: null,
+  setMenuImageSrc: (src) => set({ menuImageSrc: src }),
 
   setOrderCancelConfirmCallback: (cb) => set({ orderCancelConfirmCallback: cb }),
   setExitConfirmCallback: (cb) => set({ exitConfirmCallback: cb }),

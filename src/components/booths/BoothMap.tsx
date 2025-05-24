@@ -58,7 +58,7 @@ const BoothMap: React.FC = () => {
         // { markerNum: 26, left: 440, bottom: 255, scrollLeft: 970, scrollTop: 370 },
         { markerNum: 24, left: 440, bottom: 220, scrollLeft: 970, scrollTop: 480 },
         { markerNum: 25, left: 420, bottom: 205, scrollLeft: 925, scrollTop: 490 },
-        { markerNum: 26, left: 440, bottom: 190, scrollLeft: 970, scrollTop: 340 },
+        { markerNum: 26, left: 440, bottom: 190, scrollLeft: 970, scrollTop: 550 },
         { markerNum: 27, left: 528, bottom: 300, scrollLeft: 1200, scrollTop: 270 },
         { markerNum: 28, left: 510, bottom: 280, scrollLeft: 1200, scrollTop: 310 },
         { markerNum: 29, left: 528, bottom: 270, scrollLeft: 1200, scrollTop: 340 },

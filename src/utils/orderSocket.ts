@@ -43,18 +43,17 @@ export const connectOrderSocket = (boothId: string, tableNum: number) => {
 };
 
 export const disconnectOrderSocket = async (boothId: string, tableNum: number) => {
-  const { client, clearClient, sessionId } = useSocketStore.getState();
+  const { client, clearClient } = useSocketStore.getState();
 
-  if (client && client.connected) {
+  const sessionId = localStorage.getItem('orderSessionId');
+
+  if (client && client.connected && sessionId) {
     try {
-      client.publish({
-        destination: '/app/order',
-        body: JSON.stringify({
-          type: 'UNSUBSCRIBE',
-          boothId,
-          tableNum,
-          sessionId,
-        }),
+      sendWebSocketMessage({
+        type: 'UNSUB',
+        boothId,
+        tableNum,
+        clientId: sessionId,
       });
 
       await client.deactivate();
@@ -149,7 +148,7 @@ const onMessage = (message: IMessage) => {
     }
 
     case 'STARTORDER': {
-      const senderSessionId = message.headers['excludeSessionId'];
+      const senderSessionId = data.clientId;
       const mySessionId = localStorage.getItem('orderSessionId');
 
       if (!senderSessionId || !mySessionId) {
@@ -170,7 +169,7 @@ const onMessage = (message: IMessage) => {
     }
 
     case 'ORDERINPROGRESS': {
-      const senderSessionId = message.headers['excludeSessionId'];
+      const senderSessionId = data.clientId;
       const mySessionId = localStorage.getItem('orderSessionId');
 
       if (!senderSessionId || !mySessionId) {
@@ -208,18 +207,19 @@ const onMessage = (message: IMessage) => {
     }
 
     case 'TIMEUPDATE': {
-      useOrderStore.getState().setRemainingMinutes(data.payload.remainingMinutes);
-      break;
-    }
+      const minutes = data.payload;
 
-    case 'PRESESSIONEND': {
-      const minutes = data.payload?.remainingMinutes;
+      if (!minutes) {
+        alert('남은 시간이 없습니다. 다시 접속해주세요.');
+        return;
+      }
 
-      if (minutes === 1) {
+      if (minutes === 1 && minutes !== useOrderStore.getState().remainingMinutes) {
         useOrderStore.getState().setRemainingMinutes(1);
         useBaseModal.getState().openModal('oneMinuteModal');
       }
 
+      useOrderStore.getState().setRemainingMinutes(minutes);
       break;
     }
 
@@ -230,11 +230,6 @@ const onMessage = (message: IMessage) => {
       const sessionId = localStorage.getItem('orderSessionId');
 
       if (boothId && typeof tableNum === 'number' && sessionId) {
-        sendWebSocketMessage({
-          type: 'UNSUB',
-          boothId,
-          tableNum,
-        });
         disconnectOrderSocket(boothId, tableNum);
       }
 
@@ -260,7 +255,16 @@ const onMessage = (message: IMessage) => {
 };
 
 type WebSocketPayload = {
-  type: 'MENUADD' | 'MENUSUB' | 'STARTORDER' | 'UNSUB' | 'INIT' | 'ORDERINPROGRESS' | 'ORDERDONE' | 'ORDERCANCEL';
+  type:
+    | 'MENUADD'
+    | 'MENUSUB'
+    | 'STARTORDER'
+    | 'UNSUB'
+    | 'INIT'
+    | 'ORDERINPROGRESS'
+    | 'ORDERDONE'
+    | 'ORDERCANCEL'
+    | 'TIMEUPDATE';
   boothId: string;
   tableNum: number;
   payload?: {
@@ -278,8 +282,6 @@ export const sendWebSocketMessage = (payload: WebSocketPayload) => {
   if (!client || !client.connected) {
     return;
   }
-
-  console.log(payload);
 
   try {
     client.publish({

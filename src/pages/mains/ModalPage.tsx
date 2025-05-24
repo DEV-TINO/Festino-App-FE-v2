@@ -31,6 +31,8 @@ import OverrideOrderModal from '@/components/orders/modals/OverrideOrderModal';
 import OrderCancelConfirmModal from '@/components/orders/modals/OrderCancelConfirmModal';
 import NonCloseModalBackground from '@/components/modals/NonCloseModalBackground';
 import SubmitModal from '@/components/events/modals/SubmitModal';
+import TalentModal from '@/components/homes/TalentModal';
+import MenuImageModal from '@/components/booths/MenuImageModal';
 
 const ModalPage = () => {
   const { isModalOpen, modalType } = useBaseModal();
@@ -77,6 +79,8 @@ const ModalPage = () => {
       {modalType === 'overrideOrderModal' && <OverrideOrderModal />}
       {modalType === 'orderCancelConfirmModal' && <OrderCancelConfirmModal />}
       {modalType === 'submit' && <SubmitModal />}
+      {modalType === 'talent' && <TalentModal />}
+      {modalType === 'menuImage' && <MenuImageModal />}
     </ModalBackground>
   );
 };
