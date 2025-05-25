@@ -103,9 +103,12 @@ const BoothMap: React.FC = () => {
   const navigate = useNavigate();
   const isBoothDetail = Boolean(type && boothId);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const touchStartDistanceRef = useRef<number | null>(null);
+
   const [zoom, setZoom] = useState(1);
   const [selectedMarker, setSelectedMarker] = useState<Marker | null>(null);
   const [selectedBooth, setSelectedBooth] = useState<Booth | BoothInfo | null>(null);
+
   const {
     boothListAll,
     boothListNight,
@@ -218,6 +221,37 @@ const BoothMap: React.FC = () => {
     setSelectedMarker(null);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const [touch1, touch2] = Array.from(e.touches);
+      const dx = touch1.pageX - touch2.pageX;
+      const dy = touch1.pageY - touch2.pageY;
+      touchStartDistanceRef.current = Math.sqrt(dx * dx + dy * dy);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && touchStartDistanceRef.current !== null) {
+      const [touch1, touch2] = Array.from(e.touches);
+      const dx = touch1.pageX - touch2.pageX;
+      const dy = touch1.pageY - touch2.pageY;
+      const newDistance = Math.sqrt(dx * dx + dy * dy);
+      const diff = newDistance - touchStartDistanceRef.current;
+
+      if (Math.abs(diff) > 10) {
+        setZoom((prev) => {
+          const newZoom = prev + diff / 300;
+          return Math.min(Math.max(newZoom, 1), 1.6);
+        });
+        touchStartDistanceRef.current = newDistance;
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    touchStartDistanceRef.current = null;
+  };
+
   useEffect(() => {
     init();
     setZoom(1);
@@ -281,6 +315,9 @@ const BoothMap: React.FC = () => {
       <div className="relative w-full aspect-square">
         <div
           ref={containerRef}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           className="relative aspect-square w-full min-h-[340px] h-[350px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-700-light rounded-3xl overflow-auto touch-pan-x touch-pan-y"
           style={{ touchAction: 'pan-x pan-y' }}
         >
