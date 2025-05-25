@@ -23,7 +23,9 @@ const ConfirmModal: React.FC = () => {
     <>
       <div
         className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
-        onClick={(e) => { e.stopPropagation(); }}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <div className="w-12 h-12 rounded-full bg-error grid place-items-center">
           <img src="/icons/commons/error.svg" />
@@ -32,12 +34,21 @@ const ConfirmModal: React.FC = () => {
           <p className="text-secondary-700 text-xl font-bold">참여 불가</p>
           <p className="text-secondary-500">{getMessage()}</p>
         </div>
-        {(modalType === 'time' && 
+
+        {modalType === 'time' && (
           <div className="flex flex-col items-center">
             <p>다음 이벤트</p>
             <p className="text-secondary-500">{getEventTime()}</p>
           </div>
         )}
+        {modalType === 'time' && (
+          <p className="text-secondary-400 text-sm text-center">
+            이벤트 기간에 참여하시면 <strong>상품</strong>을 드립니다.
+            <br />
+            기간 내 많은 참여 부탁드려요!
+          </p>
+        )}
+
         <button
           className="w-full h-12 bg-primary-900 rounded-3xl text-white font-semibold text-xl"
           onClick={() => closeModal()}
