@@ -20,8 +20,10 @@ import RetryQRPage from './pages/orders/ReTryQRPage';
 import PhotoBoardPage from './pages/mains/PhotoBoardPage';
 import ReviewPage from './pages/mains/ReviewPage';
 import { useEffect } from 'react';
+import ReactGA from 'react-ga4';
 
 const App: React.FC = () => {
+  ReactGA.initialize('G-KZHM2SH2NL');
   useEffect(() => {
     const updateRealVh = () => {
       const vh = window.visualViewport?.height ?? window.innerHeight;

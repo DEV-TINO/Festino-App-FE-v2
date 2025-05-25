@@ -70,3 +70,14 @@ export const getCookie = (name: string): string | null => {
 export const removeCookie = (name: string) => {
   document.cookie = `${name}=; Max-Age=0; path=/`;
 };
+
+export const sendGAEvent = (
+  action: string,
+  label?: string
+) => {
+  if (typeof window !== 'undefined') {
+    (window as any).gtag?.('event', action, {
+      event_label: label,
+    });
+  }
+};
