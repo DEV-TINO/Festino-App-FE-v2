@@ -70,9 +70,13 @@ const QuizModal: React.FC = () => {
           onClick={closeModal}
         />
       </div>
-      <p className="text-secondary-700 text-xl font-semibold">
-        {questionInfo?.question}
+      <p className="text-secondary-700 text-xl font-semibold">{questionInfo?.question}</p>
+      <p className="text-xs text-secondary-400 text-center -mt-2">
+        ※ 정답을 제출한 <span className="font-medium">선착순 5명</span>에게 선물을 드립니다.
+        <br />
+        당첨자는 인스타그램 게시물로 공지됩니다.
       </p>
+
       <div className="flex w-full gap-3 items-center">
         <textarea
           className="w-full border border-secondary-400 p-6 rounded-xl h-32 resize-none"
@@ -86,7 +90,7 @@ const QuizModal: React.FC = () => {
         <p className="text-danger text-sm">{message}</p>
         <button
           className={`w-48 h-12 rounded-3xl text-white font-semibold text-xl ${
-            isSubmitting ? "bg-gray-400 cursor-not-allowed" : "bg-primary-900"
+            isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-primary-900'
           }`}
           onClick={handleSubmit}
           disabled={isSubmitting}
