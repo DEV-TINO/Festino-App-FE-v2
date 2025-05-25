@@ -10,24 +10,24 @@ const TimeTable: React.FC = () => {
   const { clubData, talentData, getClubTimetable, getTalentTimetable } = useTimetableStore();
   const { festivalDate } = useDateStore();
 
-  const isShowing = true;
-
-  const isFestivalDate = useMemo(() => {
+  const visibleFestivalDates = useMemo(() => {
     const now = new Date();
-    const showTime = new Date('2025-05-26T00:00:00');
-    return now >= showTime;
-  }, []);
+  
+    if (now >= new Date('2025-05-28T00:00:00')) {
+      return [1, 2, 3];
+    } else if (now >= new Date('2025-05-27T00:00:00')) {
+      return [1, 2];
+    } else if (now >= new Date('2025-05-26T00:00:00')) {
+      return [1];
+    } else {
+      return [];
+    }
+  }, []);  
 
   useEffect(() => {
     getClubTimetable(festivalDate);
     getTalentTimetable(festivalDate);
   }, [festivalDate]);
-
-  const isShowingTime = () => (isShowing ? 'text-secondary-700' : 'text-secondary-100');
-
-  const isShowingPin = () => (isShowing ? 'bg-primary-700' : 'bg-secondary-100');
-
-  const isShowingBgPin = () => (isShowing ? 'bg-primary-700-light' : 'bg-secondary-50');
 
   return (
     <div className="w-full select-none pb-20">
@@ -42,14 +42,14 @@ const TimeTable: React.FC = () => {
         {clubData.map((club, index) => (
           <div key={index} className="flex h-full w-full justify-center">
             <div className="flex flex-col items-center text-secondary-700 gap-[162px] pt-1 mt-[-9px]">
-              <div className={isShowingTime()}>
+              <div className="text-secondary-700">
                 {club.showStartTime} ~ {club.showEndTime}
               </div>
             </div>
             <div className="pt-3 pl-4 sm:pl-7 pr-3 xs:pr-4 sm:pr-7">
               <div className="border-2 border-primary-700 w-0 border-dashed flex flex-col items-center pb-40 mt-[-10px]">
-                <div className={`w-4 h-4 mt-[-5px] rounded-full flex items-center justify-center ${isShowingBgPin()}`}>
-                  <div className={`w-2 h-2 rounded-full ${isShowingPin()}`} />
+                <div className={`w-4 h-4 mt-[-5px] rounded-full flex items-center justify-center bg-primary-700-light`}>
+                  <div className={`w-2 h-2 rounded-full bg-primary-700`} />
                 </div>
               </div>
             </div>
@@ -59,25 +59,25 @@ const TimeTable: React.FC = () => {
           </div>
         ))}
 
-      {isFestivalDate &&
-        talentData.map((talent, index) => (
-          <div key={index} className="flex h-full w-full justify-center">
-            <div className="flex flex-col items-center text-secondary-700 gap-[162px] pt-1 mt-[-9px]">
-              <div className={isShowingTime()}>
-                {talent.showStartTime} ~ {talent.showEndTime}
-              </div>
-            </div>
-            <div className="pt-3 pl-4 sm:pl-7 pr-3 xs:pr-4 sm:pr-7">
-              <div className="border-2 border-primary-700 w-0 border-dashed flex flex-col items-center pb-40 mt-[-10px]">
-                <div className={`w-4 h-4 mt-[-5px] rounded-full flex items-center justify-center ${isShowingBgPin()}`}>
-                  <div className={`w-2 h-2 rounded-full ${isShowingPin()}`} />
+        {visibleFestivalDates.includes(festivalDate) &&
+          talentData.map((talent, index) => (
+            <div key={index} className="flex h-full w-full justify-center">
+              <div className="flex flex-col items-center text-secondary-700 gap-[162px] pt-1 mt-[-9px]">
+                <div className="text-secondary-700">
+                  {talent.showStartTime} ~ {talent.showEndTime}
                 </div>
               </div>
+              <div className="pt-3 pl-4 sm:pl-7 pr-3 xs:pr-4 sm:pr-7">
+                <div className="border-2 border-primary-700 w-0 border-dashed flex flex-col items-center pb-40 mt-[-10px]">
+                  <div className={`w-4 h-4 mt-[-5px] rounded-full flex items-center justify-center bg-primary-700-light`}>
+                    <div className={`w-2 h-2 rounded-full bg-primary-700`} />
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-6">
+                <TalentDetail key={index} talent={talent} />
+              </div>
             </div>
-            <div className="flex flex-col items-center gap-6">
-              <TalentDetail key={index} talent={talent} />
-            </div>
-          </div>
         ))}
 
         <div className="text-center flex flex-col gap-2 pt-4">
