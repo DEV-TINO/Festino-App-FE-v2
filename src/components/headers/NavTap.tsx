@@ -11,6 +11,8 @@ import IconEvent from '@/icons/events/IconEvent';
 import IconNotice from '@/icons/events/IconNotice';
 import IconDropDown from '@/icons/events/IconDropDown';
 import IconProfile from '@/icons/events/IconProfile';
+import useEventStore from '@/stores/events/eventStore';
+import { sendGAEvent } from '@/utils/utils';
 
 const NavTap = () => {
   const navigate = useNavigate();
@@ -24,7 +26,55 @@ const NavTap = () => {
   const login = isLogin();
 
   const [isEventOpen, setIsEventOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const toggleEvent = () => setIsEventOpen((prev) => !prev);
+
+  const {
+    setStartTime,
+    getNextQuestion,
+    setModalType,
+  } = useEventStore();
+
+  const handleClickQuizEvent = () => {
+    sendGAEvent('click_live_event', '실시간 퀴즈');
+    if (isLoading) return;
+  
+    const checkEvent = async () => {
+      setIsLoading(true);
+      try {
+        const { startTime, endTime } = await getNextQuestion();
+  
+        if (!startTime || !endTime) {
+          alert("퀴즈 시간을 받아오지 못했습니다.");
+          return;
+        }
+  
+        const now = new Date();
+        const start = new Date(startTime);
+        const end = new Date(endTime);
+  
+        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+          console.error("시간 파싱 실패:", startTime, endTime);
+          return;
+        }
+  
+        if (!(now >= start && now <= end)) {
+          setStartTime(startTime);
+          setModalType("time");
+          openModal("confirm");
+          return;
+        }
+  
+        openModal("quizModal");
+      } catch (error) {
+        alert("퀴즈 이벤트 처리 오류");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    close();
+    checkEvent();
+  };
 
   useEffect(() => {
     const root = document.getElementById('root');
@@ -203,8 +253,7 @@ const NavTap = () => {
                   <li
                     className="cursor-pointer px-2 py-2"
                     onClick={() => {
-                      openModal('quizModal');
-                      close();
+                      handleClickQuizEvent();
                     }}
                   >
                     실시간 퀴즈 이벤트
