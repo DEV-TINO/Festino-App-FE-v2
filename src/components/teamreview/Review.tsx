@@ -291,6 +291,10 @@ const Review: React.FC = () => {
 
       <EventPersonalInfo />
 
+      {(!name || !phoneNum || !studentNum) && (
+        <p className="text-danger text-xs text-center">* 개인정보를 입력하지 않으면 이벤트 참여가 어렵습니다.</p>
+      )}
+
       <button
         className="w-full text-white bg-primary-900 h-[45px] flex items-center justify-center rounded-full"
         onClick={() => handleSubmit()}
