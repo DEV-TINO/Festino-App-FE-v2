@@ -70,9 +70,6 @@ const Review: React.FC = () => {
       goodFunc.length === 0 ||
       badFunc.length === 0 ||
       reuse === '' ||
-      name.trim() === '' ||
-      phoneNum.trim() === '' ||
-      studentNum.trim() === '' ||
       !isAgreed
     ) {
       Swal.fire({
