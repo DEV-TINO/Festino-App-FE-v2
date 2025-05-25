@@ -22,7 +22,7 @@ const ConfirmModal: React.FC = () => {
   return (
     <>
       <div
-        className="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
+        className="select-none relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
         onClick={(e) => {
           e.stopPropagation();
         }}
