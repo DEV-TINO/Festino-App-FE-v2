@@ -11,11 +11,19 @@ const ShowPreview: React.FC = () => {
   const { clubData, talentData, getClubTimetable, getTalentTimetable, setSelectedClub, setSelectedTalent } = useTimetableStore();
   const { openModal } = useBaseModal();
 
-  const isFestivalDate = useMemo(() => {
+  const visibleFestivalDates = useMemo(() => {
     const now = new Date();
-    const showTime = new Date('2025-05-26T00:00:00');
-    return now >= showTime;
-  }, []);
+  
+    if (now >= new Date('2025-05-28T00:00:00')) {
+      return [1, 2, 3];
+    } else if (now >= new Date('2025-05-27T00:00:00')) {
+      return [1, 2];
+    } else if (now >= new Date('2025-05-26T00:00:00')) {
+      return [1];
+    } else {
+      return [];
+    }
+  }, []);  
 
   useEffect(() => {
     getClubTimetable(festivalDate);
@@ -50,30 +58,30 @@ const ShowPreview: React.FC = () => {
           </div>
         ))}
 
-        {isFestivalDate ? (
-          talentData?.map((talent, index) => (
-            <div
-              onClick={() => openTalentModal(talent)}
-              key={index}
-              className="flex flex-col items-center cursor-pointer"
-            >
-              <div
-                className="border-2 border-primary bg-no-repeat bg-cover bg-center w-[86px] h-[86px] sm:w-[100px] sm:h-[100px] rounded-full"
-                style={{ backgroundImage: `url(${talent.talentImage})` }}
-              ></div>
-              <div className="text-xs font-normal pt-2">{talent.showStartTime}</div>
-              <div className="text-primary-700 font-medium">{talent.performer}</div>
-            </div>
-          ))
-        ) : (
+      {visibleFestivalDates.includes(festivalDate) ? (
+        talentData?.map((talent, index) => (
           <div
+            onClick={() => openTalentModal(talent)}
+            key={index}
             className="flex flex-col items-center cursor-pointer"
-            onClick={() => openNewTap(COUNCIL_URL)}
           >
-            <div className="border-2 border-primary bg-cover bg-center bg-talent-icon w-[86px] h-[86px] sm:w-[100px] sm:h-[100px] rounded-full"></div>
-            <div className="text-primary-700 font-medium pt-6">연예인 공연</div>
+            <div
+              className="border-2 border-primary bg-no-repeat bg-cover bg-center w-[86px] h-[86px] sm:w-[100px] sm:h-[100px] rounded-full"
+              style={{ backgroundImage: `url(${talent.talentImage})` }}
+            ></div>
+            <div className="text-xs font-normal pt-2">{talent.showStartTime}</div>
+            <div className="text-primary-700 font-medium">{talent.performer}</div>
           </div>
-        )}
+        ))
+      ) : (
+        <div
+          className="flex flex-col items-center cursor-pointer"
+          onClick={() => openNewTap(COUNCIL_URL)}
+        >
+          <div className="border-2 border-primary bg-cover bg-center bg-talent-icon w-[86px] h-[86px] sm:w-[100px] sm:h-[100px] rounded-full"></div>
+          <div className="text-primary-700 font-medium pt-6">연예인 공연</div>
+        </div>
+      )}
       </div>
     </div>
   );
