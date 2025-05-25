@@ -3,6 +3,7 @@ import useBaseModal from '@/stores/baseModal';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useEventStore from '@/stores/events/eventStore';
+import { sendGAEvent } from '@/utils/utils';
 
 type Corner = 'bottom-left' | 'bottom-right';
 
@@ -38,6 +39,7 @@ const FloatingButton: React.FC = () => {
   };
 
   const handleClickQuizEvent = () => {
+    sendGAEvent('click_live_event', '실시간 퀴즈');
     if (isLoading) return;
   
     const checkEvent = async () => {
@@ -101,6 +103,7 @@ const FloatingButton: React.FC = () => {
   const handleClick = () => {
     if (dragHistory.current) return;
     setIsOpen((prev) => !prev);
+    sendGAEvent('click_event', '이벤트 버튼');
   };
 
   useEffect(() => {
