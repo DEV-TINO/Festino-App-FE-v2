@@ -72,7 +72,7 @@ const QuizModal: React.FC = () => {
       </div>
       <p className="text-secondary-700 text-xl font-semibold">{questionInfo?.question}</p>
       <p className="text-xs text-secondary-400 text-center -mt-2">
-        ※ 정답을 제출한 <span className="font-medium">선착순 5명</span>에게 선물을 드립니다.
+        ※ 정답을 제출한 인원 중 <span className="font-medium">다섯 분을 추첨하여</span> 선물을 드립니다.
         <br />
         당첨자는 인스타그램 게시물로 공지됩니다.
       </p>
