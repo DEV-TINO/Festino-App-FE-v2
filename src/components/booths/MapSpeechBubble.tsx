@@ -11,7 +11,6 @@ export const MapSpeechBubble: React.FC<MapSpeechBubbleProps> = ({ booth }) => {
     );
   }
 
-  const isStudentCouncil = booth.adminName.includes('총학생회');
   const isFacility = booth.adminCategory === '편의시설';
 
   return (
@@ -19,8 +18,8 @@ export const MapSpeechBubble: React.FC<MapSpeechBubbleProps> = ({ booth }) => {
       <div
         className={`text-primary-700 font-semibold text-[11px] pb-1`}
       >
-        {isFacility || isStudentCouncil ? booth.boothName : booth.adminName}
-        {isFacility || !isStudentCouncil && ' 부스'}
+        {isFacility || booth.adminName.includes('총학생회') ? booth.boothName : booth.adminName}
+        {isFacility || !booth.adminName.includes('총학생회') && ' 부스'}
       </div>
       <div className="flex items-center">
         <div className="w-[10px] h-[10px] bg-[url('/icons/booths/location_on.svg')]" />

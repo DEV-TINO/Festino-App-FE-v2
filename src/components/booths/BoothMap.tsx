@@ -35,7 +35,7 @@ const BoothMap: React.FC = () => {
         { markerNum: 95, left: 500, bottom: 340, scrollLeft: 1200, scrollTop: 170 },
       ],
       toilet: [
-        { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 90 },
+        { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 130 },
         { markerNum: 72, left: 70, bottom: 350, scrollLeft: 20, scrollTop: 130 },
         { markerNum: 73, left: 520, bottom: 367, scrollLeft: 1200, scrollTop: 110 },
         { markerNum: 74, left: 440, bottom: 367, scrollLeft: 970, scrollTop: 110 },
