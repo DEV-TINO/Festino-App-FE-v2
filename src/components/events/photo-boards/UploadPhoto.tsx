@@ -70,7 +70,7 @@ const UploadPhoto: React.FC = () => {
         <p className="text-center text-sm font-medium leading-relaxed whitespace-pre-line ㅈpb-4">
           내가 찍은 축제 사진을 올려주세요!
           {'\n'}(2025년 5월 26일 ~ 5월 29일 간)
-          {'\n'}좋아요를 가장 많이 받은 사람에게 경품을 드립니다!
+          {'\n'}3일 동안 하루에 한 명씩, 좋아요 수 1등에게 카페잉 만원권을 드립니다!
         </p>
         <p className="text-center text-red-500 text-xs pb-2">부적절한 사진 업로드 시 삭제 조치 될 수 있습니다</p>
 
