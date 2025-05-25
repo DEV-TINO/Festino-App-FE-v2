@@ -60,7 +60,7 @@ const QuizModal: React.FC = () => {
       className="select-none relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="w-full flex justify-between px-5">
+      <div className="w-full flex justify-between">
         <div className="w-[20px] h-[20px]" />
         <div className="text-xs text-primary-900 rounded-full w-20 h-6 flex justify-center items-center border-2 border-primary-900-light-16 font-medium">
           실시간 이벤트
