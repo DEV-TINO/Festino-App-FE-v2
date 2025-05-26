@@ -69,12 +69,36 @@ const OrderConfirmModal: React.FC = () => {
     alert('계좌번호가 복사되었습니다.');
   };
 
+  const handleClickDeepLinkWithUrl = async (url: string, linkType: string) => {
+    if (linkType === 'kakao') {
+      // Copy to clipboard for total price
+      navigator.clipboard.writeText(totalPrice.toString());
+    } else if (linkType === 'toss') {
+      url.replace('amound=0', `amount=${totalPrice}`);
+    }
+
+    if (!isSameChecked || !isDoneChecked || isSubmitting) {
+      return;
+    }
+
+    handleComplete();
+
+    window.open(url, '_blank');
+  };
+
   const handleComplete = async () => {
     if (!isSameChecked || !isDoneChecked || isSubmitting) {
       return;
     }
 
     setIsSubmitting(true);
+
+    const conf = confirm('입금 후 꼭 입금 완료 버튼을 눌러주세요. \n\n입금 미확인 시 주문이 취소될 수 있습니다.');
+
+    if (!conf) {
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const payload = {
@@ -90,7 +114,6 @@ const OrderConfirmModal: React.FC = () => {
       const res = await api.post('/main/order', payload);
 
       if (res.success) {
-
         resetOrderInfo();
         sendWebSocketMessage({
           type: 'ORDERDONE',
@@ -100,7 +123,6 @@ const OrderConfirmModal: React.FC = () => {
 
         closeModal();
         openModal('orderCompleteModal');
-        
       } else {
         console.warn(' 주문 실패:', res.message);
         alert(`주문 실패: ${res.message}`);
@@ -160,32 +182,34 @@ const OrderConfirmModal: React.FC = () => {
         <>
           <div className="flex gap-2 justify-center w-full">
             {isKakaoPay && kakaoPayUrl && (
-              <a
-                href={kakaoPayUrl}
-                target="_blank"
+              <button
+                type="button"
+                onClick={() => handleClickDeepLinkWithUrl(kakaoPayUrl, 'kakao')}
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
               >
                 <img src="/icons/orders/kakao-pay.png" alt="카카오페이" className="w-[61px] h-[24px]" />
                 <span className="text-xs mt-1 select-none">카카오페이</span>
-              </a>
+              </button>
             )}
             {isTossPay && tossPayUrl && (
-              <a
-                href={tossPayUrl}
-                target="_blank"
+              <button
+                type="button"
+                onClick={() => handleClickDeepLinkWithUrl(tossPayUrl, 'toss')}
                 rel="noopener noreferrer"
                 className="flex flex-col items-center justify-center w-[120px] h-[80px] rounded-xl border border-gray-200"
               >
                 <img src="/icons/orders/toss-pay.png" alt="토스페이" className="w-8 h-8" />
                 <span className="text-xs mt-1">토스페이</span>
-              </a>
+              </button>
             )}
           </div>
           {isKakaoPay && (
             <div>
               <p className="text-red-500 text-xs select-none text-center">카카오페이는 입금을 완료한 후</p>
-              <p className="text-red-500 text-xs select-none text-center">새로 열린 창을 닫고 해당 페이지로 복귀해 주세요</p>
+              <p className="text-red-500 text-xs select-none text-center">
+                새로 열린 창을 닫고 해당 페이지로 복귀해 주세요
+              </p>
             </div>
           )}
         </>
