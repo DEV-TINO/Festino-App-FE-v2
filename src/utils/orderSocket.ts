@@ -84,10 +84,6 @@ const onMessage = (message: IMessage) => {
             menuId: menu.menuId,
             menuName: existing?.menuName || '',
             menuPrice: existing?.menuPrice || 0,
-            menuDescription: existing?.menuDescription || '',
-            menuImage: existing?.menuImage || '',
-            menuType: existing?.menuType || 0,
-            isSoldOut: existing?.isSoldOut || false,
             menuCount: menu.menuCount,
           };
         });
