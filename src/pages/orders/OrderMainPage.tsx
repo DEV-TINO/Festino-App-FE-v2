@@ -30,7 +30,8 @@ const OrderMainPage: React.FC = () => {
       })
       .catch((err) => {
         console.error('❌ getCustomTableNum 실패:', err);
-        navigate('/error/NotFound');
+        // navigate('/error/NotFound');
+        alert(pathname)
       });
 
     resetOrderInfo();
