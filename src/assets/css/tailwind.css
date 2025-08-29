@@ -3,7 +3,7 @@
 }
 
 .is-category-select-false {
-  @apply border border-primary-700-light text-primary-700-light;
+  @apply border border-primary-700-light-20 text-primary-700-light-20;
 }
 
 .is-state-true {

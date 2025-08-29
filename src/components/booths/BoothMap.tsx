@@ -455,9 +455,9 @@ const BoothMap: React.FC = () => {
 
         {/* 확대/축소 버튼 */}
         {!isBoothDetail && (
-          <div className="absolute bottom-5 left-5 flex flex-col shadow-xl rounded-full overflow-hidden border border-primary-700">
+          <div className="absolute bottom-5 left-5 flex flex-col shadow-xl rounded-full overflow-hidden border border-primary-700-light">
             <button
-              className="rounded-none border-b border-primary-700 bg-white p-4 active:bg-primary-700"
+              className="rounded-none border-b border-primary-700-light bg-white p-4 active:bg-primary-700"
               onClick={() => handleZoom(0.3)}
             >
               <i className="pi pi-plus text-primary-700 text-lg"></i>
