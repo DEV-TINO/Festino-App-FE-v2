@@ -29,6 +29,11 @@ const TimeTable: React.FC = () => {
     getTalentTimetable(festivalDate);
   }, [festivalDate]);
 
+  const clubs = clubData ?? [];
+  const talents = talentData ?? [];
+
+  const isEmpty = clubs.length === 0 && (!visibleFestivalDates.includes(festivalDate) || talents.length === 0);
+
   return (
     <div className="w-full select-none pb-20">
       <div className="flex flex-col items-center border-1 border-primary-900-light-16 rounded-3xl py-5 shadow-4xl">
@@ -84,15 +89,27 @@ const TimeTable: React.FC = () => {
             </div>
           ))}
 
-        <div className="text-center flex flex-col gap-2 pt-4">
-          <p className="text-primary-700 text-xs">자세한 공연 정보가 궁금하다면?</p>
-          <button
-            onClick={() => openNewTap(COUNCIL_URL)}
-            className="text-white w-[240px] h-[30px] rounded-full bg-primary-700 text-sm"
-          >
-            동아리연합회 윤슬 인스타그램 바로가기
-          </button>
-        </div>
+        {isEmpty && (
+          <div className="text-center w-full h-full flex flex-col gap-10 px-8 pt-5">
+            <div className="flex flex-col">
+              <span className="text-secondary-700 font-bold">현재 공연 정보가 없습니다.</span>
+              <span className="text-secondary-500 font-normal text-xs">추후 업데이트 예정입니다.</span>
+            </div>
+            <div className="bg-error-full bg-cover bg-center bg-no-repeat w-full aspect-[35/31]"></div>
+          </div>
+        )}
+
+        {!isEmpty && (
+          <div className="text-center flex flex-col gap-2 pt-4">
+            <p className="text-primary-700 text-xs">자세한 공연 정보가 궁금하다면?</p>
+            <button
+              onClick={() => openNewTap(COUNCIL_URL)}
+              className="text-white w-[240px] h-[30px] rounded-full bg-primary-700 text-sm"
+            >
+              동아리연합회 윤슬 인스타그램 바로가기
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
