@@ -7,7 +7,7 @@ const HomeBanner: React.FC = () => {
             <div className="font-blackhansans text-xs text-white  drop-shadow-banner-text whitespace-pre">
               Festion와 함께하는 2025년{'  '}
             </div>
-            <div className="font-blackhansans text-3xl text-white  drop-shadow-banner-text text-transparent to-100% bg-clip-text text-right">
+            <div className="leading-tight font-blackhansans text-3xl text-white  drop-shadow-banner-text text-transparent to-100% bg-clip-text text-right">
               한국공대 동아리 홍보전
             </div>
           </div>
