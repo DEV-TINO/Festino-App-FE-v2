@@ -20,6 +20,7 @@ export default {
           },
           700: {
             DEFAULT: '#FA7201',
+            'light-16': 'rgba(250, 114, 1, 0.16)',
             light: 'rgba(250, 114, 1, 0.4)',
             lighter: 'rgba(250, 114, 1, 0.1)',
           },
