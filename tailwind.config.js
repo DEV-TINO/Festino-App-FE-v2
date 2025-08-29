@@ -66,6 +66,9 @@ export default {
           DEFAULT: '#0073F0',
           light: 'rgba(0, 115, 240, 0.12)',
         },
+        banner: {
+          DEFAULT: '#373636',
+        },
       },
       textColor: (theme) => ({
         ...theme('colors'),
