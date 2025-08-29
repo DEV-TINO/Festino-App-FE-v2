@@ -115,13 +115,13 @@ const BoothDetailPage: React.FC = () => {
             <div className="w-fit h-fit px-4 py-1 rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
               위치
             </div>
-            <div className="pl-4 text-secondary-500 font-light text-xs">{boothDetail.location ?? '교내'}</div>
+            <div className="pl-4 text-secondary-500 font-normal text-xs">{boothDetail.location ?? '교내'}</div>
           </div>
           <div className="flex items-center">
             <div className="w-fit h-fit px-4 py-1 rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
               운영시간
             </div>
-            <div className="pl-4 text-secondary-500 font-light text-xs">
+            <div className="pl-4 text-secondary-500 font-normal text-xs">
               {boothDetail.openTime} ~ {boothDetail.closeTime}
             </div>
           </div>
@@ -141,7 +141,7 @@ const BoothDetailPage: React.FC = () => {
             {boothDetail.instagram && (
               <div
                 onClick={() => handleClickInstagram()}
-                className="text-xs text-secondary-500 rounded-full w-fit h-[26px] flex items-center justify-center bg-tag gap-1 mt-6 px-3 cursor-pointer"
+                className="text-xs text-secondary-500 rounded-full w-fit h-[26px] flex items-center justify-center bg-tag gap-1 mt-6 px-3 cursor-pointer font-normal"
               >
                 <div className="min-w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]" />
                 <div>{boothDetail.instagram}</div>
@@ -169,13 +169,13 @@ const BoothDetailPage: React.FC = () => {
                     <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
                       메인메뉴
                     </div>
-                    <div className="pl-4 text-secondary-500 font-light text-xs">{getMainMenu()}</div>
+                    <div className="pl-4 text-secondary-500 font-normal text-xs">{getMainMenu()}</div>
                   </div>
                   <div className="flex items-center">
                     <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
                       서브메뉴
                     </div>
-                    <div className="pl-4 text-secondary-500 font-light text-xs">{getSubMenu()}</div>
+                    <div className="pl-4 text-secondary-500 font-normal text-xs">{getSubMenu()}</div>
                   </div>
                 </div>
               </div>
