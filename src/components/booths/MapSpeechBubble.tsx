@@ -15,11 +15,9 @@ export const MapSpeechBubble: React.FC<MapSpeechBubbleProps> = ({ booth }) => {
 
   return (
     <div className="px-[18px] py-[11px] speech-bubble shadow-5xl flex flex-col justify-center">
-      <div
-        className={`text-primary-700 font-semibold text-[11px] pb-1`}
-      >
+      <div className={`text-primary-900 font-semibold text-[11px] pb-1`}>
         {isFacility || booth.adminName.includes('총학생회') ? booth.boothName : booth.adminName}
-        {isFacility || !booth.adminName.includes('총학생회') && ' 부스'}
+        {isFacility || (!booth.adminName.includes('총학생회') && ' 부스')}
       </div>
       <div className="flex items-center">
         <div className="w-[10px] h-[10px] bg-[url('/icons/booths/location_on.svg')]" />
