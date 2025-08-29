@@ -67,7 +67,7 @@ const BoothPage: React.FC = () => {
       {/* 배너 */}
       <div className="relative">
         <div className="w-full h-[220px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
-          <div className="absolute w-auto h-auto top-[60px] dynamic-padding sm:top-[72px] right-0">
+          <div className="absolute w-auto h-auto top-[50px] dynamic-padding sm:top-[72px] right-0">
             <div className="bg-gradient-to-b text-white text-right drop-shadow-banner-text bg-clip-text text-transparent font-blackhansans text-base xs:text-md sm:text-[19px] leading-none whitespace-pre">
               티노와 함께{'  '}
             </div>
