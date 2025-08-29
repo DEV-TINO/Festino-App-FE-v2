@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Black Han Sans';
+  /* font-weight: normal; */
+  /* font-size: normal; */
+  /* font-display: swap; */
+  src: url('/src/assets/fonts/blackhansans/BlackHanSans-Regular.ttf') format('truetype');
+}

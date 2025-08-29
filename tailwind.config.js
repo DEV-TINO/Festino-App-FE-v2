@@ -87,6 +87,7 @@ export default {
       fontFamily: {
         pretendard: ['Pretendard Variable'],
         jalnan2: ['jalnan2'],
+        blackhansans: ['Black Han Sans'],
       },
       backgroundImage: {
         // tino
@@ -141,6 +142,9 @@ export default {
       boxShadow: {
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
         'white-md': '0px 0px 2px rgba(255, 255, 255, 1)',
+      },
+      dropShadow: {
+        'banner-text': '1px 2px 2px rgba(225, 89, 0, 1)',
       },
       translate: {
         'sub-btn-1': '-65px',
