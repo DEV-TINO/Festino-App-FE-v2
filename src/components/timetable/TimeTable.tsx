@@ -70,7 +70,7 @@ const TimeTable: React.FC = () => {
           talentData.map((talent, index) => (
             <div key={index} className="flex h-full w-full justify-center">
               <div className="flex flex-col items-center text-secondary-700 gap-[162px] pt-1 mt-[-9px]">
-                <div className="text-secondary-700">
+                <div className="text-secondary-700 text-sm w-[90px]">
                   {talent.showStartTime} ~ {talent.showEndTime}
                 </div>
               </div>
