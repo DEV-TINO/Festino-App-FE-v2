@@ -15,7 +15,7 @@ const Header: React.FC = () => {
 
   const handleClickTinoSymbol = () => {
     if (isLogin()) {
-      openModal('logoutModal');
+      navigate('/teams');
     } else {
       openModal('loginModal');
     }
@@ -37,10 +37,12 @@ const Header: React.FC = () => {
           onClick={() => handleClickTinoSymbol()}
         />
       ) : (
-        <div onClick={() => {
-          openModal('loginModal');
-        }} className="w-[34px] text-sm cursor-pointer">
-        </div>
+        <div
+          onClick={() => {
+            openModal('loginModal');
+          }}
+          className="w-[34px] text-sm cursor-pointer"
+        ></div>
       )}
     </div>
   );
