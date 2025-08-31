@@ -1,15 +1,17 @@
 .is-category-select-true {
-  @apply border border-primary-700 bg-primary-700 text-white
+  @apply border border-primary-700 bg-primary-700 text-white;
 }
 
 .is-category-select-false {
-  @apply border border-primary-700-light text-primary-700-light
+  @apply border border-primary-700-light-20 text-primary-700-light-20;
 }
 
 .is-state-true {
-  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs text-primary-700 bg-primary-700-lighter rounded-full;
+  /* 컨셉 색상과 동일할 경우 사용 */
+  /* @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs text-primary-700 bg-primary-700-lighter rounded-full; */
+  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs text-[#0073F0] bg-[#E0EEFD] rounded-full font-semibold;
 }
 
 .is-state-false {
-  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs bg-close-light text-close rounded-full;
+  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs bg-close-light text-close rounded-full font-semibold;
 }

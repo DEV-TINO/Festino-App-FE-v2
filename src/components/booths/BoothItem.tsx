@@ -8,7 +8,7 @@ const BoothItem: React.FC<BoothItemProps> = ({ booth, onClick, getImageProps }) 
 
   return (
     <div className="pb-2 cursor-pointer" onClick={() => onClick(booth.adminCategory, booth.boothId)}>
-      <div className="w-full h-[160px] bg-white shadow-4xl flex flex-row justify-between items-center rounded-2.5xl border border-primary-700-light px-4 py-3">
+      <div className="w-full h-[160px] bg-white shadow-4xl flex flex-row justify-between items-center rounded-2.5xl border border-primary-700-light-16 px-4 py-3">
         <div className="w-[222px] h-full flex flex-col justify-between pr-1">
           <div>
             <div className="px-2 py-1 w-fit flex justify-center text-center rounded-full border border-primary-700 text-primary-700 text-3xs font-semibold">

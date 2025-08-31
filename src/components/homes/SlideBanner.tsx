@@ -5,7 +5,7 @@ const SlideBanner: React.FC = () => {
   const navigate = useNavigate();
   const sliderContainerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const totalSlides = 3;
+  const totalSlides = 2;
 
   let startX = 0;
   let isDragging = false;
@@ -14,9 +14,9 @@ const SlideBanner: React.FC = () => {
     navigate('/booths');
   };
 
-  const handleClickMoveTabling = () => {
-    navigate('/reserve');
-  };
+  // const handleClickMoveTabling = () => {
+  //   navigate('/reserve');
+  // };
 
   const handleClickMoveTimeTable = () => {
     navigate('/timetable');
@@ -56,63 +56,66 @@ const SlideBanner: React.FC = () => {
   useEffect(() => {
     const slider = sliderContainerRef.current;
     if (!slider) return;
-  
+
     slider.addEventListener('touchstart', handleTouchStart, { passive: true });
     slider.addEventListener('touchmove', handleTouchMove, { passive: true });
     slider.addEventListener('touchend', handleTouchEnd);
-  
+
     return () => {
       slider.removeEventListener('touchstart', handleTouchStart);
       slider.removeEventListener('touchmove', handleTouchMove);
       slider.removeEventListener('touchend', handleTouchEnd);
     };
-  }, []);  
+  }, []);
 
   return (
-    <div className="relative select-none rounded-3xl overflow-hidden w-full h-[178px] border-primary-900-light-16 border-1" ref={sliderContainerRef}>
+    <div
+      className="relative select-none rounded-3xl overflow-hidden w-full h-[178px] border-primary-900-light-16 border-1"
+      ref={sliderContainerRef}
+    >
       <div
         className="flex transition-transform duration-500 ease"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
         <div
           className="min-w-full min-h-[178px] bg-slide-banner-1 bg-cover bg-no-repeat bg-left-top relative cursor-pointer"
-          onClick={handleClickMoveTabling}
+          onClick={handleClickMoveTimeTable}
         >
-          <div className="absolute top-5 left-4 flex flex-col items-start">
-            <div className="px-[18px] py-0.5 font-pretendard text-xs text-primary-700 font-bold bg-white rounded-full">
-              이제 기다리지 마세요!
-            </div>
-            <div className="pt-1 px-0.5 font-pretendard text-base text-white">빠른 입장을 도와주는</div>
-            <div className="px-0.5 leading-none font-bold font-pretendard text-base text-white">
-              학과 주점 예약 시스템 '테이블링'
+          <div className="absolute top-6 right-4">
+            <div className="text-right pt-1 px-0.5 font-blackhansans text-lg text-white drop-shadow-banner-text leading-none">
+              한눈에 보는 축제 공연 정보
+              <br />
+              동아리 공연 타임테이블
             </div>
           </div>
-          <div className="absolute bottom-4 left-4">
-            <div className="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2 cursor-pointer">
-              테이블링 탭으로 이동 -&gt;
+          <div className="absolute top-[72px] right-4">
+            <div className="flex gap-2 px-[10px] text-banner font-blackhansans text-[10px] bg-white pb-[5px] pt-[6px] rounded-full border-white border-2 cursor-pointer leading-none">
+              <span className="text-primary-900">▶</span>
+              <span>타임 테이블 탭으로 이동</span>
             </div>
           </div>
         </div>
 
         <div
-          className="min-w-full min-h-[178px] bg-slide-banner-2 bg-cover bg-no-repeat bg-right-top relative cursor-pointer"
+          className="min-w-full min-h-[178px] bg-slide-banner-2 bg-cover bg-no-repeat bg-left-top relative cursor-pointer"
           onClick={handleClickMoveBooth}
         >
-          <div className="absolute top-5 right-4 flex flex-col items-end">
-            <div className="px-[18px] py-0.5 font-pretendard text-xs text-primary-700 font-bold bg-white rounded-full">
-              다양한 즐길 거리가 가득!
+          <div className="absolute top-6 right-4">
+            <div className="text-right pt-1 px-0.5 font-blackhansans text-lg text-white drop-shadow-banner-text leading-none">
+              티노가 알려줄게 !
+              <br />
+              가을맞이 동아리 홍보 부스
             </div>
-            <div className="pt-1 px-0.5 font-pretendard text-base text-white">티노와 함께 알아보는</div>
-            <div className="px-0.5 leading-none font-bold font-pretendard text-base text-white">축제 부스!</div>
           </div>
-          <div className="absolute bottom-4 right-4">
-            <div className="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2 cursor-pointer">
-              축제 부스 탭으로 이동 -&gt;
+          <div className="absolute top-[72px] right-4">
+            <div className="flex gap-2 px-[10px] text-banner font-blackhansans text-[10px] bg-white pb-[5px] pt-[6px] rounded-full border-white border-2 cursor-pointer leading-none">
+              <span className="text-primary-900">▶</span>
+              <span>부스 탭으로 이동</span>
             </div>
           </div>
         </div>
 
-        <div
+        {/* <div
           className="min-w-full min-h-[178px] bg-slide-banner-3 bg-cover bg-no-repeat bg-center relative cursor-pointer"
           onClick={handleClickMoveTimeTable}
         >
@@ -128,7 +131,7 @@ const SlideBanner: React.FC = () => {
               타임테이블 탭으로 이동 -&gt;
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">

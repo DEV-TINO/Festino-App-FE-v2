@@ -1,7 +1,7 @@
-import { ICON_URL_MAP } from "@/constants";
-import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import FloatingButton from "../events/FloatingButton";
+import { ICON_URL_MAP } from '@/constants';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import FloatingButton from '../events/FloatingButton';
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
@@ -39,9 +39,7 @@ const Footer: React.FC = () => {
               onClick={() => handleClickFooter(index)}
             >
               <IconComponent isActive={isActive} />
-              <div className={`text-2xs ${isActive ? 'text-primary-700' : 'text-secondary-100'}`}>
-                {item.name}
-              </div>
+              <div className={`text-2xs ${isActive ? 'text-primary-900' : 'text-secondary-100'}`}>{item.name}</div>
             </div>
           );
         })}

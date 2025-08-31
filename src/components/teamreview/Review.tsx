@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { usePersonalInfoStore } from '@/stores/personalInfoStore';
+// import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { ReviewProps } from '@/types/Review.types';
 import { submitReview } from '@/stores/events/reviewStore';
 import { formatPhoneNum } from '@/utils/utils';
-import EventPersonalInfo from '../commons/EventPersonalInfo';
+// import EventPersonalInfo from '../commons/EventPersonalInfo';
 
 const Review: React.FC = () => {
   const [rating, setRating] = useState(0);
@@ -20,28 +20,28 @@ const Review: React.FC = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [joinEvent, setJoinEvent] = useState('');
 
-  const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
+  // const isAgreed = usePersonalInfoStore((state) => state.isAgreed);
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value;
-    const formatted = formatPhoneNumber(rawValue);
-    setPhoneNum(formatted);
-  };
+  // const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const rawValue = e.target.value;
+  //   const formatted = formatPhoneNumber(rawValue);
+  //   setPhoneNum(formatted);
+  // };
 
-  const formatPhoneNumber = (input: string): string => {
-    const digits = input.replace(/\D/g, '');
-    if (digits.length < 4) return digits;
-    if (digits.length < 8) return digits.replace(/(\d{3})(\d{1,4})/, '$1-$2');
-    return digits.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
-  };
+  // const formatPhoneNumber = (input: string): string => {
+  //   const digits = input.replace(/\D/g, '');
+  //   if (digits.length < 4) return digits;
+  //   if (digits.length < 8) return digits.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+  //   return digits.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+  // };
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let filtered = e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, '');
-    if (filtered.length > 5) {
-      filtered = filtered.slice(0, 5);
-    }
-    setName(filtered);
-  };
+  // const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   let filtered = e.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, '');
+  //   if (filtered.length > 5) {
+  //     filtered = filtered.slice(0, 5);
+  //   }
+  //   setName(filtered);
+  // };
 
   const handleToggleSelection = (
     option: string,
@@ -66,13 +66,7 @@ const Review: React.FC = () => {
     if (isSubmit) return;
     setIsSubmit(true);
 
-    if (
-      rating === 0 ||
-      goodFunc.length === 0 ||
-      badFunc.length === 0 ||
-      reuse === '' ||
-      joinEvent === ''
-    ) {
+    if (rating === 0 || goodFunc.length === 0 || badFunc.length === 0 || reuse === '' || joinEvent === '') {
       Swal.fire({
         icon: 'warning',
         title: '필수 항목을 모두 입력해주세요!',
@@ -81,22 +75,17 @@ const Review: React.FC = () => {
       setIsSubmit(false);
       return;
     }
-    if (joinEvent === '참여할게요!') {
-      if (
-        name.length === 0 ||
-        phoneNum.length < 11 ||
-        studentNum.length < 10 ||
-        !isAgreed
-      ) {
-        Swal.fire({
-          icon: 'warning',
-          title: '필수 항목을 모두 입력해주세요!',
-          confirmButtonText: '확인',
-        });
-        setIsSubmit(false);
-        return;
-      }
-    }
+    // if (joinEvent === '참여할게요!') {
+    //   if (name.length === 0 || phoneNum.length < 11 || studentNum.length < 10 || !isAgreed) {
+    //     Swal.fire({
+    //       icon: 'warning',
+    //       title: '필수 항목을 모두 입력해주세요!',
+    //       confirmButtonText: '확인',
+    //     });
+    //     setIsSubmit(false);
+    //     return;
+    //   }
+    // }
 
     const payload: ReviewProps = {
       rating,
@@ -192,8 +181,8 @@ const Review: React.FC = () => {
                 className={`w-full text-xs font-medium flex items-center justify-center m-0 px-2 py-2 rounded-full border-2 
                 ${
                   goodFunc.includes(feature)
-                    ? 'bg-primary-900 text-white border-primary-900'
-                    : 'bg-white text-black border-primary-900-light-20'
+                    ? 'bg-primary-700 text-white border-primary-700'
+                    : 'bg-white text-black border-primary-700-light-20'
                 }`}
               >
                 {feature}
@@ -214,8 +203,8 @@ const Review: React.FC = () => {
                 className={`w-full text-xs font-medium flex items-center justify-center m-0 px-2 py-2 rounded-full border-2
                 ${
                   badFunc.includes(feature)
-                    ? 'bg-primary-900 text-white border-primary-900'
-                    : 'bg-white text-black border-primary-900-light-20'
+                    ? 'bg-primary-700 text-white border-primary-700'
+                    : 'bg-white text-black border-primary-700-light-20'
                 }`}
               >
                 {feature}
@@ -229,7 +218,7 @@ const Review: React.FC = () => {
         <div className="flex flex-col gap-[0.5rem]">
           <div className="text-sm font-bold">왜 그렇게 생각하셨나요? (선택)</div>
           <textarea
-            className="touch-action: manipulation text-xs border border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
+            className="touch-action: manipulation text-xs border border-primary-700-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
             placeholder="내용을 작성해주세요."
             value={reason}
             maxLength={1000}
@@ -250,8 +239,8 @@ const Review: React.FC = () => {
               className={`w-full text-xs flex items-center justify-center m-0 px-2 py-2 rounded-full border 
                 ${
                   reuse === option
-                    ? 'bg-primary-900 text-white border-primary-900'
-                    : 'bg-white text-black border-primary-900-light-20'
+                    ? 'bg-primary-700 text-white border-primary-700'
+                    : 'bg-white text-black border-primary-700-light-20'
                 }`}
             >
               {option}
@@ -263,7 +252,7 @@ const Review: React.FC = () => {
       <div className="flex flex-col gap-[0.5rem]">
         <div className="text-sm font-bold">이 외에도 좋았던 점이나 불편했던 점을 작성해주세요! (선택)</div>
         <textarea
-          className="touch-action: manipulation text-xs border-2 border-primary-900-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
+          className="touch-action: manipulation text-xs border-2 border-primary-700-light-20 rounded-xl w-full h-[100px] px-4 py-4 resize-none focus:outline-none"
           placeholder="내용을 입력해주세요."
           maxLength={1000}
           value={feedback}
@@ -271,7 +260,7 @@ const Review: React.FC = () => {
         />
       </div>
 
-      <div className="flex flex-col gap-[0.5rem]">
+      {/* <div className="flex flex-col gap-[0.5rem]">
         <div className="text-sm font-bold">리뷰 이벤트에 참여하시겠습니까?</div>
         <div className="flex gap-2">
           {['참여할게요!', '리뷰만 제출하고 싶어요'].map((option) => (
@@ -291,9 +280,9 @@ const Review: React.FC = () => {
             </button>
           ))}
         </div>
-      </div>
-      
-      {joinEvent === '참여할게요!' && (
+      </div> */}
+
+      {/* {joinEvent === '참여할게요!' && (
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-[0.5rem]">
             <p className="text-sm font-bold">이벤트 상품 수령에 필요한 개인정보를 입력해주세요!</p>
@@ -333,7 +322,7 @@ const Review: React.FC = () => {
 
           <EventPersonalInfo />
         </div>
-      )}
+      )} */}
 
       <button
         className="w-full text-white bg-primary-900 h-[45px] flex items-center justify-center rounded-full"

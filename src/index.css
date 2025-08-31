@@ -1,6 +1,7 @@
 /* Fonts */
 @import './assets/css/jalnan2.css';
 @import './assets/css/pretendardvariable.css';
+@import './assets/css/blackhansans.css';
 @import './assets/css/tailwind.css';
 
 @tailwind base;
@@ -69,7 +70,6 @@ body::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
 
-
 @media (min-width: 500px) {
   html {
     display: flex;
@@ -127,10 +127,8 @@ body::-webkit-scrollbar {
   margin-bottom: -9px;
 }
 
-
-
 .scrollbar-visible {
-  scrollbar-width: thin; 
+  scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
 }
 
@@ -143,17 +141,17 @@ body::-webkit-scrollbar {
 }
 
 .scrollbar-visible::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.25); 
-  border-radius: 9999px; 
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 9999px;
   border: 1px solid transparent;
   background-clip: content-box;
 }
 
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .scrollbar-hide::-webkit-scrollbar {
-  display: none;             /* Chrome, Safari, Opera */
+  display: none; /* Chrome, Safari, Opera */
 }

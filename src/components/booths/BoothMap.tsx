@@ -321,7 +321,7 @@ const BoothMap: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          className="relative aspect-square w-full min-h-[340px] h-[350px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-700-light rounded-3xl overflow-auto touch-pan-x touch-pan-y"
+          className="relative aspect-square w-full min-h-[340px] h-[350px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light-12 rounded-3xl overflow-auto touch-pan-x touch-pan-y"
           style={{ touchAction: 'pan-x pan-y' }}
         >
           <div
@@ -455,9 +455,9 @@ const BoothMap: React.FC = () => {
 
         {/* 확대/축소 버튼 */}
         {!isBoothDetail && (
-          <div className="absolute bottom-5 left-5 flex flex-col shadow-xl rounded-full overflow-hidden border border-primary-200">
+          <div className="absolute bottom-5 left-5 flex flex-col shadow-xl rounded-full overflow-hidden border border-primary-700-light">
             <button
-              className="rounded-none border-b border-primary-100 bg-white p-4 active:bg-primary-700"
+              className="rounded-none border-b border-primary-700-light bg-white p-4 active:bg-primary-700"
               onClick={() => handleZoom(0.3)}
             >
               <i className="pi pi-plus text-primary-700 text-lg"></i>
