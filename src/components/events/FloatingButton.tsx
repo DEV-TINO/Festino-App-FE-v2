@@ -21,61 +21,62 @@ const FloatingButton: React.FC = () => {
   const dragHistory = useRef(false);
 
   const { isModalOpen, openModal } = useBaseModal();
-  const {
-    setStartTime,
-    getNextQuestion,
-    setModalType,
-  } = useEventStore();
+  const { setStartTime, getNextQuestion, setModalType } = useEventStore();
 
   const screenWidth = document.body.clientWidth;
   const screenHeight = document.body.clientHeight;
 
+  const EVENTS_ACTIVE = false; // ← 이벤트 기능 OFF
+
   const handleClickReviewEvent = () => {
+    if (!EVENTS_ACTIVE) return; 
     navigate('/review');
   };
 
   const handleClickUploadEvent = () => {
+    if (!EVENTS_ACTIVE) return; 
     navigate('/photo-board');
   };
 
   const handleClickQuizEvent = () => {
+    if (!EVENTS_ACTIVE) return; 
     sendGAEvent('click_live_event', '실시간 퀴즈');
     if (isLoading) return;
-  
+
     const checkEvent = async () => {
       setIsLoading(true);
       try {
         const { startTime, endTime } = await getNextQuestion();
-  
+
         if (!startTime || !endTime) {
-          alert("퀴즈 시간을 받아오지 못했습니다.");
+          alert('퀴즈 시간을 받아오지 못했습니다.');
           return;
         }
-  
+
         const now = new Date();
         const start = new Date(startTime);
         const end = new Date(endTime);
-  
+
         if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-          console.error("시간 파싱 실패:", startTime, endTime);
+          console.error('시간 파싱 실패:', startTime, endTime);
           return;
         }
-  
+
         if (!(now >= start && now <= end)) {
           setStartTime(startTime);
-          setModalType("time");
-          openModal("confirm");
+          setModalType('time');
+          openModal('confirm');
           return;
         }
-  
-        openModal("quizModal");
+
+        openModal('quizModal');
       } catch (error) {
-        alert("퀴즈 이벤트 처리 오류");
+        alert('퀴즈 이벤트 처리 오류');
       } finally {
         setIsLoading(false);
       }
     };
-  
+
     checkEvent();
   };
 
@@ -243,16 +244,12 @@ const FloatingButton: React.FC = () => {
           `}
         >
           <div className="w-full h-full absolute top-0 left-0 z-0 rounded-full overflow-hidden">
-            <img
-              src={btn.icon}
-              alt="icon"
-              className="w-full h-full object-cover"
-            />
+            <img src={btn.icon} alt="icon" className="w-full h-full object-cover" />
           </div>
           <span className="z-10 whitespace-nowrap translate-y-[-10px]">{btn.label}</span>
         </button>
       ))}
-  
+
       <div
         onClick={handleClick}
         onMouseDown={(e) => handleStart(e.clientX)}
@@ -268,10 +265,14 @@ const FloatingButton: React.FC = () => {
           overflow-hidden
         `}
       >
-        <img src='/icons/events/eventbutton.svg' alt="icon" className="w-full h-full absolute top-0 left-0 object-cover z-0" />
+        <img
+          src="/icons/events/eventbutton.svg"
+          alt="icon"
+          className="w-full h-full absolute top-0 left-0 object-cover z-0"
+        />
       </div>
     </div>
-  );  
+  );
 };
 
 export default FloatingButton;
