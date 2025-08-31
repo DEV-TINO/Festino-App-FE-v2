@@ -90,12 +90,12 @@ const TimeTable: React.FC = () => {
           ))}
 
         {isEmpty && (
-          <div className="text-center w-full h-full flex flex-col gap-10 px-8 pt-5">
+          <div className="text-center w-full h-full flex flex-col gap-10 px-8 pt-5 items-center">
             <div className="flex flex-col">
               <span className="text-secondary-700 font-bold">현재 공연 정보가 없습니다.</span>
               <span className="text-secondary-500 font-normal text-xs">추후 업데이트 예정입니다.</span>
             </div>
-            <div className="bg-error-full bg-cover bg-center bg-no-repeat w-full aspect-[35/31]"></div>
+            <div className="bg-error-full bg-cover bg-center bg-no-repeat w-[250px] aspect-[35/31] mx-auto shrink-0"></div>
           </div>
         )}
 
