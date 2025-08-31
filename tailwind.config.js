@@ -94,7 +94,7 @@ export default {
         'error-half': "url('/images/tinos/error-half.svg')",
         'error-full': "url('/images/tinos/error.svg')",
         // common
-        'instagram': "url('/icons/commons/instagram.png')",
+        instagram: "url('/icons/commons/instagram.png')",
         'x-button': "url('/icons/commons/x.png')",
         // header
         'header-festino-logo': "url('/icons/headers/festino-logo.svg')",
@@ -113,7 +113,7 @@ export default {
         // booth
         'booth-banner': "url('/images/booths/banners/booth.svg')",
         'booth-detail-banner': "url('/images/booths/banners/booth-detail.svg')",
-        'default': "url('/images/booths/default.svg')",
+        default: "url('/images/booths/default.svg')",
         'arrow-back-white': "url('/icons/booths/arrow-back.svg')",
         'arrow-forward': "url('/icons/booths/arrow-forward.svg')",
         'booth-map': "url('/images/booths/map.svg')",
@@ -123,9 +123,9 @@ export default {
         // tabling
         'tabling-banner': "url('/images/tablings/tino-tabling.svg')",
         // event
-        'like': "url('/icons/events/full-heart.svg')",
-        'unlike': "url('/icons/events/full-heart.svg')",
-        'delete': "url('/icons/events/delete-button.svg')"
+        like: "url('/icons/events/full-heart.svg')",
+        unlike: "url('/icons/events/full-heart.svg')",
+        delete: "url('/icons/events/delete-button.svg')",
       },
       borderRadius: {
         '2.5xl': '1.25rem', // 20px

@@ -40,7 +40,6 @@ const Header: React.FC = () => {
         <div onClick={() => {
           openModal('loginModal');
         }} className="w-[34px] text-sm cursor-pointer">
-          Login
         </div>
       )}
     </div>
