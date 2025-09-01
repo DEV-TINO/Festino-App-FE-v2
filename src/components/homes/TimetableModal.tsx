@@ -8,8 +8,8 @@ const TimetableModal: React.FC = () => {
   const { selectedClub } = useTimetableStore();
 
   const handleClickInstagram = () => {
-    if(selectedClub) {
-      const url = `https://www.instagram.com/${selectedClub.instagram}/`
+    if (selectedClub) {
+      const url = `https://www.instagram.com/${selectedClub.instagram}/`;
       openNewTap(url);
     }
   };
@@ -23,7 +23,7 @@ const TimetableModal: React.FC = () => {
     >
       <div className="w-full flex justify-between px-5 pt-5">
         <div className="w-[20px] h-[20px]" />
-        <div className="text-xs text-primary-700 rounded-full w-[80px] h-[22px] flex justify-center items-center border-2 border-primary font-medium">
+        <div className="text-xs text-primary-900 rounded-full w-[80px] h-[22px] flex justify-center items-center border-2 border-primary-900-light-16 font-medium">
           교내 동아리
         </div>
         <div
@@ -33,13 +33,11 @@ const TimetableModal: React.FC = () => {
       </div>
       <div className="pb-2 pt-4 flex justify-center">
         <div
-          className="border-2 border-primary bg-cover bg-center w-[120px] h-[120px] rounded-full"
+          className="border-2 border-primary-700 bg-cover bg-center w-[120px] h-[120px] rounded-full"
           style={{ backgroundImage: `url(${selectedClub.clubImage})` }}
         />
       </div>
-      <div className="text-secondary-700 font-medium pb-2">
-        {selectedClub.performer}
-      </div>
+      <div className="text-secondary-700 font-medium pb-2">{selectedClub.performer}</div>
       <div className="text-secondary-500 text-xs flex flex-col items-center font-medium pb-4 leading-tight whitespace-pre-wrap text-center">
         <div className="px-4 xs:px-8">{selectedClub.clubDescription}</div>
       </div>
@@ -63,9 +61,7 @@ const TimetableModal: React.FC = () => {
                   <div>-</div>
                   <div>{music.artist}</div>
                 </div>
-                <div className="text-2xs whitespace-pre-line">
-                  {music.performer}
-                </div>
+                <div className="text-2xs whitespace-pre-line">{music.performer}</div>
               </div>
             </div>
           ))}

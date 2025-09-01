@@ -103,6 +103,27 @@ const TeamReviewPage: React.FC = () => {
       image: './images/teamreview/profiles/hyeji.png',
       blog: '',
     },
+    {
+      name: '강승원',
+      major: '디자인공학부',
+      position: 'UX/UI팀원',
+      image: './images/teamreview/profiles/seungwon.png',
+      blog: '',
+    },
+    {
+      name: '박경천',
+      major: '디자인공학부',
+      position: 'UX/UI팀원',
+      image: './images/teamreview/profiles/gyeongcheon.png',
+      blog: '',
+    },
+    {
+      name: '박정원',
+      major: '디자인공학부',
+      position: 'UX/UI팀원',
+      image: './images/teamreview/profiles/jeongwon.png',
+      blog: '',
+    },
   ];
 
   return (
@@ -112,9 +133,9 @@ const TeamReviewPage: React.FC = () => {
         <div className="text-primary-900 text-xs font-bold text-center">FESTINO</div>
         <div className="text-primary-900 text-2xl font-bold text-center">페스티노 개발진 소개</div>
         <div className="text-[#4B4B4B] text-base text-center">
-          한국공학대학교 컴퓨터공학부 9명과
+          한국공학대학교 컴퓨터공학부 11명과
           <br />
-          디자인공학부 3명으로 제작된 프로젝트
+          디자인공학부 6명으로 제작된 프로젝트
         </div>
         <div className="grid grid-cols-2 w-full sm:px-4 justify-center pt-8 gap-x-2.5 gap-y-4 justify-items-center">
           {members.map((member, index) => (

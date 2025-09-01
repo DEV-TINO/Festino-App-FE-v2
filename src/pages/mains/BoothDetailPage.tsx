@@ -84,11 +84,11 @@ const BoothDetailPage: React.FC = () => {
             className="z-1 bg-arrow-back-black w-6 h-6 bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto cursor-pointer"
           />
           {/* 슬로건 + 운영진 */}
-          <div className="absolute w-auto h-auto dynamic-top dynamic-padding">
-            <div className=" text-white drop-shadow-md bg-clip-text text-transparent font-jalnan2 text-md xs:text-md sm:text-[19px]">
+          <div className="absolute w-full h-auto top-12 flex flex-col justify-center">
+            <div className="text-center text-white drop-shadow-banner-text bg-clip-text text-transparent font-blackhansans text-sm xs:text-md sm:text-[19px] leading-none">
               {getSlogan()}
             </div>
-            <div className="font-jalnan2 text-2xl text-white drop-shadow-lg bg-clip-text text-transparent sm:text-3xl">
+            <div className="text-center font-blackhansans text-3xl text-white drop-shadow-banner-text bg-clip-text text-transparent sm:text-3xl leading-tight">
               {boothDetail.adminName ?? boothDetail.boothName}
             </div>
           </div>
@@ -115,15 +115,13 @@ const BoothDetailPage: React.FC = () => {
             <div className="w-fit h-fit px-4 py-1 rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
               위치
             </div>
-            <div className="pl-4 text-secondary-500 font-light text-xs">
-              {boothDetail.location ?? '교내'}
-            </div>
+            <div className="pl-4 text-secondary-500 font-normal text-xs">{boothDetail.location ?? '교내'}</div>
           </div>
           <div className="flex items-center">
             <div className="w-fit h-fit px-4 py-1 rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
               운영시간
             </div>
-            <div className="pl-4 text-secondary-500 font-light text-xs">
+            <div className="pl-4 text-secondary-500 font-normal text-xs">
               {boothDetail.openTime} ~ {boothDetail.closeTime}
             </div>
           </div>
@@ -143,7 +141,7 @@ const BoothDetailPage: React.FC = () => {
             {boothDetail.instagram && (
               <div
                 onClick={() => handleClickInstagram()}
-                className="text-xs text-secondary-500 rounded-full w-fit h-[26px] flex items-center justify-center bg-tag gap-1 mt-6 px-3 cursor-pointer"
+                className="text-xs text-secondary-500 rounded-full w-fit h-[26px] flex items-center justify-center bg-tag gap-1 mt-6 px-3 cursor-pointer font-normal"
               >
                 <div className="min-w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]" />
                 <div>{boothDetail.instagram}</div>
@@ -171,13 +169,13 @@ const BoothDetailPage: React.FC = () => {
                     <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
                       메인메뉴
                     </div>
-                    <div className="pl-4 text-secondary-500 font-light text-xs">{getMainMenu()}</div>
+                    <div className="pl-4 text-secondary-500 font-normal text-xs">{getMainMenu()}</div>
                   </div>
                   <div className="flex items-center">
                     <div className="min-w-[72px] w-[72px] h-[26px] flex justify-center items-center rounded-full bg-secondary-50 text-secondary-500 font-semibold text-xs">
                       서브메뉴
                     </div>
-                    <div className="pl-4 text-secondary-500 font-light text-xs">{getSubMenu()}</div>
+                    <div className="pl-4 text-secondary-500 font-normal text-xs">{getSubMenu()}</div>
                   </div>
                 </div>
               </div>

@@ -34,7 +34,7 @@ export interface TalentData {
 }
 
 export interface TimetableStore {
-  clubData: ClubData[];
+  clubData: ClubData[] | null;
   talentData: TalentData[];
   getClubTimetable: (date: number) => void;
   getTalentTimetable: (date: number) => void;

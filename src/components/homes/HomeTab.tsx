@@ -1,16 +1,16 @@
-import DateSelector from "../commons/DateSelector";
-import SeeMore from "./SeeMore";
-import ShowPreview from "./ShowPreview";
-import SlideBanner from "./SlideBanner";
+import DateSelector from '../commons/DateSelector';
+import SeeMore from './SeeMore';
+import ShowPreview from './ShowPreview';
+import SlideBanner from './SlideBanner';
 import { useNavigate } from 'react-router-dom';
-import { TABS } from "@/constants";
-import { useNoticeStore } from "@/stores/homes/noticeStore";
-import { useEffect } from "react";
-import { getRelativeTime } from "@/utils/utils";
+import { TABS } from '@/constants';
+import { useNoticeStore } from '@/stores/homes/noticeStore';
+import { useEffect } from 'react';
+import { getRelativeTime } from '@/utils/utils';
 
 const HomeTab: React.FC = () => {
   const navigate = useNavigate();
-  const {mainNoticeData, getMainNotice } = useNoticeStore();
+  const { mainNoticeData, getMainNotice } = useNoticeStore();
 
   const handleClickNotice = () => {
     if (mainNoticeData) navigate(`/notices/${mainNoticeData.noticeId}`);
@@ -31,18 +31,14 @@ const HomeTab: React.FC = () => {
       {mainNoticeData && (
         <div className="px-5">
           <div
-            className="py-3 select-none px-4 rounded-2xl border-primary-700-light border-1 shadow-4xl flex justify-between items-center cursor-pointer"
+            className="py-3 select-none px-4 rounded-2xl border-primary-700-light-16 border-1 shadow-4xl flex justify-between items-center cursor-pointer"
             onClick={() => handleClickNotice()}
           >
             <div className="flex">
               <div className="w-[57px] text-secondary-700 text-xs font-medium">Festino</div>
-              <div className="text-secondary-500 text-xs font-normal">
-                {mainNoticeData.title}
-              </div>
+              <div className="text-secondary-500 text-xs font-normal">{mainNoticeData.title}</div>
             </div>
-            <div className="text-secondary-700 text-2xs font-normal">
-              {getRelativeTime(mainNoticeData.updateAt)}
-            </div>
+            <div className="text-secondary-300 text-2xs font-normal">{getRelativeTime(mainNoticeData.updateAt)}</div>
           </div>
         </div>
       )}

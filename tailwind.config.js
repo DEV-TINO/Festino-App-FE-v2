@@ -8,21 +8,25 @@ export default {
         'white-opacity': 'rgba(255, 255, 255, 0.68)',
         primary: {
           900: {
-            DEFAULT: '#0073F0',
-            'light-68': 'rgba(0, 115, 240, 0.68)',
-            'light-40': 'rgba(0, 115, 240, 0.4)',
-            'light-20': 'rgba(0, 115, 240, 0.2)',
-            'light-16': 'rgba(0, 115, 240, 0.16)',
-            'light-12': 'rgba(0, 115, 240, 0.12)',
-            'light-6': 'rgba(0, 115, 240, 0.06)',
+            DEFAULT: '#E15900',
+            'light-68': 'rgba(225, 89, 0, 0.68)',
+            'light-60': 'rgba(225, 89, 0, 0.60)',
+            'light-40': 'rgba(225, 89, 0, 0.4)',
+            'light-22': 'rgba(225, 89, 0, 0.22)',
+            'light-20': 'rgba(225, 89, 0, 0.2)',
+            'light-16': 'rgba(225, 89, 0, 0.16)',
+            'light-12': 'rgba(225, 89, 0, 0.12)',
+            'light-6': 'rgba(225, 89, 0, 0.06)',
           },
           700: {
-            DEFAULT: '#06D1FF',
-            light: 'rgba(6, 209, 255, 0.4)',
-            lighter: 'rgba(6, 209, 255, 0.1)',
+            DEFAULT: '#FA7201',
+            'light-16': 'rgba(250, 114, 1, 0.16)',
+            'light-20': 'rgba(250, 114, 1, 0.20)',
+            light: 'rgba(250, 114, 1, 0.4)',
+            lighter: 'rgba(250, 114, 1, 0.1)',
           },
           50: {
-            DEFAULT: '#FAFEFF',
+            DEFAULT: '#FFFDFB',
           },
         },
         secondary: {
@@ -66,6 +70,9 @@ export default {
           DEFAULT: '#0073F0',
           light: 'rgba(0, 115, 240, 0.12)',
         },
+        banner: {
+          DEFAULT: '#373636',
+        },
       },
       textColor: (theme) => ({
         ...theme('colors'),
@@ -87,6 +94,7 @@ export default {
       fontFamily: {
         pretendard: ['Pretendard Variable'],
         jalnan2: ['jalnan2'],
+        blackhansans: ['Black Han Sans'],
       },
       backgroundImage: {
         // tino
@@ -94,7 +102,7 @@ export default {
         'error-half': "url('/images/tinos/error-half.svg')",
         'error-full': "url('/images/tinos/error.svg')",
         // common
-        'instagram': "url('/icons/commons/instagram.png')",
+        instagram: "url('/icons/commons/instagram.png')",
         'x-button': "url('/icons/commons/x.png')",
         // header
         'header-festino-logo': "url('/icons/headers/festino-logo.svg')",
@@ -113,7 +121,7 @@ export default {
         // booth
         'booth-banner': "url('/images/booths/banners/booth.svg')",
         'booth-detail-banner': "url('/images/booths/banners/booth-detail.svg')",
-        'default': "url('/images/booths/default.svg')",
+        default: "url('/images/booths/default.svg')",
         'arrow-back-white': "url('/icons/booths/arrow-back.svg')",
         'arrow-forward': "url('/icons/booths/arrow-forward.svg')",
         'booth-map': "url('/images/booths/map.svg')",
@@ -123,9 +131,9 @@ export default {
         // tabling
         'tabling-banner': "url('/images/tablings/tino-tabling.svg')",
         // event
-        'like': "url('/icons/events/full-heart.svg')",
-        'unlike': "url('/icons/events/full-heart.svg')",
-        'delete': "url('/icons/events/delete-button.svg')"
+        like: "url('/icons/events/full-heart.svg')",
+        unlike: "url('/icons/events/full-heart.svg')",
+        delete: "url('/icons/events/delete-button.svg')",
       },
       borderRadius: {
         '2.5xl': '1.25rem', // 20px
@@ -141,6 +149,9 @@ export default {
       boxShadow: {
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
         'white-md': '0px 0px 2px rgba(255, 255, 255, 1)',
+      },
+      dropShadow: {
+        'banner-text': '1px 2px 2px rgba(225, 89, 0, 1)',
       },
       translate: {
         'sub-btn-1': '-65px',

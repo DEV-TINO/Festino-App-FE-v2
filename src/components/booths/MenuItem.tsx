@@ -16,7 +16,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ menu }) => {
       {/* 카드 */}
       <div
         className={`w-full h-[120px] p-[13px] rounded-3xl shadow-4xl flex mb-[10px] ${
-          menu.isSoldOut ? 'bg-gray-200 border border-gray-300' : 'bg-white border border-primary-700-light'
+          menu.isSoldOut ? 'bg-gray-200 border border-gray-300' : 'bg-white border border-primary-900-light-16'
         }`}
       >
         {/* 이미지 영역 */}
