@@ -18,6 +18,7 @@ const BoothMap: React.FC = () => {
       // { left: 100, bottom: 280, count: 13, tab: 3 }, // 팁 앞 도로
       { left: 100, bottom: 350, count: 4, tab: 4 }, // 팁
       { left: 285, bottom: 320, count: 3, tab: 2 }, // 체육관
+      { left: 411, bottom: 170, count: 10, tab: 3 }, // 벙커 하단 푸드트럭
     ],
     detail: {
       smoke: [
