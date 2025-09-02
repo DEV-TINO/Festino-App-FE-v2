@@ -28,7 +28,7 @@ const HomeTab: React.FC = () => {
         <ShowPreview />
       </div>
       <SeeMore componentName={TABS.NOTICE} />
-      {mainNoticeData && (
+      {mainNoticeData ? (
         <div className="px-5">
           <div
             className="py-3 select-none px-4 rounded-2xl border-primary-700-light-16 border-1 shadow-4xl flex justify-between items-center cursor-pointer"
@@ -39,6 +39,15 @@ const HomeTab: React.FC = () => {
               <div className="text-secondary-500 text-xs font-normal">{mainNoticeData.title}</div>
             </div>
             <div className="text-secondary-300 text-2xs font-normal">{getRelativeTime(mainNoticeData.updateAt)}</div>
+          </div>
+        </div>
+      ) : (
+        <div className="px-5">
+          <div
+            className="py-3 select-none px-4 rounded-2xl border-primary-700-light-16 border-1 shadow-4xl flex justify-between items-center cursor-pointer"
+            onClick={() => handleClickNotice()}
+          >
+            <div className="text-secondary-500 text-xs font-normal">등록된 공지사항이 없습니다</div>
           </div>
         </div>
       )}

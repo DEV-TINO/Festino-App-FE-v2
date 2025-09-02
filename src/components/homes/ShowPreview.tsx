@@ -41,12 +41,12 @@ const ShowPreview: React.FC = () => {
     openModal('talent');
   };
 
-  const isEmpty = clubData == null || talentData == null;
+  const isEmpty = !clubData?.length && !talentData?.length;
 
   return (
     <div className="w-full h-[160px] sm:h-[178px] bg-white rounded-3xl border-primary-700-light-16 border-1 flex justify-center select-none shadow-4xl">
       {isEmpty ? (
-        <div className="w-full h-[160px] bg-white shadow-4xl flex flex-col justify-between items-center rounded-2.5xl border border-primary-700">
+        <div className="flex flex-col items-center justify-end gap-3">
           <div className="pt-5 font-semibold">공연 정보가 없습니다</div>
           <div className="w-[220px] h-[100px] bg-error-half bg-cover" />
         </div>
