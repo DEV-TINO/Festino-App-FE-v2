@@ -1,83 +1,80 @@
 import useNavTapStore from '@/stores/headers/navTapStore';
-import useBaseModal from '@/stores/baseModal';
+// import useBaseModal from '@/stores/baseModal';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { useAuthStore } from '@/stores/auths/authStore';
+import { useEffect } from 'react';
 import TimeTableIcon from '../../icons/commons/TimeTableIcon';
 import BoothIcon from '@/icons/commons/BoothIcon';
 import TablingIcon from '@/icons/commons/TablingIcon';
 import IconDeveloper from '@/icons/events/IconDeveloper';
 import IconEvent from '@/icons/events/IconEvent';
 import IconNotice from '@/icons/events/IconNotice';
-import IconDropDown from '@/icons/events/IconDropDown';
-import IconProfile from '@/icons/events/IconProfile';
-import useEventStore from '@/stores/events/eventStore';
-import { sendGAEvent } from '@/utils/utils';
+// import useEventStore from '@/stores/events/eventStore';
+// import { sendGAEvent } from '@/utils/utils';
 
 const NavTap = () => {
   const navigate = useNavigate();
 
   const { isOpen, close } = useNavTapStore();
-  const { openModal } = useBaseModal();
+  // const { openModal } = useBaseModal();
   // const { isLogin } = useAuthStore();
 
   // const userName = localStorage.getItem('userName');
 
   // const login = isLogin();
 
-  const [isEventOpen, setIsEventOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isEventOpen, setIsEventOpen] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
 
-  const toggleEvent = () => {
-    if (!EVENTS_ACTIVE) return;
-    setIsEventOpen((prev) => !prev);
-  };
+  // const toggleEvent = () => {
+  //   if (!EVENTS_ACTIVE) return;
+  //   setIsEventOpen((prev) => !prev);
+  // };
 
-  const EVENTS_ACTIVE = false;
+  // const EVENTS_ACTIVE = false;
 
-  const { setStartTime, getNextQuestion, setModalType } = useEventStore();
+  // const { setStartTime, getNextQuestion, setModalType } = useEventStore();
 
-  const handleClickQuizEvent = () => {
-    if (!EVENTS_ACTIVE) return;
-    sendGAEvent('click_live_event', '실시간 퀴즈');
-    if (isLoading) return;
+  // const handleClickQuizEvent = () => {
+  //   if (!EVENTS_ACTIVE) return;
+  //   sendGAEvent('click_live_event', '실시간 퀴즈');
+  //   if (isLoading) return;
 
-    const checkEvent = async () => {
-      setIsLoading(true);
-      try {
-        const { startTime, endTime } = await getNextQuestion();
+  //   const checkEvent = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const { startTime, endTime } = await getNextQuestion();
 
-        if (!startTime || !endTime) {
-          alert('퀴즈 시간을 받아오지 못했습니다.');
-          return;
-        }
+  //       if (!startTime || !endTime) {
+  //         alert('퀴즈 시간을 받아오지 못했습니다.');
+  //         return;
+  //       }
 
-        const now = new Date();
-        const start = new Date(startTime);
-        const end = new Date(endTime);
+  //       const now = new Date();
+  //       const start = new Date(startTime);
+  //       const end = new Date(endTime);
 
-        if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-          console.error('시간 파싱 실패:', startTime, endTime);
-          return;
-        }
+  //       if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+  //         console.error('시간 파싱 실패:', startTime, endTime);
+  //         return;
+  //       }
 
-        if (!(now >= start && now <= end)) {
-          setStartTime(startTime);
-          setModalType('time');
-          openModal('confirm');
-          return;
-        }
+  //       if (!(now >= start && now <= end)) {
+  //         setStartTime(startTime);
+  //         setModalType('time');
+  //         openModal('confirm');
+  //         return;
+  //       }
 
-        openModal('quizModal');
-      } catch (error) {
-        alert('퀴즈 이벤트 처리 오류');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    close();
-    checkEvent();
-  };
+  //       openModal('quizModal');
+  //     } catch (error) {
+  //       alert('퀴즈 이벤트 처리 오류');
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   close();
+  //   checkEvent();
+  // };
 
   useEffect(() => {
     const root = document.getElementById('root');
