@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { api } from '@/utils/api';
-import { BoothStore } from '@/types/Booth.types';
+import { Booth, BoothStore } from '@/types/Booth.types';
 import { BOOTH_TYPE_MAP } from '@/constants';
 
 export const useBoothStore = create<BoothStore>((set) => ({
@@ -49,17 +49,23 @@ export const useBoothStore = create<BoothStore>((set) => ({
       const getData = (index: number) => {
         const result = results[index];
         if (result.status === 'fulfilled' && result.value.success) {
-          return result.value.data;
+          return result.value.data as Booth[];
         } else {
           return [];
         }
       };
 
+      const boothListDay = getData(2);
+      const boothListFood = getData(3);
+      const boothListFacility = getData(4);
+
+      const allData = [...boothListDay, ...boothListFood, ...boothListFacility];
+
       set({
-        boothListAll: [getData(2), getData(3), getData(4)],
-        boothListDay: getData(2),
-        boothListFood: getData(3),
-        boothListFacility: getData(4),
+        boothListDay,
+        boothListFood,
+        boothListFacility,
+        boothListAll: allData,
       });
 
       results.forEach((result, idx) => {
