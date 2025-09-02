@@ -157,7 +157,7 @@ const NavTap = () => {
             </div>
           </div> */}
 
-          <ul className="space-y-6 text text-secondary-700 select-none">
+          <ul className="mt-6 space-y-6 text text-secondary-700 select-none">
             <li
               onClick={() => {
                 navigate('/timetable');
