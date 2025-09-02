@@ -27,7 +27,12 @@ const NavTap = () => {
 
   const [isEventOpen, setIsEventOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const toggleEvent = () => setIsEventOpen((prev) => !prev);
+  const toggleEvent = () => {
+    if (!EVENTS_ACTIVE) return;
+    setIsEventOpen((prev) => !prev);
+  };
+
+  const EVENTS_ACTIVE = false; 
 
   const {
     setStartTime,
@@ -36,6 +41,7 @@ const NavTap = () => {
   } = useEventStore();
 
   const handleClickQuizEvent = () => {
+    if (!EVENTS_ACTIVE) return;
     sendGAEvent('click_live_event', '실시간 퀴즈');
     if (isLoading) return;
   
@@ -122,7 +128,7 @@ const NavTap = () => {
               ></div>
             ) : (
               <div
-                className="cursor-pointer"  
+                className="cursor-pointer"
                 onClick={() => {
                   close();
                   openModal('loginModal');
@@ -141,14 +147,14 @@ const NavTap = () => {
                 }
               }}
             >
-            {login && userName ? (
-              <div className="flex">
-                <div className="text-primary-900">{userName}</div>
-                <div>님 환영합니다!</div>
-              </div>
-            ) : (
-              <div>로그인</div>
-            )}
+              {login && userName ? (
+                <div className="flex">
+                  <div className="text-primary-900">{userName}</div>
+                  <div>님 환영합니다!</div>
+                </div>
+              ) : (
+                <div>로그인</div>
+              )}
             </div>
           </div>
 
@@ -242,28 +248,53 @@ const NavTap = () => {
               >
                 <ul className="pl-[42px]  space-y-4 text-base font-semibold text-secondary-400">
                   <li
-                    className="cursor-pointer px-2 py-2 pt-4"
-                    onClick={() => {
-                      navigate('/review');
-                      close();
-                    }}
+                    className={`px-2 py-2 pt-4 ${
+                      EVENTS_ACTIVE ? 'cursor-pointer' : 'cursor-default pointer-events-none'
+                    }`}
+                    onClick={
+                      EVENTS_ACTIVE
+                        ? () => {
+                            navigate('/review');
+                            close();
+                          }
+                        : undefined
+                    }
+                    aria-disabled={!EVENTS_ACTIVE}
+                    role="button"
+                    tabIndex={EVENTS_ACTIVE ? 0 : -1}
                   >
                     리뷰 이벤트
                   </li>
+
                   <li
-                    className="cursor-pointer px-2 py-2"
-                    onClick={() => {
-                      handleClickQuizEvent();
-                    }}
+                    className={`px-2 py-2 ${EVENTS_ACTIVE ? 'cursor-pointer' : 'cursor-default pointer-events-none'}`}
+                    onClick={
+                      EVENTS_ACTIVE
+                        ? () => {
+                            handleClickQuizEvent();
+                          }
+                        : undefined
+                    }
+                    aria-disabled={!EVENTS_ACTIVE}
+                    role="button"
+                    tabIndex={EVENTS_ACTIVE ? 0 : -1}
                   >
                     실시간 퀴즈 이벤트
                   </li>
+
                   <li
-                    className="cursor-pointer px-2 py-2"
-                    onClick={() => {
-                      navigate('/photo-board');
-                      close();
-                    }}
+                    className={`px-2 py-2 ${EVENTS_ACTIVE ? 'cursor-pointer' : 'cursor-default pointer-events-none'}`}
+                    onClick={
+                      EVENTS_ACTIVE
+                        ? () => {
+                            navigate('/photo-board');
+                            close();
+                          }
+                        : undefined
+                    }
+                    aria-disabled={!EVENTS_ACTIVE}
+                    role="button"
+                    tabIndex={EVENTS_ACTIVE ? 0 : -1}
                   >
                     사진 업로드 이벤트
                   </li>
