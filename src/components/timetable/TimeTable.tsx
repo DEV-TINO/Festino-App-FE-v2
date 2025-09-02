@@ -13,11 +13,9 @@ const TimeTable: React.FC = () => {
   const visibleFestivalDates = useMemo(() => {
     const now = new Date();
 
-    if (now >= new Date('2025-05-28T00:00:00')) {
-      return [1, 2, 3];
-    } else if (now >= new Date('2025-05-27T00:00:00')) {
+    if (now >= new Date('2025-09-09T00:00:00')) {
       return [1, 2];
-    } else if (now >= new Date('2025-05-26T00:00:00')) {
+    } else if (now >= new Date('2025-09-10T00:00:00')) {
       return [1];
     } else {
       return [];

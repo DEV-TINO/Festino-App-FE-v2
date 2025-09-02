@@ -13,16 +13,17 @@ const BoothMap: React.FC = () => {
     detail: Record<string, Marker[]>;
   } = {
     more: [
-      { left: 160, bottom: 120, count: 14, tab: 1 },
-      { left: 425, bottom: 240, count: 21, tab: 2 },
-      // { left: 100, bottom: 280, count: 13, tab: 3 },
-      { left: 100, bottom: 350, count: 4, tab: 4 },
-      { left: 290, bottom: 320, count: 2 },
+      // { left: 160, bottom: 120, count: 14, tab: 1 }, // 운동장
+      { left: 459, bottom: 240, count: 30 }, // 벙커
+      // { left: 100, bottom: 280, count: 13, tab: 3 }, // 팁 앞 도로
+      { left: 100, bottom: 350, count: 4, tab: 4 }, // 팁
+      { left: 285, bottom: 320, count: 3, tab: 2 }, // 체육관
+      { left: 411, bottom: 150, count: 8, tab: 3 }, // 벙커 하단 푸드트럭
     ],
     detail: {
       smoke: [
         { markerNum: 77, left: 150, bottom: 430, scrollLeft: 235, scrollTop: 0 }, // 팁 뒤
-        { markerNum: 78, left: 30, bottom: 175, scrollLeft: 0, scrollTop: 580 }, // 운동장 구석
+        // { markerNum: 78, left: 30, bottom: 175, scrollLeft: 0, scrollTop: 580 }, // 운동장 구석
       ],
       store: [
         { markerNum: 75, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 }, // 종관
@@ -30,9 +31,10 @@ const BoothMap: React.FC = () => {
       ],
       general: [
         // 총학 이벤트 추가되면 활성화
-        { markerNum: 90, left: 370, bottom: 350, scrollLeft: 830, scrollTop: 170 },
-        { markerNum: 92, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
-        { markerNum: 95, left: 500, bottom: 340, scrollLeft: 1200, scrollTop: 170 },
+        // { markerNum: 90, left: 370, bottom: 350, scrollLeft: 830, scrollTop: 170 },
+        { markerNum: 91, left: 476, bottom: 310, scrollLeft: 1070, scrollTop: 240 }, // 종관 앞 동연 부스
+        { markerNum: 90, left: 320, bottom: 325, scrollLeft: 650, scrollTop: 200 }, // 체육관 앞 동연 부스
+        // { markerNum: 95, left: 500, bottom: 340, scrollLeft: 1200, scrollTop: 170 },
       ],
       toilet: [
         { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 130 },
@@ -42,62 +44,96 @@ const BoothMap: React.FC = () => {
       ],
       ticket: [
         //총학 티켓
-        { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
-        { markerNum: 93, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 },
+        // { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 }, // 2025 대동제 티켓 부스
+        // { markerNum: 93, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 }, // 2025 대동제 티켓 부스
       ],
-      alcohol: [{ markerNum: 94, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }],
+      // alcohol: [{ markerNum: 94, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }],
       // music: [{ markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 }],
       join: [
+        // 체육관 앞
+        { markerNum: 21, left: 286, bottom: 325, scrollLeft: 620, scrollTop: 200 }, // 팀앤써
+        // 체육관 내부
+        { markerNum: 22, left: 315, bottom: 380, scrollLeft: 630, scrollTop: 150 }, // WING
         // B동 앞
-        // { markerNum: 21, left: 385, bottom: 310, scrollLeft: 835, scrollTop: 240 },
-        // { markerNum: 22, left: 405, bottom: 310, scrollLeft: 890, scrollTop: 240 },
+        { markerNum: 23, left: 385, bottom: 310, scrollLeft: 880, scrollTop: 240 }, // 타임즈
+        { markerNum: 24, left: 405, bottom: 310, scrollLeft: 880, scrollTop: 240 }, // 하누리
+        // 클라이밍장 앞
+        { markerNum: 25, left: 385, bottom: 340, scrollLeft: 880, scrollTop: 240 }, // 학보사
+        { markerNum: 26, left: 405, bottom: 340, scrollLeft: 880, scrollTop: 240 }, // KT&G
+        // 종합관 앞
+        { markerNum: 37, left: 528, bottom: 340, scrollLeft: 1500, scrollTop: 200 }, // 반도체소부장
         // B동이랑 벙커 사이 통로
-        { markerNum: 21, left: 420, bottom: 300, scrollLeft: 925, scrollTop: 270 },
-        { markerNum: 22, left: 440, bottom: 285, scrollLeft: 970, scrollTop: 310 },
-        { markerNum: 23, left: 420, bottom: 270, scrollLeft: 925, scrollTop: 340 },
-        // { markerNum: 26, left: 440, bottom: 255, scrollLeft: 970, scrollTop: 370 },
-        { markerNum: 24, left: 440, bottom: 220, scrollLeft: 970, scrollTop: 480 },
-        { markerNum: 25, left: 420, bottom: 205, scrollLeft: 925, scrollTop: 490 },
-        { markerNum: 26, left: 440, bottom: 190, scrollLeft: 970, scrollTop: 550 },
-        { markerNum: 27, left: 528, bottom: 300, scrollLeft: 1200, scrollTop: 270 },
-        { markerNum: 28, left: 510, bottom: 280, scrollLeft: 1200, scrollTop: 310 },
-        { markerNum: 29, left: 528, bottom: 270, scrollLeft: 1200, scrollTop: 340 },
-        { markerNum: 30, left: 510, bottom: 220, scrollLeft: 1200, scrollTop: 470 },
-        { markerNum: 31, left: 528, bottom: 205, scrollLeft: 1200, scrollTop: 510 },
-        { markerNum: 32, left: 510, bottom: 190, scrollLeft: 1200, scrollTop: 530 },
+        { markerNum: 28, left: 420, bottom: 290, scrollLeft: 925, scrollTop: 330 }, // 로타랙트
+        { markerNum: 30, left: 420, bottom: 270, scrollLeft: 925, scrollTop: 370 }, // CIR
+        { markerNum: 32, left: 420, bottom: 250, scrollLeft: 925, scrollTop: 410 }, // HAM
+
+        { markerNum: 34, left: 420, bottom: 220, scrollLeft: 925, scrollTop: 460 }, // The Tiki
+        { markerNum: 36, left: 420, bottom: 200, scrollLeft: 925, scrollTop: 500 }, // 위너스
+
+        { markerNum: 27, left: 440, bottom: 300, scrollLeft: 970, scrollTop: 310 }, // 혜윰
+        { markerNum: 29, left: 440, bottom: 280, scrollLeft: 970, scrollTop: 350 }, // 산탁구
+        { markerNum: 31, left: 440, bottom: 260, scrollLeft: 970, scrollTop: 390 }, // 소리새
+
+        { markerNum: 33, left: 440, bottom: 230, scrollLeft: 970, scrollTop: 440 }, // 반디
+        { markerNum: 35, left: 440, bottom: 210, scrollLeft: 970, scrollTop: 480 }, // 미러스
+
+        { markerNum: 38, left: 510, bottom: 300, scrollLeft: 1200, scrollTop: 310 }, // 마실
+        { markerNum: 40, left: 510, bottom: 280, scrollLeft: 1200, scrollTop: 350 }, // 나눔
+        { markerNum: 42, left: 510, bottom: 260, scrollLeft: 1200, scrollTop: 390 }, // FEEL
+
+        { markerNum: 39, left: 528, bottom: 290, scrollLeft: 1200, scrollTop: 330 }, // 화양연화
+        { markerNum: 41, left: 528, bottom: 270, scrollLeft: 1200, scrollTop: 370 }, // NUFI
+        { markerNum: 43, left: 528, bottom: 250, scrollLeft: 1200, scrollTop: 410 }, // CCC
+
+        { markerNum: 44, left: 510, bottom: 230, scrollLeft: 1200, scrollTop: 440 }, // 스트라이크
+        { markerNum: 46, left: 510, bottom: 210, scrollLeft: 1200, scrollTop: 480 }, // 아람
+        { markerNum: 48, left: 510, bottom: 190, scrollLeft: 1200, scrollTop: 520 }, // COD
+
+        { markerNum: 45, left: 528, bottom: 220, scrollLeft: 1200, scrollTop: 460 }, // 씨부엉
+        { markerNum: 47, left: 528, bottom: 200, scrollLeft: 1200, scrollTop: 500 }, // INSANE
       ],
       food: [
         // 야간부스
-        { markerNum: 1, left: 145, bottom: 175, scrollLeft: 220, scrollTop: 580 },
-        { markerNum: 2, left: 120, bottom: 175, scrollLeft: 160, scrollTop: 580 },
-        { markerNum: 3, left: 95, bottom: 175, scrollLeft: 90, scrollTop: 580 },
-        { markerNum: 4, left: 70, bottom: 175, scrollLeft: 20, scrollTop: 580 },
-        { markerNum: 5, left: 50, bottom: 155, scrollLeft: 0, scrollTop: 620 },
-        { markerNum: 6, left: 50, bottom: 130, scrollLeft: 0, scrollTop: 690 },
-        { markerNum: 7, left: 50, bottom: 105, scrollLeft: 0, scrollTop: 760 },
-        { markerNum: 12, left: 170, bottom: 85, scrollLeft: 290, scrollTop: 820 },
-        { markerNum: 11, left: 145, bottom: 85, scrollLeft: 220, scrollTop: 820 },
-        { markerNum: 10, left: 120, bottom: 85, scrollLeft: 160, scrollTop: 820 },
-        { markerNum: 9, left: 95, bottom: 85, scrollLeft: 90, scrollTop: 820 },
-        { markerNum: 8, left: 70, bottom: 85, scrollLeft: 20, scrollTop: 820 },
+        // { markerNum: 1, left: 145, bottom: 175, scrollLeft: 220, scrollTop: 580 },
+        // { markerNum: 2, left: 120, bottom: 175, scrollLeft: 160, scrollTop: 580 },
+        // { markerNum: 3, left: 95, bottom: 175, scrollLeft: 90, scrollTop: 580 },
+        // { markerNum: 4, left: 70, bottom: 175, scrollLeft: 20, scrollTop: 580 },
+        // { markerNum: 5, left: 50, bottom: 155, scrollLeft: 0, scrollTop: 620 },
+        // { markerNum: 6, left: 50, bottom: 130, scrollLeft: 0, scrollTop: 690 },
+        // { markerNum: 7, left: 50, bottom: 105, scrollLeft: 0, scrollTop: 760 },
+        // { markerNum: 12, left: 170, bottom: 85, scrollLeft: 290, scrollTop: 820 },
+        // { markerNum: 11, left: 145, bottom: 85, scrollLeft: 220, scrollTop: 820 },
+        // { markerNum: 10, left: 120, bottom: 85, scrollLeft: 160, scrollTop: 820 },
+        // { markerNum: 9, left: 95, bottom: 85, scrollLeft: 90, scrollTop: 820 },
+        // { markerNum: 8, left: 70, bottom: 85, scrollLeft: 20, scrollTop: 820 },
         // 주간부스
         // 푸드트럭
-        { markerNum: 51, left: 20, bottom: 290, scrollLeft: 0, scrollTop: 300 },
-        { markerNum: 52, left: 40, bottom: 280, scrollLeft: 0, scrollTop: 300 },
-        { markerNum: 53, left: 60, bottom: 290, scrollLeft: 0, scrollTop: 300 },
-        { markerNum: 54, left: 80, bottom: 280, scrollLeft: 45, scrollTop: 300 },
-        { markerNum: 55, left: 100, bottom: 290, scrollLeft: 90, scrollTop: 300 },
-        { markerNum: 56, left: 120, bottom: 280, scrollLeft: 150, scrollTop: 300 },
-        { markerNum: 57, left: 140, bottom: 290, scrollLeft: 200, scrollTop: 300 },
-        { markerNum: 58, left: 160, bottom: 280, scrollLeft: 250, scrollTop: 300 },
-        { markerNum: 59, left: 180, bottom: 290, scrollLeft: 300, scrollTop: 300 },
-        { markerNum: 60, left: 200, bottom: 280, scrollLeft: 350, scrollTop: 300 },
-        { markerNum: 61, left: 220, bottom: 290, scrollLeft: 400, scrollTop: 300 },
-        { markerNum: 62, left: 240, bottom: 280, scrollLeft: 450, scrollTop: 300 },
-        { markerNum: 63, left: 260, bottom: 290, scrollLeft: 500, scrollTop: 300 },
-        { markerNum: 64, left: 280, bottom: 280, scrollLeft: 550, scrollTop: 300 },
-        { markerNum: 65, left: 300, bottom: 290, scrollLeft: 600, scrollTop: 300 },
-        { markerNum: 66, left: 320, bottom: 280, scrollLeft: 650, scrollTop: 300 },
+        // { markerNum: 51, left: 20, bottom: 290, scrollLeft: 0, scrollTop: 300 },
+        // { markerNum: 52, left: 40, bottom: 280, scrollLeft: 0, scrollTop: 300 },
+        // { markerNum: 53, left: 60, bottom: 290, scrollLeft: 0, scrollTop: 300 },
+        // { markerNum: 54, left: 80, bottom: 280, scrollLeft: 45, scrollTop: 300 },
+        // { markerNum: 55, left: 100, bottom: 290, scrollLeft: 90, scrollTop: 300 },
+        // { markerNum: 56, left: 120, bottom: 280, scrollLeft: 150, scrollTop: 300 },
+        // { markerNum: 57, left: 140, bottom: 290, scrollLeft: 200, scrollTop: 300 },
+        // { markerNum: 58, left: 160, bottom: 280, scrollLeft: 250, scrollTop: 300 },
+        // { markerNum: 59, left: 180, bottom: 290, scrollLeft: 300, scrollTop: 300 },
+        // { markerNum: 60, left: 200, bottom: 280, scrollLeft: 350, scrollTop: 300 },
+        // { markerNum: 61, left: 220, bottom: 290, scrollLeft: 400, scrollTop: 300 },
+        // { markerNum: 62, left: 240, bottom: 280, scrollLeft: 450, scrollTop: 300 },
+        // { markerNum: 63, left: 260, bottom: 290, scrollLeft: 500, scrollTop: 300 },
+        // { markerNum: 64, left: 280, bottom: 280, scrollLeft: 550, scrollTop: 300 },
+        // { markerNum: 65, left: 300, bottom: 290, scrollLeft: 600, scrollTop: 300 },
+        // { markerNum: 66, left: 320, bottom: 280, scrollLeft: 650, scrollTop: 300 },
+        // { markerNum: 57, left: 420, bottom: 233, scrollLeft: 925, scrollTop: 410 },
+        // { markerNum: 58, left: 420, bottom: 215, scrollLeft: 925, scrollTop: 470 },
+        { markerNum: 52, left: 420, bottom: 179, scrollLeft: 925, scrollTop: 590 },
+        { markerNum: 59, left: 420, bottom: 161, scrollLeft: 925, scrollTop: 650 },
+        { markerNum: 56, left: 420, bottom: 143, scrollLeft: 925, scrollTop: 710 },
+        { markerNum: 53, left: 420, bottom: 125, scrollLeft: 925, scrollTop: 770 },
+        { markerNum: 55, left: 450, bottom: 179, scrollLeft: 925, scrollTop: 530 },
+        { markerNum: 60, left: 450, bottom: 161, scrollLeft: 1000, scrollTop: 650 },
+        { markerNum: 54, left: 450, bottom: 143, scrollLeft: 1000, scrollTop: 710 },
+        { markerNum: 51, left: 450, bottom: 125, scrollLeft: 1000, scrollTop: 770 },
       ],
     },
   };
@@ -173,7 +209,7 @@ const BoothMap: React.FC = () => {
     (marker: Marker) => {
       if (marker.tab === undefined) {
         // tab이 없는 경우: ticket 마커의 첫 번째로 포커스
-        const ticketMarkers = Object.entries(markers.detail).find(([key]) => key === 'ticket')?.[1];
+        const ticketMarkers = Object.entries(markers.detail).find(([key]) => key === 'general')?.[1];
         if (ticketMarkers && ticketMarkers.length > 0) {
           requestAnimationFrame(() => {
             setZoom(1.6);
