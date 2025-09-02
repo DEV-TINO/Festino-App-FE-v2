@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import TimeTableIcon from '../../icons/commons/TimeTableIcon';
 import BoothIcon from '@/icons/commons/BoothIcon';
-import TablingIcon from '@/icons/commons/TablingIcon';
+// import TablingIcon from '@/icons/commons/TablingIcon';
 import IconDeveloper from '@/icons/events/IconDeveloper';
 import IconEvent from '@/icons/events/IconEvent';
 import IconNotice from '@/icons/events/IconNotice';
@@ -181,7 +181,7 @@ const NavTap = () => {
               <div className="text-lg text-secondary-300 font-bold">부스 정보</div>
             </li>
 
-            <li
+            {/* <li
               onClick={() => {
                 navigate('/reserve');
                 close();
@@ -192,7 +192,7 @@ const NavTap = () => {
                 <TablingIcon />
               </div>
               <div className="text-lg text-secondary-300 font-bold">테이블링</div>
-            </li>
+            </li> */}
 
             <li
               onClick={() => {
@@ -229,7 +229,6 @@ const NavTap = () => {
             >
               <div className="p-[3px]">
                 <IconEvent />
-                
               </div>
               <div className="text-lg text-secondary-300 font-bold">리뷰</div>
             </li>
@@ -240,8 +239,8 @@ const NavTap = () => {
   );
 };
 
-
-            {/* <div
+{
+  /* <div
               className={`px-6 py-2 w-full items-center transition-colors duration-200 ${isEventOpen ? 'bg-gray-100' : ''}`}
             >
               <li className="cursor-pointer flex items-center gap-2" onClick={toggleEvent}>
@@ -323,6 +322,7 @@ const NavTap = () => {
       </div>
     </>
   );
-}; */}
+}; */
+}
 
 export default NavTap;

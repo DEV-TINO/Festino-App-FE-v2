@@ -90,7 +90,7 @@ const SlideBanner: React.FC = () => {
             </div>
           </div>
           <div className="absolute top-[72px] right-4">
-            <div className="flex gap-2 px-[10px] items-center justify-center text-banner font-blackhansans text-[10px] bg-white pb-[5px] pt-[6px] rounded-full border-white border-2 cursor-pointer leading-none">
+            <div className="flex gap-2 px-[10px] py-1 items-center justify-center text-banner font-pretendard font-bold text-[10px] bg-white rounded-full border-white border-2 cursor-pointer leading-none">
               <IconPolygon />
               <span>타임테이블 탭으로 이동</span>
             </div>
@@ -109,8 +109,8 @@ const SlideBanner: React.FC = () => {
             </div>
           </div>
           <div className="absolute top-[72px] right-4">
-            <div className="flex gap-2 px-[10px] text-banner font-blackhansans text-[10px] bg-white pb-[5px] pt-[6px] rounded-full border-white border-2 cursor-pointer leading-none">
-              <span className="text-primary-900">▶</span>
+            <div className="flex gap-2 px-[10px] py-1 items-center justify-center text-banner font-pretendard font-bold text-[10px] bg-white rounded-full border-white border-2 cursor-pointer leading-none">
+              <IconPolygon />
               <span>부스 탭으로 이동</span>
             </div>
           </div>
