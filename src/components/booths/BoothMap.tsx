@@ -14,11 +14,11 @@ const BoothMap: React.FC = () => {
   } = {
     more: [
       // { left: 160, bottom: 120, count: 14, tab: 1 }, // 운동장
-      { left: 459, bottom: 240, count: 30 }, // 벙커 (푸드트럭 수량 추가 필요)
+      { left: 459, bottom: 240, count: 30 }, // 벙커
       // { left: 100, bottom: 280, count: 13, tab: 3 }, // 팁 앞 도로
       { left: 100, bottom: 350, count: 4, tab: 4 }, // 팁
       { left: 285, bottom: 320, count: 3, tab: 2 }, // 체육관
-      { left: 411, bottom: 170, count: 10, tab: 3 }, // 벙커 하단 푸드트럭
+      { left: 411, bottom: 150, count: 8, tab: 3 }, // 벙커 하단 푸드트럭
     ],
     detail: {
       smoke: [
