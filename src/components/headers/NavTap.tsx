@@ -118,9 +118,9 @@ const NavTap = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-4 pb-12">
+          {/* <div className="flex flex-col items-center justify-center gap-4 pb-12">
             <div className="w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]" />
-          </div>
+          </div> */}
           {/* {login ? (
               <div
                 className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]`}
