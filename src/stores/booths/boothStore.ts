@@ -57,7 +57,6 @@ export const useBoothStore = create<BoothStore>((set) => ({
 
       set({
         boothListAll: getData(0),
-        boothListNight: getData(1),
         boothListDay: getData(2),
         boothListFood: getData(3),
         boothListFacility: getData(4),
