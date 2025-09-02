@@ -1,4 +1,4 @@
-import { FLOATING_SIZE, HIDE_PATHS } from '@/constants';
+/*import { FLOATING_SIZE, HIDE_PATHS } from '@/constants';
 import useBaseModal from '@/stores/baseModal';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -275,4 +275,4 @@ const FloatingButton: React.FC = () => {
   );
 };
 
-export default FloatingButton;
+export default FloatingButton;*/
