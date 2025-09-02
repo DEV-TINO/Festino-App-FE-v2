@@ -1,3 +1,4 @@
+import IconPolygon from '@/icons/homes/IconPolygon';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -89,8 +90,8 @@ const SlideBanner: React.FC = () => {
             </div>
           </div>
           <div className="absolute top-[72px] right-4">
-            <div className="flex gap-2 px-[10px] text-banner font-blackhansans text-[10px] bg-white pb-[5px] pt-[6px] rounded-full border-white border-2 cursor-pointer leading-none">
-              <span className="text-primary-900">▶</span>
+            <div className="flex gap-2 px-[10px] items-center justify-center text-banner font-blackhansans text-[10px] bg-white pb-[5px] pt-[6px] rounded-full border-white border-2 cursor-pointer leading-none">
+              <IconPolygon />
               <span>타임 테이블 탭으로 이동</span>
             </div>
           </div>
