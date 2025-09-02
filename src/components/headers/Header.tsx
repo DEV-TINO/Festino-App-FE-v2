@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import useBaseModal from '@/stores/baseModal';
 import useNavTapStore from '@/stores/headers/navTapStore';
-import { useAuthStore } from '@/stores/auths/authStore';
 
 const Header: React.FC = () => {
   // const { openModal } = useBaseModal();
