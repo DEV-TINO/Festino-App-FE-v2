@@ -24,14 +24,11 @@ const Footer: React.FC = () => {
   const handleClickFooter = (index: number) => {
     const target = ICON_URL_MAP[index];
     if (!target) return;
-    
+
     if (target.router === 'reserve') {
-      // ModalPage에 등록해 둔 modalType과 반드시 동일해야 함
       openModal('tablingUnavailableModal');
       return;
     }
-
-    // 동일 경로로의 불필요한 이동 방지(선택)
     const nextPath = `/${target.router}`;
     if (pathname !== nextPath) {
       navigate(nextPath);
