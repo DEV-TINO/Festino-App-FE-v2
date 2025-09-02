@@ -32,7 +32,7 @@ const BoothMap: React.FC = () => {
       general: [
         // 총학 이벤트 추가되면 활성화
         // { markerNum: 90, left: 370, bottom: 350, scrollLeft: 830, scrollTop: 170 },
-        { markerNum: 91, left: 476, bottom: 310, scrollLeft: 1090, scrollTop: 240 }, // 종관 앞 동연 부스
+        { markerNum: 91, left: 476, bottom: 310, scrollLeft: 1070, scrollTop: 240 }, // 종관 앞 동연 부스
         { markerNum: 90, left: 320, bottom: 325, scrollLeft: 650, scrollTop: 200 }, // 체육관 앞 동연 부스
         // { markerNum: 95, left: 500, bottom: 340, scrollLeft: 1200, scrollTop: 170 },
       ],
