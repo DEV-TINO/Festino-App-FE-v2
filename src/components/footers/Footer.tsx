@@ -1,11 +1,13 @@
 import { ICON_URL_MAP } from '@/constants';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import FloatingButton from '../events/FloatingButton';
+// import FloatingButton from '../events/FloatingButton';
+import useBaseModal from '@/stores/baseModal';
 
 const Footer: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { openModal } = useBaseModal();
 
   const selectedFooterIndex = React.useMemo(() => {
     if (pathname.includes('/notices')) {
@@ -20,13 +22,23 @@ const Footer: React.FC = () => {
   }, [pathname]);
 
   const handleClickFooter = (index: number) => {
-    navigate(`/${ICON_URL_MAP[index].router}`);
+    const target = ICON_URL_MAP[index];
+    if (!target) return;
+
+    if (target.router === 'reserve') {
+      openModal('tablingUnavailableModal');
+      return;
+    }
+    const nextPath = `/${target.router}`;
+    if (pathname !== nextPath) {
+      navigate(nextPath);
+    }
   };
 
   return (
     <>
       <div className="w-full h-[60px] bg-white flex items-center justify-around fixed bottom-0 border-t-secondary-100 border-t-1 limit-width">
-        <FloatingButton />
+        {/* <FloatingButton /> */}
         {ICON_URL_MAP.map((item, index) => {
           const IconComponent = item.component;
           const isActive = index === selectedFooterIndex;

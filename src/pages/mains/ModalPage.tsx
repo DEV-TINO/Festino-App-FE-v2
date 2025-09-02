@@ -33,6 +33,7 @@ import NonCloseModalBackground from '@/components/modals/NonCloseModalBackground
 import SubmitModal from '@/components/events/modals/SubmitModal';
 import TalentModal from '@/components/homes/TalentModal';
 import MenuImageModal from '@/components/booths/MenuImageModal';
+import TablingUnavailableModal from '@/components/tablings/modals/TablingUnavailableModal';
 import { useEffect } from 'react';
 
 const ModalPage = () => {
@@ -105,6 +106,7 @@ const ModalPage = () => {
       {modalType === 'submit' && <SubmitModal />}
       {modalType === 'talent' && <TalentModal />}
       {modalType === 'menuImage' && <MenuImageModal />}
+      {modalType === 'tablingUnavailableModal' && <TablingUnavailableModal /> }
     </ModalBackground>
   );
 };
