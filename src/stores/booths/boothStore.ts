@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { api } from '@/utils/api';
-import { Booth, BoothStore } from '@/types/Booth.types';
+import { BoothStore } from '@/types/Booth.types';
 import { BOOTH_TYPE_MAP } from '@/constants';
 
 export const useBoothStore = create<BoothStore>((set) => ({
@@ -49,7 +49,7 @@ export const useBoothStore = create<BoothStore>((set) => ({
       const getData = (index: number) => {
         const result = results[index];
         if (result.status === 'fulfilled' && result.value.success) {
-          return result.value.data as Booth[];
+          return result.value.data;
         } else {
           return [];
         }
@@ -68,11 +68,6 @@ export const useBoothStore = create<BoothStore>((set) => ({
         boothListAll: allData,
       });
 
-      results.forEach((result, idx) => {
-        if (result.status === 'rejected' || !result.value.success) {
-          console.error(`Request failed at index ${idx}:`, result);
-        }
-      });
     } catch (error) {
       console.log(`Unexpected error during booth list fetch:`, error);
     }
