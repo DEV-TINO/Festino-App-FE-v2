@@ -19,61 +19,58 @@ const NavTap = () => {
 
   const { isOpen, close } = useNavTapStore();
   const { openModal } = useBaseModal();
-  const { isLogin } = useAuthStore();
+  // const { isLogin } = useAuthStore();
 
-  const userName = localStorage.getItem('userName');
+  // const userName = localStorage.getItem('userName');
 
-  const login = isLogin();
+  // const login = isLogin();
 
   const [isEventOpen, setIsEventOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const toggleEvent = () => {
     if (!EVENTS_ACTIVE) return;
     setIsEventOpen((prev) => !prev);
   };
 
-  const EVENTS_ACTIVE = false; 
+  const EVENTS_ACTIVE = false;
 
-  const {
-    setStartTime,
-    getNextQuestion,
-    setModalType,
-  } = useEventStore();
+  const { setStartTime, getNextQuestion, setModalType } = useEventStore();
 
   const handleClickQuizEvent = () => {
     if (!EVENTS_ACTIVE) return;
     sendGAEvent('click_live_event', '실시간 퀴즈');
     if (isLoading) return;
-  
+
     const checkEvent = async () => {
       setIsLoading(true);
       try {
         const { startTime, endTime } = await getNextQuestion();
-  
+
         if (!startTime || !endTime) {
-          alert("퀴즈 시간을 받아오지 못했습니다.");
+          alert('퀴즈 시간을 받아오지 못했습니다.');
           return;
         }
-  
+
         const now = new Date();
         const start = new Date(startTime);
         const end = new Date(endTime);
-  
+
         if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-          console.error("시간 파싱 실패:", startTime, endTime);
+          console.error('시간 파싱 실패:', startTime, endTime);
           return;
         }
-  
+
         if (!(now >= start && now <= end)) {
           setStartTime(startTime);
-          setModalType("time");
-          openModal("confirm");
+          setModalType('time');
+          openModal('confirm');
           return;
         }
-  
-        openModal("quizModal");
+
+        openModal('quizModal');
       } catch (error) {
-        alert("퀴즈 이벤트 처리 오류");
+        alert('퀴즈 이벤트 처리 오류');
       } finally {
         setIsLoading(false);
       }
@@ -121,8 +118,10 @@ const NavTap = () => {
             />
           </div>
 
-          <div className="flex flex-col items-center justify-center gap-4 pb-12">
-            {login ? (
+          {/* <div className="flex flex-col items-center justify-center gap-4 pb-12">
+            <div className="w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]" />
+          </div> */}
+          {/* {login ? (
               <div
                 className={`w-[80px] h-[80px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:80px_80px]`}
               ></div>
@@ -156,9 +155,9 @@ const NavTap = () => {
                 <div>로그인</div>
               )}
             </div>
-          </div>
+          </div> */}
 
-          <ul className="space-y-6 text text-secondary-700 select-none">
+          <ul className="mt-6 space-y-6 text text-secondary-700 select-none">
             <li
               onClick={() => {
                 navigate('/timetable');
@@ -224,7 +223,28 @@ const NavTap = () => {
               <div className="text-lg text-secondary-300 font-bold">개발자 소개</div>
             </li>
 
-            <div
+            <li
+              onClick={() => {
+                navigate('/review');
+                close();
+              }}
+              className="px-6 pt-2 cursor-pointer flex items-center gap-4"
+            >
+              <div className="p-[3px]">
+                <IconEvent />
+                
+              </div>
+              <div className="text-lg text-secondary-300 font-bold">리뷰</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </>
+  );
+};
+
+
+            {/* <div
               className={`px-6 py-2 w-full items-center transition-colors duration-200 ${isEventOpen ? 'bg-gray-100' : ''}`}
             >
               <li className="cursor-pointer flex items-center gap-2" onClick={toggleEvent}>
@@ -306,6 +326,6 @@ const NavTap = () => {
       </div>
     </>
   );
-};
+}; */}
 
 export default NavTap;
