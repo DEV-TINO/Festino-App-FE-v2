@@ -5,7 +5,7 @@ const DateSelector: React.FC = () => {
 
   return (
     <div className="flex px-5 pt-1 z-20 select-none w-full gap-2">
-      {[1, 2].map((date) => {
+      {[2].map((date) => {
         const day = String(date + 8).padStart(2, '0');
         return (
           <div key={date} className="flex-1">
