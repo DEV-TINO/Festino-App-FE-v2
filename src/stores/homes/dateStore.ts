@@ -1,4 +1,4 @@
-import { create } from "zustand"; 
+import { create } from 'zustand';
 
 interface IDateStore {
   festivalDate: number;
@@ -6,7 +6,7 @@ interface IDateStore {
 }
 
 export const useDateStore = create<IDateStore>((set) => ({
-  festivalDate: 1,
+  festivalDate: 2,
   setDate: (festivalDate) => set({ festivalDate }),
 }));
 
