@@ -88,7 +88,7 @@ const TimeTable: React.FC = () => {
           ))}
 
         {isEmpty && (
-          <div className="text-center w-full h-full flex flex-col gap-10 px-8 pt-5 items-center">
+          <div className="text-center w-full h-full flex flex-col gap-10 px-8 pt-5 items-center pb-5">
             <div className="flex flex-col">
               <span className="text-secondary-700 font-bold">현재 공연 정보가 없습니다.</span>
               <span className="text-secondary-500 font-normal text-xs">추후 업데이트 예정입니다.</span>
@@ -97,17 +97,15 @@ const TimeTable: React.FC = () => {
           </div>
         )}
 
-        {!isEmpty && (
-          <div className="text-center flex flex-col gap-2 pt-4">
-            <p className="text-primary-700 text-xs">자세한 공연 정보가 궁금하다면?</p>
-            <button
-              onClick={() => openNewTap(COUNCIL_URL)}
-              className="text-white w-[240px] h-[30px] rounded-full bg-primary-700 text-sm"
-            >
-              동아리연합회 윤슬 인스타그램 바로가기
-            </button>
-          </div>
-        )}
+        <div className="text-center flex flex-col gap-2 pt-4">
+          <p className="text-primary-700 text-xs">자세한 공연 정보가 궁금하다면?</p>
+          <button
+            onClick={() => openNewTap(COUNCIL_URL)}
+            className="text-white w-[240px] h-[30px] rounded-full bg-primary-700 text-sm"
+          >
+            동아리연합회 윤슬 인스타그램 바로가기
+          </button>
+        </div>
       </div>
     </div>
   );
