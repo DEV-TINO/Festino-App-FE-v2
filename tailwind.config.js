@@ -102,7 +102,7 @@ export default {
         'error-half': "url('/images/tinos/error-half.svg')",
         'error-full': "url('/images/tinos/error.svg')",
         // common
-        instagram: "url('/icons/commons/instagram.png')",
+        instagram: "url('/icons/commons/instagram.svg')",
         'x-button': "url('/icons/commons/x.png')",
         // header
         'header-festino-logo': "url('/icons/headers/festino-logo.svg')",
