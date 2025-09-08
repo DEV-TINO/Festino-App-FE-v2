@@ -43,7 +43,7 @@ export const TABS = {
   NOTICE: '공지사항',
 };
 
-export const COUNCIL_URL = 'https://www.instagram.com/tukorea_yoonseul/';
+export const COUNCIL_URL = 'https://www.instagram.com/22th_yoonseul/';
 
 export const REGEX = /^010/;
 
