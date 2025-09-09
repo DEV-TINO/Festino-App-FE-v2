@@ -77,8 +77,7 @@ const BoothMap: React.FC = () => {
         { markerNum: 33, left: 440, bottom: 230, scrollLeft: 970, scrollTop: 440 }, // 반디
         { markerNum: 35, left: 440, bottom: 210, scrollLeft: 970, scrollTop: 480 }, // 미러스
 
-        // { markerNum: 38, left: 510, bottom: 300, scrollLeft: 1200, scrollTop: 310 },
-        // 마실
+        { markerNum: 38, left: 510, bottom: 300, scrollLeft: 1200, scrollTop: 310 }, // 마실
         { markerNum: 40, left: 510, bottom: 280, scrollLeft: 1200, scrollTop: 350 }, // 나눔
         { markerNum: 42, left: 510, bottom: 260, scrollLeft: 1200, scrollTop: 390 }, // FEEL
 
