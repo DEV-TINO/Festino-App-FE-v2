@@ -126,14 +126,23 @@ const BoothMap: React.FC = () => {
         // { markerNum: 66, left: 320, bottom: 280, scrollLeft: 650, scrollTop: 300 },
         // { markerNum: 57, left: 420, bottom: 233, scrollLeft: 925, scrollTop: 410 },
         // { markerNum: 58, left: 420, bottom: 215, scrollLeft: 925, scrollTop: 470 },
-        { markerNum: 58, left: 415, bottom: 180, scrollLeft: 935, scrollTop: 590 },
-        { markerNum: 52, left: 415, bottom: 161, scrollLeft: 935, scrollTop: 650 },
-        { markerNum: 55, left: 415, bottom: 142, scrollLeft: 935, scrollTop: 710 },
-        { markerNum: 54, left: 425, bottom: 123, scrollLeft: 955, scrollTop: 770 },
-        { markerNum: 53, left: 455, bottom: 180, scrollLeft: 1020, scrollTop: 590 },
-        { markerNum: 51, left: 455, bottom: 161, scrollLeft: 1020, scrollTop: 650 },
-        { markerNum: 56, left: 455, bottom: 142, scrollLeft: 1020, scrollTop: 710 },
-        { markerNum: 57, left: 445, bottom: 123, scrollLeft: 1010, scrollTop: 770 },
+        { markerNum: 54, left: 340, bottom: 390, scrollLeft: 800, scrollTop: 250 }, // 피자
+  { markerNum: 56, left: 370, bottom: 390, scrollLeft: 830, scrollTop: 250 }, // 야끼소바(철판)
+
+  // 2행: 초밥 | 스테이크
+  { markerNum: 51, left: 340, bottom: 370, scrollLeft: 800, scrollTop: 280 }, // 초밥
+  { markerNum: 55, left: 370, bottom: 370, scrollLeft: 830, scrollTop: 280 }, // 스테이크
+
+  // 3행: 닭강정 | 새우
+  { markerNum: 52, left: 340, bottom: 350, scrollLeft: 800, scrollTop: 310 }, // 닭강정
+  { markerNum: 53, left: 370, bottom: 330, scrollLeft: 830, scrollTop: 310 }, // 새우(쉬림프)
+
+  // 4행: 카페(중앙 단독)
+  { markerNum: 58, left: 340, bottom: 330, scrollLeft: 815, scrollTop: 340 }, // 카페
+
+  // 체육관 바로 앞 오른쪽: 츄러스
+  { markerNum: 57, left: 340, bottom: 310, scrollLeft: 880, scrollTop: 250 }, // 츄러스
+
         // 51-찐푸드 / 52 - 프라이데이 / 53-쉬림프로 / 54-피자집 / 55-알럽푸드 / 56-철판맨 / 57-츄러스 / 58-카페봄 /
       ],
     },
